@@ -48,7 +48,7 @@ namespace BH.Engine.EnergyPlus
                 //PanelArea
                 List<ICurve> panelCrvs = panel.ExternalEdges.Select(x => x.Curve).ToList();               
                 PolyCurve panelOutline = BH.Engine.Geometry.Create.PolyCurve(panelCrvs);
-                double panelArea = panelOutline.Area();
+                double panelArea = panelOutline.Area();                
 
                 //Comparing the total opening area to the panel area, if equal: reduce the area of the opening(s).
                 if (totalOpeningArea != panelArea)                
@@ -67,13 +67,18 @@ namespace BH.Engine.EnergyPlus
                     {                        
                         List<BH.oM.Geometry.Point> polyPoints = openingPolyCurve.IDiscontinuityPoints();
                         BH.oM.Geometry.Polyline openingPolyLine = BH.Engine.Geometry.Create.Polyline(polyPoints);
+                        //Test of scale method instead of offset
+                        /*BH.oM.Geometry.Polyline scalePolyLine = openingPolyLine.Scale(openingPolyLine.Centre(), BH.Engine.Geometry.Create.Vector(0.9, 0.9, 0.9));
+                        List<BHE.Edge> scaleEdges = scalePolyLine.ToEdges();
+                        BHE.Opening newScaleOpening = BH.Engine.Environment.Create.Opening("name", scaleEdges);
+                        panel.Openings.Add(newScaleOpening);*/
                         List<BH.oM.Geometry.Polyline> offsetPolyline = BH.Engine.Radiance.Compute.Offset(openingPolyLine, distance);
                         List<BHE.Edge> edges = offsetPolyline.Select(x => BH.Engine.Environment.Create.Edge(x)).ToList();                      
                         BHE.Opening newOpening = BH.Engine.Environment.Create.Opening("name", edges);
                         panel.Openings.Add(newOpening);                        
                     }
                     return panel;
-                }
+                }                                 
             }                        
         }
     }
