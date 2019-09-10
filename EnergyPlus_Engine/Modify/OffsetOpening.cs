@@ -66,12 +66,7 @@ namespace BH.Engine.EnergyPlus
                     foreach (BH.oM.Geometry.PolyCurve openingPolyCurve in openingPolyCurves)
                     {                        
                         List<BH.oM.Geometry.Point> polyPoints = openingPolyCurve.IDiscontinuityPoints();
-                        BH.oM.Geometry.Polyline openingPolyLine = BH.Engine.Geometry.Create.Polyline(polyPoints);
-                        //Test of scale method instead of offset
-                        /*BH.oM.Geometry.Polyline scalePolyLine = openingPolyLine.Scale(openingPolyLine.Centre(), BH.Engine.Geometry.Create.Vector(0.9, 0.9, 0.9));
-                        List<BHE.Edge> scaleEdges = scalePolyLine.ToEdges();
-                        BHE.Opening newScaleOpening = BH.Engine.Environment.Create.Opening("name", scaleEdges);
-                        panel.Openings.Add(newScaleOpening);*/
+                        BH.oM.Geometry.Polyline openingPolyLine = BH.Engine.Geometry.Create.Polyline(polyPoints);                        
                         List<BH.oM.Geometry.Polyline> offsetPolyline = BH.Engine.Radiance.Compute.Offset(openingPolyLine, distance);
                         List<BHE.Edge> edges = offsetPolyline.Select(x => BH.Engine.Environment.Create.Edge(x)).ToList();                      
                         BHE.Opening newOpening = BH.Engine.Environment.Create.Opening("name", edges);
