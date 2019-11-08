@@ -14,7 +14,7 @@ namespace BH.Adapter.EnergyPlus
 {
     public partial class EnergyPlusAdapter : BHoMAdapter
     {
-        [Description("This adapter is under development. Its use is not yet sanctioned for project work. You use this at your own risk. Check the GitHub repo for the latest version and updates on development status")]
+        [Description("This is a test from Bing showing Jose as github issue.")]
         public EnergyPlusAdapter(string idfFilePath)
         {
             BH.Engine.Reflection.Compute.RecordWarning("This adapter is under development. Its use is not yet sanctioned for project work. You use this at your own risk. Check the GitHub repo for the latest version and updates on development status");
