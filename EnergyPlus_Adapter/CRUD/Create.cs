@@ -16,11 +16,13 @@ using BH.Engine.EnergyPlus;
 using BHC = BH.oM.Physical.Constructions;
 using BHEM = BH.oM.Environment.MaterialFragments;
 
+using BH.oM.Adapter;
+
 namespace BH.Adapter.EnergyPlus
 {
     public partial class EnergyPlusAdapter : BHoMAdapter
     {
-        protected override bool Create<T>(IEnumerable<T> objects)
+        protected override bool ICreate<T>(IEnumerable<T> objects, ActionConfig actionConfig = null)
         {
             bool success = true;
 
