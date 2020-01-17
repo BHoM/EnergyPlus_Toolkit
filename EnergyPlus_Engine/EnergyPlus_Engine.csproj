@@ -94,35 +94,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convert\Environment_oM\Construction.cs" />
-    <Compile Include="Convert\Environment_oM\Roughness.cs" />
-    <Compile Include="Convert\Environment_oM\Gas.cs" />
-    <Compile Include="Convert\Environment_oM\Material.cs" />
-    <Compile Include="Convert\Environment_oM\Building.cs" />
-    <Compile Include="Convert\Geometry_oM\Polycurve.cs" />
-    <Compile Include="Create\ShadowCalculation.cs" />
-    <Compile Include="Create\SimulationControl.cs" />
-    <Compile Include="Convert\Environment_oM\Opening.cs" />
-    <Compile Include="Convert\Environment_oM\InternalGain.cs" />
-    <Compile Include="Convert\Environment_oM\Zone.cs" />
-    <Compile Include="Convert\Environment_oM\PanelType.cs" />
-    <Compile Include="Convert\Geometry_oM\ICurve.cs" />
-    <Compile Include="Convert\Geometry_oM\Polyline.cs" />
-    <Compile Include="Create\HVACTemplateThermostat.cs" />
-    <Compile Include="Create\ScheduleFile.cs" />
-    <Compile Include="Create\DesignSpecificationOutdoorAir.cs" />
-    <Compile Include="Create\HeatBalanceSettingsConductionFiniteDifference.cs" />
-    <Compile Include="Create\RunPeriod.cs" />
-    <Compile Include="Create\HVACTemplateZoneIdealLoadsAirSystem.cs" />
-    <Compile Include="Create\HeatBalanceAlgorithm.cs" />
-    <Compile Include="Create\OutputVariable.cs" />
-    <Compile Include="Create\TimeStep.cs" />
-    <Compile Include="Create\ZoneAirHeatBalanceAlgorithm.cs" />
-    <Compile Include="Convert\Environment_oM\Panel.cs" />
-    <Compile Include="Convert\Geometry_oM\Point.cs" />
-    <Compile Include="Create\SurfaceConvectionAlgorithmInside.cs" />
-    <Compile Include="Create\SurfaceConvectionAlgorithmOutside.cs" />
-    <Compile Include="Modify\OffsetOpening.cs" />
+    <Compile Include="Convert\Physical\Construction.cs" />
+    <Compile Include="Convert\Environment\OpeningType.cs" />
+    <Compile Include="Convert\Environment\Roughness.cs" />
+    <Compile Include="Convert\Environment\Gas.cs" />
+    <Compile Include="Convert\Environment\Building.cs" />
+    <Compile Include="Convert\Environment\Opening.cs" />
+    <Compile Include="Convert\Environment\PanelType.cs" />
+    <Compile Include="Convert\Geometry\Polyline.cs" />
+    <Compile Include="Convert\Environment\Panel.cs" />
+    <Compile Include="Convert\Geometry\Point.cs" />
+    <Compile Include="Convert\Physical\Layer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\OutsideBoundaryCondition.cs" />
   </ItemGroup>
@@ -132,6 +114,10 @@
       <Name>EnergyPlus_oM</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Create\" />
+    <Folder Include="Modify\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

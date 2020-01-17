@@ -10,17 +10,22 @@ using BH.oM.Data.Requests;
 using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
 
+using BH.oM.EnergyPlus.Settings;
+
+using System.Reflection;
+
 namespace BH.Adapter.EnergyPlus
 {
     public partial class EnergyPlusAdapter : BHoMAdapter
     {
-        [Description("Produces an EnergyPlus Adapter to allow interopability with IDF files and the BHoM. This adapter is under development. Its use is not yet sanctioned for project work. You use this at your own risk. Check the GitHub repo for the latest version and updates on development status")]
+        [Description("Produces an EnergyPlus Adapter to allow interopability with IDF files and the BHoM")]
         [Input("idfFilePath", "Path to an IDF File")]
+        [Input("settings", "Settings that define how the EnergyPlus IDF file should be generated")]
         [Output("adapter", "Adapter to an IDF File")]
-        public EnergyPlusAdapter(string idfFilePath)
+        public EnergyPlusAdapter(string idfFilePath, EnergyPlusSettings settings = null)
         {
-            BH.Engine.Reflection.Compute.RecordWarning("This adapter is under development. Its use is not yet sanctioned for project work. You use this at your own risk. Check the GitHub repo for the latest version and updates on development status");
             IDFFilePath = idfFilePath;
+            _settings = settings ?? new EnergyPlusSettings();
 
             AdapterId = "EnergyPlus_Adapter";
             Config.UseAdapterId = false;        //Set to true when NextId method and id tagging has been implemented
@@ -30,15 +35,13 @@ namespace BH.Adapter.EnergyPlus
         {
             bool success = true;
 
-            //MethodInfo methodInfos = typeof(Enumerable).GetMethod("Cast");
-            /*foreach (var typeGroup in objects.GroupBy(x => x.GetType()))
+            MethodInfo methodInfos = typeof(Enumerable).GetMethod("Cast");
+            foreach (var typeGroup in objects.GroupBy(x => x.GetType()))
             {
                 MethodInfo mInfo = methodInfos.MakeGenericMethod(new[] { typeGroup.Key });
                 var list = mInfo.Invoke(typeGroup, new object[] { typeGroup });
-                success &= Create(list as dynamic, false);
-            }*/
-
-            CreateModel(objects.ToList().ConvertAll(x => (IBHoMObject)x).ToList());
+                success &= Create(list as dynamic);
+            }
 
             return success ? objects.ToList() : new List<IObject>();
         }
@@ -53,5 +56,6 @@ namespace BH.Adapter.EnergyPlus
 
 
         private string IDFFilePath { get; set; }
+        private EnergyPlusSettings _settings;
     }
 }
