@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OpenStudio;
-
 using BH.oM.Base;
-using BHE = BH.oM.Environment.Elements;
-using BHM = BH.oM.Physical.Materials;
-using BHP = BH.oM.Environment.Fragments;
-using BH.Engine.Environment;
 using BH.Engine.EnergyPlus;
+using BH.oM.EnergyPlus.Settings;
 
-using BHC = BH.oM.Physical.Constructions;
-using BHEM = BH.oM.Environment.MaterialFragments;
+using System.IO;
+using BH.oM.Environment.Elements;
+
+using BH.Engine.Environment;
+using BH.Engine.Base;
+
+using BH.oM.Physical.Constructions;
 
 namespace BH.Adapter.EnergyPlus
 {
@@ -24,118 +24,57 @@ namespace BH.Adapter.EnergyPlus
         {
             bool success = true;
 
+            List<string> output = new List<string>();
             if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
             {
-                CreateModel(objects as List<IBHoMObject>);
-            }
+                List<IBHoMObject> bhomObjects = objects.Select(x => (IBHoMObject)x).ToList();
 
-            /*OpenStudio.Model model = new Model();
+                List<Building> buildings = bhomObjects.Buildings();
+                List<Panel> panels = bhomObjects.Panels();
+                List<Construction> constructions = panels.UniqueConstructions();
+                List<Construction> openingConstructions = panels.OpeningsFromElements().Select(x => x.OpeningConstruction as Construction).ToList();
 
-            if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
-            {
-                List<IBHoMObject> objs = objects.ToList() as List<IBHoMObject>;
+                foreach (Building b in buildings)
+                    output.AddRange(b.ToEnergyPlus(_settings));
 
-                List<BHE.BuildingElement> buildingElements = objs.BuildingElements();
-
-                List<List<BHE.BuildingElement>> elementsAsSpaces = buildingElements.BuildSpaces(buildingElements.UniqueSpaceNames());
-
-                model = CreateModel(elementsAsSpaces, model);
-            }
-
-            EnergyPlusForwardTranslator translator = new EnergyPlusForwardTranslator();
-            Workspace workspace = translator.translateModel(model);
-            IdfFile idf = workspace.toIdfFile();
-            idf.save(OpenStudio.OpenStudioUtilitiesCore.toPath(IDFFilePath));
-            /*OpenStudio.Model model = new Model();
-
-            EnergyPlusForwardTranslator t2 = new EnergyPlusForwardTranslator();
-            Workspace w2 = t2.translateModel(model);
-            IdfFile i2 = w2.toIdfFile();
-
-
-            i2.save(new OpenStudio.Path(OpenStudio.OpenStudioUtilitiesCore.toPath(@"C:\Users\fgreenro\Documents\Repo Code\Test Files & Scripts\BHoM Testing\EnergyPlus_Toolkit\firstTest.idf")), true);
-            */
-            return success;
-        }
-
-        public bool CreateModel(List<IBHoMObject> objects)
-        {
-            bool success = true;
-
-            OpenStudio.Model model = new Model();
-                        
-            List<IBHoMObject> objs = objects.ToList() as List<IBHoMObject>;
-
-            List<BHE.Panel> buildingElements = objs.Panels();
-
-            List<List<BHE.Panel>> elementsAsSpaces = buildingElements.ToSpaces();
-
-            model = CreateModel(elementsAsSpaces, model);
-
-            EnergyPlusForwardTranslator translator = new EnergyPlusForwardTranslator();
-            Workspace workspace = translator.translateModel(model);
-            IdfFile idf = workspace.toIdfFile();
-            idf.save(OpenStudio.OpenStudioUtilitiesCore.toPath(IDFFilePath), true); //setting overwrite file true to avoid appending the surfaces to the exisiting idf file
-
-            return success;
-        }
-
-        public static OpenStudio.Model CreateModel(List<List<BHE.Panel>> panelsAsSpaces, OpenStudio.Model modelReference)
-        {
-            List<BHC.Construction> uniqueConstructions = panelsAsSpaces.UniqueConstructions();
-
-            //Create a curtain wall construction
-            BHC.Construction curtainWallConstruction = new BHC.Construction();
-            curtainWallConstruction.Name = "Curtain Wall Construction Replacement";
-
-            BHC.Layer curtainWallLayer = new BHC.Layer();
-            curtainWallLayer.Thickness = 0.1;
-
-            BHM.Material curtainWallMaterial = new BHM.Material();
-            curtainWallMaterial.Name = "Curtain Wall Construction Replacement";
-
-            BHEM.SolidMaterial curtainWallMaterialProperties = new BHEM.SolidMaterial();
-            curtainWallMaterialProperties.Roughness = BHEM.Roughness.VerySmooth;
-            curtainWallMaterialProperties.SpecificHeat = 101;
-            curtainWallMaterialProperties.Conductivity = 0.1;
-            curtainWallMaterialProperties.EmissivityExternal = 0.1;
-            curtainWallMaterialProperties.SolarReflectanceExternal = 0.1;
-            curtainWallMaterialProperties.LightReflectanceExternal = 0.1;
-            curtainWallMaterialProperties.Density = 0.1;
-
-            curtainWallMaterial.Properties.Add(curtainWallMaterialProperties);
-            curtainWallLayer.Material = curtainWallMaterial;
-            curtainWallConstruction.Layers.Add(curtainWallLayer);
-
-            Dictionary<string, OpenStudio.Construction> osmConstructions = new Dictionary<string, Construction>();
-            foreach(BHC.Construction c in uniqueConstructions)
-                osmConstructions.Add(c.UniqueConstructionName(), c.ToOSM(modelReference));
-
-            osmConstructions.Add("CurtainWallReplacementConstruction", curtainWallConstruction.ToOSM(modelReference));
-
-            foreach(List<BHE.Panel> space in panelsAsSpaces)
-            {
-                ThermalZone osmZone = new ThermalZone(modelReference);
-                Space osmSpace = new Space(modelReference);
-                osmSpace.setThermalZone(osmZone);
-
-                foreach(BHE.Panel be in space)
+                List<List<Panel>> panelsAsSpaces = panels.ToSpaces();
+                foreach(List<Panel> space in panelsAsSpaces)
                 {
-                    string conName = be.Construction.UniqueConstructionName();
+                    string connectedName = space.ConnectedSpaceName();
+                    foreach (Panel p in space)
+                        output.AddRange(p.ToEnergyPlus(connectedName, _settings));
+                }
 
-                    //be.ToOSM(modelReference, osmSpace, (conName == "" ? null : osmConstructions[conName]));
-                    Surface host = be.ToOSM(modelReference, osmSpace, osmConstructions, be.OutsideBoundaryCondition(be.AdjacentSpaces(panelsAsSpaces)));
+                foreach (Construction c in constructions)
+                    output.AddRange(c.ToEnergyPlus(_settings));
 
-                    foreach (BHE.Opening o in be.Openings)
-                    {
-                        conName = o.OpeningConstruction.UniqueConstructionName();
+                List<List<Layer>> layers = constructions.Select(x => x.Layers).ToList();
 
-                        o.ToOSM(host, (conName == "" ? null : osmConstructions[conName]), modelReference);
-                    }
+                foreach(List<Layer> l1 in layers)
+                {
+                    foreach (Layer l in l1)
+                        output.AddRange(l.ToEnergyPlus(_settings));
+                }
+
+                foreach (Construction c in openingConstructions)
+                    output.AddRange(c.ToEnergyPlus(_settings));
+
+                List<List<Layer>> openingLayers = openingConstructions.Select(x => x.Layers).ToList();
+                foreach (List<Layer> l1 in openingLayers)
+                {
+                    foreach (Layer l in l1)
+                        output.AddRange(l.ToEnergyPlusWindow(_settings));
                 }
             }
 
-            return modelReference;
+            StreamWriter sw = new StreamWriter(IDFFilePath);
+
+            foreach (string s in output)
+                sw.WriteLine(s);
+
+            sw.Close();
+
+            return success;
         }
     }
 }
