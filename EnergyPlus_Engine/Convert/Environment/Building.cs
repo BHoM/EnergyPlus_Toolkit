@@ -23,7 +23,7 @@ namespace BH.Engine.EnergyPlus
             buildingAsString.Add("\t,\t!- Temperature Convergence Tolerance Value {deltaC}");
             buildingAsString.Add("\tFullInteriorAndExteriorWithREflections,\t!- Solar Distribution or maybe FullExterior");
             buildingAsString.Add("\t,\t!- Maximum Number of Warmup Days");
-            buildingAsString.Add("\t,\t!- Minimum Number of Warmup Days");
+            buildingAsString.Add("\t;\t!- Minimum Number of Warmup Days");
             buildingAsString.Add("");
             buildingAsString.Add("");
 
