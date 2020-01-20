@@ -15,9 +15,9 @@ namespace BH.Engine.EnergyPlus
         {
             List<string> pointAsString = new List<string>();
 
-            pointAsString.Add(Math.Round(pnt.X, decimalPlaces).ToString() + ",");
-            pointAsString.Add(Math.Round(pnt.Y, decimalPlaces).ToString() + ",");
-            pointAsString.Add(Math.Round(pnt.Z, decimalPlaces).ToString() + ",");
+            pointAsString.Add("\t" + Math.Round(pnt.X, decimalPlaces).ToString() + ",");
+            pointAsString.Add("\t" + Math.Round(pnt.Y, decimalPlaces).ToString() + ",");
+            pointAsString.Add("\t" + Math.Round(pnt.Z, decimalPlaces).ToString() + ",");
 
             return pointAsString;
         }

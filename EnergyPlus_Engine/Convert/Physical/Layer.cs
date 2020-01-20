@@ -21,7 +21,7 @@ namespace BH.Engine.EnergyPlus
             List<string> layerAsString = new List<string>();
 
             layerAsString.Add("Material,"); //EnergyPlus does not do layers the same way as BHoM, the material has a thickness property, so the title is Material
-            layerAsString.Add("\t" + layer.Material.Name + ",\t!- Name");
+            layerAsString.Add("\t" + layer.Name + ",\t!- Name");
 
             IEnvironmentMaterial envMaterial = layer.Material.Properties.Where(x => x is IEnvironmentMaterial).FirstOrDefault() as IEnvironmentMaterial;
 
