@@ -35,13 +35,15 @@ namespace BH.Adapter.EnergyPlus
         {
             bool success = true;
 
-            MethodInfo methodInfos = typeof(Enumerable).GetMethod("Cast");
+            /*MethodInfo methodInfos = typeof(Enumerable).GetMethod("Cast");
             foreach (var typeGroup in objects.GroupBy(x => x.GetType()))
             {
                 MethodInfo mInfo = methodInfos.MakeGenericMethod(new[] { typeGroup.Key });
                 var list = mInfo.Invoke(typeGroup, new object[] { typeGroup });
                 success &= Create(list as dynamic);
-            }
+            }*/
+
+            success &= Create(objects as dynamic);
 
             return success ? objects.ToList() : new List<IObject>();
         }
