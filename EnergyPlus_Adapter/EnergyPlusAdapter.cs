@@ -22,6 +22,9 @@ namespace BH.Adapter.EnergyPlus
             IDFFilePath = idfFilePath;
 
             AdapterIdName = "EnergyPlus_Adapter";
+
+            // This asks the base adapter to only Create the objects.
+            m_AdapterSettings.DefaultPushType = oM.Adapter.PushType.CreateOnly;
         }
 
         private string IDFFilePath { get; set; }
