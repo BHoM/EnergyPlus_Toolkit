@@ -19,11 +19,11 @@ namespace BH.Engine.EnergyPlus
                 case BHE.OpeningType.WindowWithFrame:
                 case BHE.OpeningType.Rooflight:
                 case BHE.OpeningType.RooflightWithFrame:
-                    return "WINDOW";
+                    return "Window";
                 case BHE.OpeningType.Door:
-                    return "DOOR";
+                    return "Door";
                 default:
-                    return "WINDOW";
+                    return "Window";
             }
         }
     }

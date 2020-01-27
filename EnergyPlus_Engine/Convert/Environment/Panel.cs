@@ -20,8 +20,8 @@ namespace BH.Engine.EnergyPlus
         {
             List<string> panelAsString = new List<string>();
 
-            panelAsString.Add("BuildingSurface:Detailed");
-            panelAsString.Add("\t" + panel.Name.Replace(' ', '_') + ",\t!- Name"); //Name
+            panelAsString.Add("BuildingSurface:Detailed,");
+            panelAsString.Add("\t" + (panel.Name.Replace(' ', '_') == "" ? panel.BHoM_Guid.ToString() : panel.Name.Replace(' ', '_')) + ",\t!- Name"); //Name
             panelAsString.Add("\t" + panel.Type.ToEnergyPlus() + ",\t!- Surface Type"); //PanelType
             panelAsString.Add("\t" + panel.Construction.UniqueConstructionName().Replace(' ', '_') + ",\t!- Construction Name"); //Construction name
             panelAsString.Add("\t" + connectedSpaceName + ",\t!- Zone Name"); //Zone (space) name
@@ -35,7 +35,7 @@ namespace BH.Engine.EnergyPlus
             panelAsString.Add("");
 
             foreach (BHE.Opening o in panel.Openings)
-                panelAsString.AddRange(o.ToEnergyPlus(panel.Name.Replace(' ', '_'), settings));
+                panelAsString.AddRange(o.ToEnergyPlus((panel.Name.Replace(' ', '_') == "" ? panel.BHoM_Guid.ToString() : panel.Name.Replace(' ', '_')), settings));
 
             return panelAsString;
         }

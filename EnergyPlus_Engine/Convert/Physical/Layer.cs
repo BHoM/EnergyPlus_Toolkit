@@ -34,9 +34,9 @@ namespace BH.Engine.EnergyPlus
                 layerAsString.Add("\t" + Math.Round(envMaterial.SpecificHeat, settings.DecimalPlaces).ToString() + ",\t!- Specific Heat {J/kg-K}");
 
                 //ToDo: Add Thermal and Solar Absortpance properly
-                layerAsString.Add("\t0.0,");
-                layerAsString.Add("\t0.0,");
-                layerAsString.Add("\t0.0,");
+                layerAsString.Add("\t0.9,"); //Thermal default
+                layerAsString.Add("\t0.7,"); //Solar default
+                layerAsString.Add("\t0.7,"); //Visible default
             }
 
             layerAsString[layerAsString.Count - 1] = layerAsString[layerAsString.Count - 1].Replace(',', ';');
@@ -52,6 +52,7 @@ namespace BH.Engine.EnergyPlus
 
             layerAsString.Add("WindowMaterial:"); //Glazing or gas will be set later when we've identified the type of layer this is
             layerAsString.Add("\t" + layer.Material.Name + ",\t!- Name");
+            layerAsString.Add("\tSpectralAverage,\t!- Optical Data Type");
             layerAsString.Add("\t,\t!- Window Glass Spectral Data Set Name");
             
             SolidMaterial transparentProperties = layer.FindMaterial<SolidMaterial>(typeof(SolidMaterial));
@@ -68,9 +69,9 @@ namespace BH.Engine.EnergyPlus
                 layerAsString.Add("\t" + Math.Round(transparentProperties.LightReflectanceInternal, settings.DecimalPlaces).ToString() + ",\t!- Back side visible reflectance at normal incidence");
 
                 //ToDo: Figure out infrared transmittance if required
-                layerAsString.Add("\t0.0,\t!- Infrared transmittance at normal incidence");
-                layerAsString.Add("\t0.0,\t!- Front Side Infrared Hemispherical Emissivity");
-                layerAsString.Add("\t0.0,\t!- Back Side Infrared Hemispherical Emissivity");
+                layerAsString.Add("\t,\t!- Infrared transmittance at normal incidence");
+                layerAsString.Add("\t0.84,\t!- Front Side Infrared Hemispherical Emissivity");
+                layerAsString.Add("\t0.84,\t!- Back Side Infrared Hemispherical Emissivity");
 
                 layerAsString.Add("\t" + Math.Round(transparentProperties.Conductivity, settings.DecimalPlaces).ToString() + ",\t!- Conductivity {W/m-K}");
                 layerAsString.Add("\t1,\t!- Dirt correction factor for solar and visible transmittance");

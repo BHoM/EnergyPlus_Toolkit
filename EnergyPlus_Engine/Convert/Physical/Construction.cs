@@ -9,6 +9,8 @@ using BHM = BH.oM.Physical.Materials;
 using BHP = BH.oM.Physical.Constructions;
 using BH.oM.EnergyPlus.Settings;
 
+using BH.Engine.Environment;
+
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
@@ -18,7 +20,7 @@ namespace BH.Engine.EnergyPlus
             List<string> constructionAsString = new List<string>();
 
             constructionAsString.Add("Construction,");
-            constructionAsString.Add("\t" + construction.Name + ",\t!- Name");
+            constructionAsString.Add("\t" + construction.UniqueConstructionName().Replace(' ', '_') + ",\t!- Name");
 
             foreach (BHP.Layer l in construction.Layers)
                 constructionAsString.Add("\t" + l.Name + ",\t!- Layer");
