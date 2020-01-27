@@ -24,7 +24,7 @@ namespace BH.Engine.EnergyPlus
             openingAsString.Add("FenestrationSurface:Detailed,");
             openingAsString.Add("\t" + opening.Name.Replace(' ', '_') + ",\t!- Name"); //Name
             openingAsString.Add("\t" + opening.Type.ToEnergyPlus() + ",\t!- Surface Type"); //PanelType
-            openingAsString.Add("\t" + opening.OpeningConstruction.UniqueConstructionName().Replace(' ', '_') + ",\t!- Construction Name"); //Construction nam
+            openingAsString.Add("\t" + opening.OpeningConstruction.UniqueConstructionName().Replace(' ', '_') + ",\t!- Construction Name"); //Construction name
             openingAsString.Add("\t" + hostPanelName + ",\t!- Surface Name");
             openingAsString.Add("\t,\t!- Outside boundary condition object"); //Outside boundary condition object
             openingAsString.Add("\tautocalculate,\t!- View Factor to Ground"); //View factor to ground

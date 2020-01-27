@@ -24,16 +24,9 @@ namespace BH.Adapter.EnergyPlus
     {
         protected override bool ICreate<T>(IEnumerable<T> objects, ActionConfig actionConfig = null)
         {
-            return true;
-        }
-
-        public bool WOrkDamnYou(List<IObject> objects)
-        {
-            bool success = true;
+            List<IBHoMObject> bhomObjects = objects.Select(x => (IBHoMObject)x).ToList();
 
             List<string> output = new List<string>();
-
-            List<IBHoMObject> bhomObjects = objects.Select(x => (IBHoMObject)x).ToList();
 
             List<Building> buildings = bhomObjects.Buildings();
             List<Panel> panels = bhomObjects.Panels();
@@ -79,7 +72,7 @@ namespace BH.Adapter.EnergyPlus
 
             sw.Close();
 
-            return success;
+            return true;
         }
     }
 }
