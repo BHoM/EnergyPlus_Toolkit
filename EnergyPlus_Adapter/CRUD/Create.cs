@@ -26,51 +26,42 @@ namespace BH.Adapter.EnergyPlus
         {
             List<IBHoMObject> bhomObjects = objects.Select(x => (IBHoMObject)x).ToList();
 
-            List<string> output = new List<string>();
-
             List<Building> buildings = bhomObjects.Buildings();
             List<Panel> panels = bhomObjects.Panels();
             List<Construction> constructions = panels.UniqueConstructions();
             List<Construction> openingConstructions = panels.OpeningsFromElements().Select(x => x.OpeningConstruction as Construction).ToList();
 
             foreach (Building b in buildings)
-                output.AddRange(b.ToEnergyPlus(_settings));
+                FileOutput.AddRange(b.ToEnergyPlus(_settings));
 
             List<List<Panel>> panelsAsSpaces = panels.ToSpaces();
             foreach (List<Panel> space in panelsAsSpaces)
             {
                 string connectedName = space.ConnectedSpaceName();
                 foreach (Panel p in space)
-                    output.AddRange(p.ToEnergyPlus(connectedName, _settings));
+                    FileOutput.AddRange(p.ToEnergyPlus(connectedName, _settings));
             }
 
             foreach (Construction c in constructions)
-                output.AddRange(c.ToEnergyPlus(_settings));
+                FileOutput.AddRange(c.ToEnergyPlus(_settings));
 
             List<List<Layer>> layers = constructions.Select(x => x.Layers).ToList();
 
             foreach (List<Layer> l1 in layers)
             {
                 foreach (Layer l in l1)
-                    output.AddRange(l.ToEnergyPlus(_settings));
+                    FileOutput.AddRange(l.ToEnergyPlus(_settings));
             }
 
             foreach (Construction c in openingConstructions)
-                output.AddRange(c.ToEnergyPlus(_settings));
+                FileOutput.AddRange(c.ToEnergyPlus(_settings));
 
             List<List<Layer>> openingLayers = openingConstructions.Select(x => x.Layers).ToList();
             foreach (List<Layer> l1 in openingLayers)
             {
                 foreach (Layer l in l1)
-                    output.AddRange(l.ToEnergyPlusWindow(_settings));
+                    FileOutput.AddRange(l.ToEnergyPlusWindow(_settings));
             }
-
-            StreamWriter sw = new StreamWriter(IDFFilePath);
-
-            foreach (string s in output)
-                sw.WriteLine(s);
-
-            sw.Close();
 
             return true;
         }
