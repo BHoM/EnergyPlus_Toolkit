@@ -15,17 +15,17 @@ namespace BH.Engine.EnergyPlus
             switch(type)
             {
                 case BHE.PanelType.Ceiling:
-                    return "CEILING";
+                    return "Ceiling";
                 case BHE.PanelType.Floor:
-                    return "FLOOR";
+                    return "Floor";
                 case BHE.PanelType.Wall:
                 case BHE.PanelType.WallInternal:
                 case BHE.PanelType.CurtainWall:
-                    return "WALL";
+                    return "Wall";
                 case BHE.PanelType.Roof:
-                    return "ROOF";
+                    return "Roof";
                 default:
-                    return "WALL";
+                    return "Wall";
             }
         }
     }

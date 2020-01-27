@@ -16,11 +16,18 @@ using BH.Engine.Base;
 
 using BH.oM.Physical.Constructions;
 
+using BH.oM.Adapter;
+
 namespace BH.Adapter.EnergyPlus
 {
     public partial class EnergyPlusAdapter : BHoMAdapter
     {
-        protected override bool Create<T>(IEnumerable<T> objects)
+        protected override bool ICreate<T>(IEnumerable<T> objects, ActionConfig actionConfig = null)
+        {
+            return true;
+        }
+
+        public bool WOrkDamnYou(List<IObject> objects)
         {
             bool success = true;
 
@@ -37,7 +44,7 @@ namespace BH.Adapter.EnergyPlus
                 output.AddRange(b.ToEnergyPlus(_settings));
 
             List<List<Panel>> panelsAsSpaces = panels.ToSpaces();
-            foreach(List<Panel> space in panelsAsSpaces)
+            foreach (List<Panel> space in panelsAsSpaces)
             {
                 string connectedName = space.ConnectedSpaceName();
                 foreach (Panel p in space)
@@ -49,7 +56,7 @@ namespace BH.Adapter.EnergyPlus
 
             List<List<Layer>> layers = constructions.Select(x => x.Layers).ToList();
 
-            foreach(List<Layer> l1 in layers)
+            foreach (List<Layer> l1 in layers)
             {
                 foreach (Layer l in l1)
                     output.AddRange(l.ToEnergyPlus(_settings));

@@ -14,6 +14,8 @@ using BH.oM.EnergyPlus.Settings;
 
 using System.Reflection;
 
+using BH.oM.Adapter;
+
 namespace BH.Adapter.EnergyPlus
 {
     public partial class EnergyPlusAdapter : BHoMAdapter
@@ -27,11 +29,10 @@ namespace BH.Adapter.EnergyPlus
             IDFFilePath = idfFilePath;
             _settings = settings ?? new EnergyPlusSettings();
 
-            AdapterId = "EnergyPlus_Adapter";
-            Config.UseAdapterId = false;        //Set to true when NextId method and id tagging has been implemented
+            AdapterIdName = "EnergyPlus_Adapter";
         }
 
-        public override List<IObject> Push(IEnumerable<IObject> objects, String tag = "", Dictionary<String, object> config = null)
+        public override List<object> Push(IEnumerable<object> objects, String tag = "", PushType pushType = PushType.AdapterDefault, ActionConfig actionConfig = null)
         {
             bool success = true;
 
@@ -43,19 +44,13 @@ namespace BH.Adapter.EnergyPlus
                 success &= Create(list as dynamic);
             }*/
 
-            success &= Create(objects as dynamic);
+            List<IObject> objs = objects.Select(x => (IObject)x).ToList();
 
-            return success ? objects.ToList() : new List<IObject>();
+            //success &= ICreate(objs as dynamic);
+            success &= WOrkDamnYou(objs);
+
+            return success ? objects.ToList() : new List<object>();
         }
-
-        public override IEnumerable<object> Pull(IRequest request, Dictionary<string, object> config = null)
-        {
-            if (request is IRequest)
-                return Read();
-
-            return new List<IBHoMObject>();
-        }
-
 
         private string IDFFilePath { get; set; }
         private EnergyPlusSettings _settings;
