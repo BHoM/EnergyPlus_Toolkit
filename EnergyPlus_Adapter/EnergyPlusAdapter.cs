@@ -36,5 +36,6 @@ namespace BH.Adapter.EnergyPlus
 
         private string IDFFilePath { get; set; }
         private EnergyPlusSettings _settings;
+        private List<string> FileOutput { get; set; }
     }
 }
