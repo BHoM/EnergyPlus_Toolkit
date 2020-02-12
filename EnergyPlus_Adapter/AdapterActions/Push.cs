@@ -8,6 +8,7 @@ using BH.oM.Base;
 using System.Reflection;
 
 using System.IO;
+using BH.Engine.Adapter;
 
 namespace BH.Adapter.EnergyPlus
 {
@@ -33,7 +34,7 @@ namespace BH.Adapter.EnergyPlus
                 success &= ICreate(list as dynamic);
             }
 
-            StreamWriter sw = new StreamWriter(IDFFilePath);
+            StreamWriter sw = new StreamWriter(FileSettings.GetFullFileName());
 
             foreach (string s in FileOutput)
                 sw.WriteLine(s);
