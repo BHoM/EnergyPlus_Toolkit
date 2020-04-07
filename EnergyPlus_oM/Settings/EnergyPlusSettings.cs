@@ -36,7 +36,7 @@ namespace BH.oM.EnergyPlus.Settings
 
 
         [Description("How many decimal places any rounding function should use. Default to 6. E.g. a number such as 1.12345678 will be rounded to 1.123457 (rounded to 6 decimal places)")]
-        public int DecimalPlaces { get; set; } = 6;
+        public virtual int DecimalPlaces { get; set; } = 6;
 
         /***************************************************/
     }
