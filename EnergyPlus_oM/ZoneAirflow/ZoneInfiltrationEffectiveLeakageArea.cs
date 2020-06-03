@@ -11,7 +11,7 @@
 ////[Description("No description available")]
 ////public virtual object-list ZoneName { get; set; } = new object-list;
 ////[Description("No description available")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////[Description(""AL" in Equation")]
 ////public virtual real EffectiveAirLeakageArea { get; set; } = new real;
 ////[Description(""Cs" in Equation")]

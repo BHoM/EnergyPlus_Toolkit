@@ -13,6 +13,6 @@
 ////[Description("No description available")]
 ////public virtual object-list MaterialName { get; set; } = new object-list;
 ////[Description("No description available")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////}
 ////}

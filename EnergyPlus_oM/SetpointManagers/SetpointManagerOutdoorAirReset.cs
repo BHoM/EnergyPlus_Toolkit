@@ -21,7 +21,7 @@
 ////[Description("Node(s) at which temperature will be set")]
 ////public virtual node SetpointNodeOrNodeListName { get; set; } = new node;
 ////[Description("Optional input.")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////[Description("2nd outdoor air temperature reset rule")]
 ////public virtual null SetpointAtOutdoorLowTemperature2 { get; set; } = new null;
 ////[Description("2nd outdoor air temperature reset rule")]

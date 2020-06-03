@@ -9,7 +9,7 @@
 ////[Description("No description available")]
 ////public virtual null Name { get; set; } = new null;
 ////[Description("No description available")]
-////public virtual object-list ZoneOrZoneListName { get; set; } = new object-list;
+////public virtual string ZoneOrZoneListName { get; set; } = new object-list;
 ////[Description("This schedule contains appropriate control types for thermostat.")]
 ////public virtual object-list ControlTypeScheduleName { get; set; } = new object-list;
 ////[Description("No description available")]

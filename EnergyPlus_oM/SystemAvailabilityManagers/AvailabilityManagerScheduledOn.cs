@@ -9,6 +9,6 @@
 ////[Description("No description available")]
 ////public virtual alpha Name { get; set; } = new alpha;
 ////[Description("No description available")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////}
 ////}

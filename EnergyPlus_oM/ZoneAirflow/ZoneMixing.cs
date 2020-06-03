@@ -11,7 +11,7 @@
 ////[Description("No description available")]
 ////public virtual object-list ZoneName { get; set; } = new object-list;
 ////[Description("No description available")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////[Description("The entered calculation method is used to create the maximum amount of ventilation")]
 ////public virtual choice DesignFlowRateCalculationMethod { get; set; } = new choice;
 ////[Description("No description available")]
