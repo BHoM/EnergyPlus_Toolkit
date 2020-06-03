@@ -9,7 +9,7 @@
 ////[Description("No description available")]
 ////public virtual null Name { get; set; } = new null;
 ////[Description("No description available")]
-////public virtual object-list ZoneOrZoneListName { get; set; } = new object-list;
+////public virtual string ZoneOrZoneListName { get; set; } = new object-list;
 ////[Description("Enter the number of the following sets of data for heating temperature offset")]
 ////public virtual integer NumberOfHeatingStages { get; set; } = new integer;
 ////[Description("No description available")]

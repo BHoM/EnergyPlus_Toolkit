@@ -1,36 +1,36 @@
-////using BH.oM.Base;
-////using System.Collections.Generic;
-////using System.ComponentModel;
-////
-////namespace BH.oM.EnergyPlus
-////{
-////public class Zone : BHoMObject
-////{
-////[Description("No description available")]
-////public virtual alpha Name { get; set; } = new alpha;
-////[Description("No description available")]
-////public virtual real DirectionOfRelativeNorth { get; set; } = new real;
-////[Description("No description available")]
-////public virtual real XOrigin { get; set; } = new real;
-////[Description("No description available")]
-////public virtual real YOrigin { get; set; } = new real;
-////[Description("No description available")]
-////public virtual real ZOrigin { get; set; } = new real;
-////[Description("No description available")]
-////public virtual integer Type { get; set; } = new integer;
-////[Description("No description available")]
-////public virtual integer Multiplier { get; set; } = new integer;
-////[Description("If this field is 0.0, negative or autocalculate, then the average height")]
-////public virtual real CeilingHeight { get; set; } = new real;
-////[Description("If this field is 0.0, negative or autocalculate, then the volume of the zone")]
-////public virtual real Volume { get; set; } = new real;
-////[Description("If this field is 0.0, negative or autocalculate, then the floor area of the zone")]
-////public virtual real FloorArea { get; set; } = new real;
-////[Description("Will default to same value as SurfaceConvectionAlgorithm:Inside object")]
-////public virtual choice ZoneInsideConvectionAlgorithm { get; set; } = new choice;
-////[Description("Will default to same value as SurfaceConvectionAlgorithm:Outside object")]
-////public virtual choice ZoneOutsideConvectionAlgorithm { get; set; } = new choice;
-////[Description("No description available")]
-////public virtual choice PartOfTotalFloorArea { get; set; } = new choice;
-////}
-////}
+using BH.oM.Base;
+using System.Collections.Generic;
+using System.ComponentModel;
+
+namespace BH.oM.EnergyPlus
+{
+    public class Zone : BHoMObject
+    {
+        [Description("No description available")]
+        public virtual string ZoneName { get; set; } = "Zone";
+        [Description("No description available")]
+        public virtual double DirectionOfRelativeNorth { get; set; } = 0;
+        [Description("No description available")]
+        public virtual double XOrigin { get; set; } = 0.0;
+        [Description("No description available")]
+        public virtual double YOrigin { get; set; } = 0.0;
+        [Description("No description available")]
+        public virtual double ZOrigin { get; set; } = 0.0;
+        [Description("No description available")]
+        public virtual int Type { get; set; } = 1;
+        [Description("No description available")]
+        public virtual int Multiplier { get; set; } = 1;
+        [Description("If this field is 0.0, negative or autocalculate, then the average height")]
+        public virtual string CeilingHeight { get; set; } = "autocalculate";
+        [Description("If this field is 0.0, negative or autocalculate, then the volume of the zone")]
+        public virtual string Volume { get; set; } = "autocalculate";
+        [Description("If this field is 0.0, negative or autocalculate, then the floor area of the zone")]
+        public virtual string FloorArea { get; set; } = "autocalculate";
+        [Description("Will default to same value as SurfaceConvectionAlgorithm:Inside object")]
+        public virtual SurfaceConvectionAlgorithmInsideMethod ZoneInsideConvectionAlgorithm { get; set; } = SurfaceConvectionAlgorithmInsideMethod.Undefined;
+        [Description("Will default to same value as SurfaceConvectionAlgorithm:Outside object")]
+        public virtual SurfaceConvectionAlgorithmOutsideMethod ZoneOutsideConvectionAlgorithm { get; set; } = SurfaceConvectionAlgorithmOutsideMethod.Undefined;
+        [Description("No description available")]
+        public virtual bool PartOfTotalFloorArea { get; set; } = true;
+    }
+}

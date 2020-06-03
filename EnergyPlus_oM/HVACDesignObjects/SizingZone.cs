@@ -7,7 +7,7 @@
 ////public class Sizing:Zone : BHoMObject
 ////{
 ////[Description("No description available")]
-////public virtual object-list ZoneOrZoneListName { get; set; } = new object-list;
+////public virtual string ZoneOrZoneListName { get; set; } = new object-list;
 ////[Description("No description available")]
 ////public virtual choice ZoneCoolingDesignSupplyAirTemperatureInputMethod { get; set; } = new choice;
 ////[Description("Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design")]

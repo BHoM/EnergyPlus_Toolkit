@@ -9,7 +9,7 @@
 ////[Description("No description available")]
 ////public virtual object-list ZoneName { get; set; } = new object-list;
 ////[Description("No description available")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////[Description(""Edesign" in Equation")]
 ////public virtual real DesignFlowRate { get; set; } = new real;
 ////[Description("this is the indoor temperature below which the earth tube is shut off")]

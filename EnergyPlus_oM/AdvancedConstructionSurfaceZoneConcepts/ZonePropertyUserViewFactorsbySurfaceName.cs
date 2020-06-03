@@ -7,7 +7,7 @@
 ////public class ZoneProperty:UserViewFactors:bySurfaceName : BHoMObject
 ////{
 ////[Description("View factors may be entered for a single zone or for a group of zones connected by Construction:AirBoundary")]
-////public virtual object-list ZoneOrZoneListName { get; set; } = new object-list;
+////public virtual string ZoneOrZoneListName { get; set; } = new object-list;
 ////[Description("No description available")]
 ////public virtual object-list FromSurface1 { get; set; } = new object-list;
 ////[Description("No description available")]

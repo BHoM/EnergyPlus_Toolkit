@@ -1,18 +1,21 @@
 using BH.oM.Base;
 using System.Collections.Generic;
 using System.ComponentModel;
+using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class HeatBalanceAlgorithm : BHoMObject
+    public class HeatBalanceAlgorithm : BHoMObject, IEnergyPlusClass
     {
-        [Description("No description available")]
+        [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
+        public virtual string ClassName { get; set; } = "HeatBalanceAlgorithm";
+        [Order][Description("No description available")]
         public virtual HeatBalanceAlgorithmMethod Algorithm { get; set; } = HeatBalanceAlgorithmMethod.ConductionTransferFunction;
-        [Description("No description available")]
+        [Order][Description("No description available")]
         public virtual double SurfaceTemperatureUpperLimit { get; set; } = 200;
-        [Description("No description available")]
+        [Order][Description("No description available")]
         public virtual double MinimumSurfaceConvectionHeatTransferCoefficientValue { get; set; } = 0.1;
-        [Description("No description available")]
+        [Order][Description("No description available")]
         public virtual double MaximumSurfaceConvectionHeatTransferCoefficientValue { get; set; } = 1000;
     }
 }

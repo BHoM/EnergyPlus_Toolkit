@@ -1,42 +1,42 @@
-////using BH.oM.Base;
-////using System.Collections.Generic;
-////using System.ComponentModel;
-////
-////namespace BH.oM.EnergyPlus
-////{
-////public class Lights : BHoMObject
-////{
-////[Description("No description available")]
-////public virtual alpha Name { get; set; } = new alpha;
-////[Description("No description available")]
-////public virtual object-list ZoneOrZoneListName { get; set; } = new object-list;
-////[Description("units in schedule should be fraction applied to design level of lights, generally (0.0 - 1.0)")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
-////[Description("The entered calculation method is used to create the maximum amount of lights")]
-////public virtual choice DesignLevelCalculationMethod { get; set; } = new choice;
-////[Description("No description available")]
-////public virtual real LightingLevel { get; set; } = new real;
-////[Description("No description available")]
-////public virtual real WattsPerZoneFloorArea { get; set; } = new real;
-////[Description("No description available")]
-////public virtual real WattsPerPerson { get; set; } = new real;
-////[Description("Used only for sizing calculation if return-air-fraction")]
-////public virtual real ReturnAirFraction { get; set; } = new real;
-////[Description("No description available")]
-////public virtual real FractionRadiant { get; set; } = new real;
-////[Description("No description available")]
-////public virtual real FractionVisible { get; set; } = new real;
-////[Description("For Daylighting:Controls must be 0 or 1: 0 = no dimming control, 1 = full dimming control")]
-////public virtual real FractionReplaceable { get; set; } = new real;
-////[Description("Any text may be used here to categorize the end-uses in the ABUPS End Uses by Subcategory table.")]
-////public virtual alpha End-UseSubcategory { get; set; } = new alpha;
-////[Description("No description available")]
-////public virtual choice ReturnAirFractionCalculatedFromPlenumTemperature { get; set; } = new choice;
-////[Description("Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes")]
-////public virtual real ReturnAirFractionFunctionOfPlenumTemperatureCoefficient1 { get; set; } = new real;
-////[Description("Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes")]
-////public virtual real ReturnAirFractionFunctionOfPlenumTemperatureCoefficient2 { get; set; } = new real;
-////[Description("Name of the return air node for this heat gain.")]
-////public virtual node ReturnAirHeatGainNodeName { get; set; } = new node;
-////}
-////}
+using BH.oM.Base;
+using System.Collections.Generic;
+using System.ComponentModel;
+
+namespace BH.oM.EnergyPlus
+{
+    public class Lights : BHoMObject
+    {
+        [Description("No description available")]
+        public virtual string LightsName { get; set; } = "";
+        [Description("No description available")]
+        public virtual string ZoneOrZoneListName { get; set; } = "";
+        [Description("units in schedule should be fraction applied to design level of lights, generally (0.0 - 1.0)")]
+        public virtual string ScheduleName { get; set; } = "";
+        [Description("The entered calculation method is used to create the maximum amount of lights")]
+        public virtual LightsDesignLevelCalculationMethod DesignLevelCalculationMethod { get; set; } = LightsDesignLevelCalculationMethod.Undefined;
+        [Description("No description available")]
+        public virtual double LightingLevel { get; set; } = 0.0;
+        [Description("No description available")]
+        public virtual double WattsPerZoneFloorArea { get; set; } = 0.0;
+        [Description("No description available")]
+        public virtual double WattsPerPerson { get; set; } = 0.0;
+        [Description("Used only for sizing calculation if return-air-fraction")]
+        public virtual double ReturnAirFraction { get; set; } = 0.0;
+        [Description("No description available")]
+        public virtual double FractionRadiant { get; set; } = 0.0;
+        [Description("No description available")]
+        public virtual double FractionVisible { get; set; } = 0.0;
+        [Description("For Daylighting:Controls must be 0 or 1: 0 = no dimming control, 1 = full dimming control")]
+        public virtual double FractionReplaceable { get; set; } = 0.0;
+        [Description("Any text may be used here to categorize the end-uses in the ABUPS End Uses by Subcategory table.")]
+        public virtual string EndUseSubcategory { get; set; } = "";
+        [Description("No description available")]
+        public virtual bool ReturnAirFractionCalculatedFromPlenumTemperature { get; set; } = false;
+        [Description("Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes")]
+        public virtual double ReturnAirFractionFunctionOfPlenumTemperatureCoefficient1 { get; set; } = 0.0;
+        [Description("Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes")]
+        public virtual double ReturnAirFractionFunctionOfPlenumTemperatureCoefficient2 { get; set; } = 0.0;
+        [Description("Name of the return air node for this heat gain.")]
+        public virtual string ReturnAirHeatGainNodeName { get; set; } = "";
+    }
+}

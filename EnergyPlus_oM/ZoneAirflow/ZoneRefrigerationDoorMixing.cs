@@ -13,7 +13,7 @@
 ////[Description("No description available")]
 ////public virtual object-list Zone2Name { get; set; } = new object-list;
 ////[Description("This schedule defines the fraction of the time the refrigeration door is open")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////[Description("No description available")]
 ////public virtual real DoorHeight { get; set; } = new real;
 ////[Description("No description available")]

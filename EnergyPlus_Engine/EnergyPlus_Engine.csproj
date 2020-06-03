@@ -98,6 +98,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Convert\Generic.cs" />
     <Compile Include="Convert\Physical\Construction.cs" />
     <Compile Include="Convert\Environment\OpeningType.cs" />
     <Compile Include="Convert\Environment\Roughness.cs" />

@@ -11,7 +11,7 @@
 ////[Description("No description available")]
 ////public virtual choice ControlVariable { get; set; } = new choice;
 ////[Description("No description available")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////[Description("Node(s) at which control variable will be set")]
 ////public virtual node SetpointNodeOrNodeListName { get; set; } = new node;
 ////}

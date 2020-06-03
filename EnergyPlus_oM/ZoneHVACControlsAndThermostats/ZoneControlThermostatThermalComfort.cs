@@ -9,7 +9,7 @@
 ////[Description("No description available")]
 ////public virtual null Name { get; set; } = new null;
 ////[Description("No description available")]
-////public virtual object-list ZoneOrZoneListName { get; set; } = new object-list;
+////public virtual string ZoneOrZoneListName { get; set; } = new object-list;
 ////[Description("The method used to calculate thermal comfort dry-bulb temperature setpoint")]
 ////public virtual choice AveragingMethod { get; set; } = new choice;
 ////[Description("Used only when Averaging Method = SpecificObject in the previous field.")]

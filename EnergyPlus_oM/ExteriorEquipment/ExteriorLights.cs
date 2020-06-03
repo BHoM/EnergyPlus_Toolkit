@@ -9,7 +9,7 @@
 ////[Description("No description available")]
 ////public virtual alpha Name { get; set; } = new alpha;
 ////[Description("units in schedule should be fraction applied to capacity of the exterior lights equipment, generally (0.0 - 1.0)")]
-////public virtual object-list ScheduleName { get; set; } = new object-list;
+////public virtual string ScheduleName { get; set; } = new object-list;
 ////[Description("No description available")]
 ////public virtual real DesignLevel { get; set; } = new real;
 ////[Description("Astronomical Clock option overrides schedule to turn lights off when sun is up")]
