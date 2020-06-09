@@ -8,6 +8,7 @@ namespace BH.oM.EnergyPlus
     public class HeatBalanceSettingsConductionFiniteDifference : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
+
         public virtual string ClassName { get; set; } = "HeatBalanceSettings:ConductionFiniteDifference";
         [Order][Description("No description available")]
         public virtual DifferenceScheme DifferenceScheme { get; set; } = DifferenceScheme.FullyImplicitFirstOrder;

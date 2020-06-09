@@ -8,6 +8,7 @@ namespace BH.oM.EnergyPlus
     public class HeatBalanceAlgorithm : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
+
         public virtual string ClassName { get; set; } = "HeatBalanceAlgorithm";
         [Order][Description("No description available")]
         public virtual HeatBalanceAlgorithmMethod Algorithm { get; set; } = HeatBalanceAlgorithmMethod.ConductionTransferFunction;

@@ -9,7 +9,8 @@ namespace BH.oM.EnergyPlus
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "ZoneAirHeatBalanceAlgorithm";
-        [Order][Description("No description available")]
+        [Order]
+        [Description("No description available")]
         public virtual ZoneAirHeatBalanceAlgorithmMethod Algorithm { get; set; } = ZoneAirHeatBalanceAlgorithmMethod.ThirdOrderBackwardDifference;
     }
 }
