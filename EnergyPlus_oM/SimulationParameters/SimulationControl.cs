@@ -8,6 +8,7 @@ namespace BH.oM.EnergyPlus
     public class SimulationControl : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
+
         public virtual string ClassName { get; set; } = "SimulationControl";
         [Order][Description("If True, Zone sizing is accomplished from corresponding Sizing:Zone objects")]
         public virtual bool DoZoneSizingCalculation { get; set; } = false;

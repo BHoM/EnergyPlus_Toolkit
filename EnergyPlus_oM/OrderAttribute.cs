@@ -10,7 +10,7 @@ namespace BH.oM.Reflection
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class OrderAttribute : Attribute
     {
-        private readonly int order_;
+        private readonly int order_;  // TODO - Do I need this part??
         public OrderAttribute([CallerLineNumber]int order = 0)
         {
             order_ = order;
