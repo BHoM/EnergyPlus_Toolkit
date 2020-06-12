@@ -12,7 +12,7 @@ namespace BH.oM.EnergyPlus
         public virtual string ClassName { get; set; } = "ShadowCalculation";
         [Order]
         [Description("choose calculation method. note that TimestepFrequency is only needed for certain cases")]
-        public virtual CalculationMethod CalculationMethod { get; set; } = CalculationMethod.AverageOverDaysInFrequency;
+        public virtual ShadowCalculationMethod CalculationMethod { get; set; } = ShadowCalculationMethod.AverageOverDaysInFrequency;
         [Order]
         [Description("Frequency at which calculation will be made")]
         public virtual int CalculationFrequency { get; set; } = 20;

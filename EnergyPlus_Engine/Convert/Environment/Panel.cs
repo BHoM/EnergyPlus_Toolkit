@@ -4,20 +4,20 @@
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
- *                                           
- *                                                                              
- * The BHoM is free software: you can redistribute it and/or modify         
- * it under the terms of the GNU Lesser General Public License as published by  
- * the Free Software Foundation, either version 3.0 of the License, or          
- * (at your option) any later version.                                          
- *                                                                              
- * The BHoM is distributed in the hope that it will be useful,              
- * but WITHOUT ANY WARRANTY; without even the implied warranty of               
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the                 
- * GNU Lesser General Public License for more details.                          
- *                                                                            
- * You should have received a copy of the GNU Lesser General Public License     
- * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
+ *
+ *
+ * The BHoM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3.0 of the License, or
+ * (at your option) any later version.
+ *
+ * The BHoM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
  */
 
 using System;
@@ -42,18 +42,19 @@ namespace BH.Engine.EnergyPlus
         {
             List<string> panelAsString = new List<string>();
 
-            panelAsString.Add("BuildingSurface:Detailed,");
-            panelAsString.Add("\t" + (panel.Name.Replace(' ', '_') == "" ? panel.BHoM_Guid.ToString() : panel.Name.Replace(' ', '_')) + ",\t!- Name"); //Name
-            panelAsString.Add("\t" + panel.Type.ToEnergyPlus() + ",\t!- Surface Type"); //PanelType
-            panelAsString.Add("\t" + panel.Construction.UniqueConstructionName().Replace(' ', '_') + ",\t!- Construction Name"); //Construction name
-            panelAsString.Add("\t" + connectedSpaceName + ",\t!- Zone Name"); //Zone (space) name
-            panelAsString.Add("\t" + panel.OutsideBoundaryCondition() + ",\t!- Outside Boundary Condition"); //Outside boundary condition
-            panelAsString.Add("\t,\t!- Outside boundary condition object"); //Outside boundary condition object
-            panelAsString.Add("\t" + (panel.ExposedToSun() ? "SunExposed" : "NoSun") + ",\t!- Sun Exposure"); //Sun Exposure
-            panelAsString.Add("\t" + (panel.ExposedToSun() ? "WindExposed" : "NoWind") + ",\t!- Wind Exposure"); //Wind Exposure
-            panelAsString.Add("\tautocalculate,\t!- View Factor to Ground"); //View factor to ground
+            panelAsString.Add(String.Format("{0},", "BuildingSurface:Detailed"));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", (panel.Name.Replace(' ', '_') == "" ? panel.BHoM_Guid.ToString() : panel.Name.Replace(' ', '_')), "Name"));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", panel.Type.ToEnergyPlus(), "Surface Type"));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", panel.Construction.UniqueConstructionName().Replace(' ', '_'), "Construction Name"));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", connectedSpaceName, "Zone Name"));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", panel.OutsideBoundaryCondition(), "Outside Boundary Condition "));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", "", "Outside Boundary Condition Object"));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", (panel.ExposedToSun() ? "SunExposed" : "NoSun"), "Sun Exposure"));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", (panel.ExposedToSun() ? "WindExposed" : "NoWind"), "Wind Exposure"));
+            panelAsString.Add(String.Format("    {0, -30}, !- {1}", "autocalculate", "View Factor to Ground"));
+
             panelAsString.AddRange(panel.Polyline().ToEnergyPlus(settings.DecimalPlaces));
-            panelAsString.Add("");
+
             panelAsString.Add("");
 
             foreach (BHE.Opening o in panel.Openings)

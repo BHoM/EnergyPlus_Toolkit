@@ -20,7 +20,7 @@
         FullInteriorAndExteriorWithReflections
     };
 
-    public enum CalculationMethod
+    public enum ShadowCalculationMethod
     {
         Undefined,
         AverageOverDaysInFrequency,
