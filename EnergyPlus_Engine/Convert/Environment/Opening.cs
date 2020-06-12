@@ -4,20 +4,20 @@
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
- *                                           
- *                                                                              
- * The BHoM is free software: you can redistribute it and/or modify         
- * it under the terms of the GNU Lesser General Public License as published by  
- * the Free Software Foundation, either version 3.0 of the License, or          
- * (at your option) any later version.                                          
- *                                                                              
- * The BHoM is distributed in the hope that it will be useful,              
- * but WITHOUT ANY WARRANTY; without even the implied warranty of               
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the                 
- * GNU Lesser General Public License for more details.                          
- *                                                                            
- * You should have received a copy of the GNU Lesser General Public License     
- * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
+ *
+ *
+ * The BHoM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3.0 of the License, or
+ * (at your option) any later version.
+ *
+ * The BHoM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
  */
 
 using System;
@@ -43,19 +43,18 @@ namespace BH.Engine.EnergyPlus
         {
             List<string> openingAsString = new List<string>();
 
-            openingAsString.Add("FenestrationSurface:Detailed,");
-            openingAsString.Add("\t" + opening.Name.Replace(' ', '_') + ",\t!- Name"); //Name
-            openingAsString.Add("\t" + opening.Type.ToEnergyPlus() + ",\t!- Surface Type"); //PanelType
-            openingAsString.Add("\t" + opening.OpeningConstruction.UniqueConstructionName().Replace(' ', '_') + ",\t!- Construction Name"); //Construction name
-            openingAsString.Add("\t" + hostPanelName + ",\t!- Surface Name");
-            openingAsString.Add("\t,\t!- Outside boundary condition object"); //Outside boundary condition object
-            openingAsString.Add("\tautocalculate,\t!- View Factor to Ground"); //View factor to ground
-            openingAsString.Add("\t,\t!- Frame and Divider Name"); //Frame and Divider Name
-            openingAsString.Add("\t1,\t!- Multiplier Name"); //Multiplier Name
-            
+            openingAsString.Add(String.Format("{0},", "FenestrationSurface:Detailed"));
+            openingAsString.Add(String.Format("    {0, -30}, !- {1}", opening.Name.Replace(' ', '_'), "Name"));
+            openingAsString.Add(String.Format("    {0, -30}, !- {1}", opening.Type.ToEnergyPlus(), "Surface Type"));
+            openingAsString.Add(String.Format("    {0, -30}, !- {1}", opening.OpeningConstruction.UniqueConstructionName().Replace(' ', '_'), "Construction Name"));
+            openingAsString.Add(String.Format("    {0, -30}, !- {1}", hostPanelName, "Surface Name"));
+            openingAsString.Add(String.Format("    {0, -30}, !- {1}", "", "Outside boundary condition object"));
+            openingAsString.Add(String.Format("    {0, -30}, !- {1}", "autocalculate", "View Factor to Ground"));
+            openingAsString.Add(String.Format("    {0, -30}, !- {1}", "", "Frame and Divider Name"));
+            openingAsString.Add(String.Format("    {0, -30}, !- {1}", 1, "Multiplier Name"));
+
             openingAsString.AddRange(opening.Polyline().ToEnergyPlus(settings.DecimalPlaces));
 
-            openingAsString.Add("");
             openingAsString.Add("");
 
             return openingAsString;
