@@ -5,7 +5,7 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class MaterialRoofVegetation : BHoMObject
+    public class MaterialRoofVegetation : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Material:RoofVegetation";

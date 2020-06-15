@@ -26,28 +26,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using BH.oM.EnergyPlus;
 using BHE = BH.oM.Environment.Elements;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static string ToEnergyPlus(this BHE.PanelType type)
+        public static BuildingSurfaceType ToEnergyPlus(this BHE.PanelType type)
         {
             switch(type)
             {
                 case BHE.PanelType.Ceiling:
-                    return "Ceiling";
+                    return BuildingSurfaceType.Ceiling;
                 case BHE.PanelType.Floor:
-                    return "Floor";
+                    return BuildingSurfaceType.Floor;
                 case BHE.PanelType.Wall:
+                    return BuildingSurfaceType.Wall;
                 case BHE.PanelType.WallInternal:
+                    return BuildingSurfaceType.Wall;
                 case BHE.PanelType.CurtainWall:
-                    return "Wall";
+                    return BuildingSurfaceType.Wall;
                 case BHE.PanelType.Roof:
-                    return "Roof";
+                    return BuildingSurfaceType.Roof;
                 default:
-                    return "Wall";
+                    return BuildingSurfaceType.Wall;
             }
         }
     }

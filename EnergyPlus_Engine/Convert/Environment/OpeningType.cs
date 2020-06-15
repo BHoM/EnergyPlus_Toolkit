@@ -26,26 +26,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using BH.oM.EnergyPlus;
 using BHE = BH.oM.Environment.Elements;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static string ToEnergyPlus(this BHE.OpeningType type)
+        public static FenestrationSurfaceType ToEnergyPlus(this BHE.OpeningType type)
         {
             switch (type)
             {
-                case BHE.OpeningType.CurtainWall:
                 case BHE.OpeningType.Window:
+                    return FenestrationSurfaceType.Window;
                 case BHE.OpeningType.WindowWithFrame:
+                    return FenestrationSurfaceType.Window;
                 case BHE.OpeningType.Rooflight:
+                    return FenestrationSurfaceType.Window;
                 case BHE.OpeningType.RooflightWithFrame:
-                    return "Window";
+                    return FenestrationSurfaceType.Window;
                 case BHE.OpeningType.Door:
-                    return "Door";
+                    return FenestrationSurfaceType.Door;
                 default:
-                    return "Window";
+                    return FenestrationSurfaceType.Window;
             }
         }
     }

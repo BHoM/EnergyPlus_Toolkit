@@ -5,15 +5,15 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class EnergyPlusConstruction : BHoMObject
+    public class EnergyPlusConstruction : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Construction";
         [Order]
         [Description("No description available")]
-        public override string Name { get; set; } = "";
+        public override string Name { get; set; } = "DefaultConstruction";
         [Order]
         [Description("Material layers - outside to inside")]
-        public virtual List<EnergyPlusMaterial> Layers { get; set; } = new List<EnergyPlusMaterial>();
+        public virtual List<string> Layers { get; set; } = new List<string>();
     }
 }

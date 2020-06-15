@@ -18,15 +18,8 @@ namespace BH.Engine.EnergyPlus
 
             sb.Append(energyPlusClass.ClassName + ",\n");
 
-            // TODO - Enable handling of nested objects - get Name attribute as referenced string of nested object
+            
 
-            // This method uses LINQ to order objects attributes by their [Order] attribute ... but it seems that they may already be ordered by their order of definition in the objects.
-            //var properties = from property in energyPlusClass.GetType().GetProperties()
-            //                 where Attribute.IsDefined(property, typeof(OrderAttribute))
-            //                 orderby ((OrderAttribute)property.GetCustomAttributes(typeof(OrderAttribute), false).Single()).Order
-            //                 select property;
-
-            // TODO - Replace LINQ method above with non-LINQ below
             List<PropertyInfo> properties = new List<PropertyInfo>();
             foreach (PropertyInfo property in energyPlusClass.GetType().GetProperties())
             {
@@ -35,6 +28,9 @@ namespace BH.Engine.EnergyPlus
                     properties.Add(property);
                 }
             }
+
+            // TODO - Enable handling of geometries here to account for nested Points/Vertices
+            // TODO - IF CONTAINS List<Point> do X, if contains List<string> do other thing
 
             string formatStringA = "    {0, -30}, !- {1}\n";
             string formatStringB = "    {0, -30}; !- {1}\n";
@@ -52,6 +48,7 @@ namespace BH.Engine.EnergyPlus
                 }
                 incrementor += 1;
             }
+            sb.Append("\n");
             
             return sb.ToString();
         }

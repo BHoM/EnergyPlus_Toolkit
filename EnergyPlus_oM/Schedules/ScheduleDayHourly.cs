@@ -5,16 +5,16 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class ScheduleDayHourly : BHoMObject
+    public class ScheduleDayHourly : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Schedule:Day:Hourly";
         [Order]
         [Description("No description available")]
-        public override string Name { get; set; } = "";
+        public override string Name { get; set; } = "DefautDailySchedule";
         [Order]
         [Description("No description available")]
-        public virtual ScheduleTypeLimits ScheduleTypeLimitsName { get; set; } = new ScheduleTypeLimits();
+        public virtual string ScheduleTypeLimitsName { get; set; } = "";
         [Order]
         [Description("No description available")]
         public virtual double Hour1 { get; set; } = 0.0;

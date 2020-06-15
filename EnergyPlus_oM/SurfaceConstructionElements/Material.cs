@@ -5,13 +5,13 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class EnergyPlusMaterial : BHoMObject
+    public class EnergyPlusMaterial : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Material";
         [Order]
         [Description("No description available")]
-        public override string Name { get; set; } = "";
+        public override string Name { get; set; } = "DefaultMaterial";
         [Order]
         [Description("No description available")]
         public virtual Roughness Roughness { get; set; } = Roughness.MediumRough;

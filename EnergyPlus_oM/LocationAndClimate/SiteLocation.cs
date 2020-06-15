@@ -5,13 +5,13 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class SiteLocation : BHoMObject
+    public class SiteLocation : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Site:Location";
         [Order]
         [Description("No description available")]
-        public override string Name { get; set; } = "";
+        public override string Name { get; set; } = "DefaultLocation";
         [Order]
         [Description("+ is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)")]
         public virtual double Latitude { get; set; } = 0.0;
