@@ -30,50 +30,32 @@ using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
 using BHG = BH.oM.Geometry;
 using BHM = BH.oM.Environment.MaterialFragments;
-
+using BH.oM.EnergyPlus;
 using BH.Engine.Environment;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static string ToEnergyPlus(this BHM.Roughness roughness)
+        public static Roughness ToEnergyPlus(this BHM.Roughness roughness)
         {
             switch (roughness)
             {
                 case BHM.Roughness.MediumRough:
-                    return "MediumRough";
+                    return Roughness.MediumRough;
                 case BHM.Roughness.MediumSmooth:
-                    return "MediumSmooth";
+                    return Roughness.MediumSmooth;
                 case BHM.Roughness.Rough:
-                    return "Rough";
+                    return Roughness.Rough;
                 case BHM.Roughness.Smooth:
-                    return "Smooth";
+                    return Roughness.Smooth;
                 case BHM.Roughness.VeryRough:
-                    return "VeryRough";
+                    return Roughness.VeryRough;
                 case BHM.Roughness.VerySmooth:
-                    return "VerySmooth";
+                    return Roughness.VerySmooth;
                 default:
-                    return "";
+                    return Roughness.MediumRough;
             }
-        }
-
-        public static BHM.Roughness FromEnergyPlus(this string roughness)
-        {
-            if (roughness.Equals("MediumRough"))
-                return BHM.Roughness.MediumRough;
-            if (roughness.Equals("MediumSmooth"))
-                return BHM.Roughness.MediumSmooth;
-            if (roughness.Equals("Rough"))
-                return BHM.Roughness.Rough;
-            if (roughness.Equals("Smooth"))
-                return BHM.Roughness.Smooth;
-            if (roughness.Equals("VeryRough"))
-                return BHM.Roughness.VeryRough;
-            if (roughness.Equals("VerySmooth"))
-                return BHM.Roughness.VerySmooth;
-
-            return BHM.Roughness.Undefined;
         }
     }
 }

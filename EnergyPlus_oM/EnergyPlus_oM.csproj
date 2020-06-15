@@ -60,9 +60,13 @@
   <ItemGroup>
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="IEnergyPlusClass.cs" />
+    <Compile Include="LocationAndClimate\LocationAndClimate.cs" />
     <Compile Include="OrderAttribute.cs" />
+    <Compile Include="OutputReporting\OutputReporting.cs" />
+    <Compile Include="Schedules\Schedule.cs" />
     <Compile Include="Settings\EnergyPlusSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimulationParameters\SimulationParameters.cs" />
     <Compile Include="SimulationParameters\Version.cs" />
     <Compile Include="SimulationParameters\SimulationControl.cs" />
     <Compile Include="SimulationParameters\Building.cs" />
@@ -83,11 +87,12 @@
     <Compile Include="Schedules\ScheduleDayHourly.cs" />
     <Compile Include="Schedules\ScheduleWeekDaily.cs" />
     <Compile Include="Schedules\ScheduleConstant.cs" />
-    <Compile Include="Schedules\ScheduleFileShading.cs" />
-    <Compile Include="Schedules\ScheduleFile.cs" />
+    <Compile Include="SurfaceConstructionElements\WindowMaterialGlazing.cs" />
+    <Compile Include="SurfaceConstructionElements\SurfaceConstructionElements.cs" />
     <Compile Include="SurfaceConstructionElements\Construction.cs" />
     <Compile Include="SurfaceConstructionElements\Material.cs" />
     <Compile Include="SurfaceConstructionElements\MaterialRoofVegetation.cs" />
+    <Compile Include="ThermalZonesAndSurfaces\ThermalZonesAndSurfaces.cs" />
     <Compile Include="ThermalZonesAndSurfaces\GlobalGeometryRules.cs" />
     <Compile Include="ThermalZonesAndSurfaces\ZoneList.cs" />
     <Compile Include="ThermalZonesAndSurfaces\Zone.cs" />

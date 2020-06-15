@@ -39,21 +39,6 @@ namespace BH.Engine.EnergyPlus
 
             buildingAsString.Add(String.Format("{0},", "Building"));
             buildingAsString.Add(String.Format("    {0, -30}, !- {1}", building.Name.Replace(' ', '_'), "Name"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", settings.NorthAngle, "North Axis {deg}"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", settings.Terrain, "Terrain"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", settings.LoadsConvergenceToleranceValue, "Loads Convergency Tolerance Value"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", settings.TemperatureConvergenceToleranceValue, "Temperature Convergence Tolerance Value {deltaC}"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", settings.SolarDistribution, "Solar Distribution"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", settings.MaximumWarmupDays, "Maximum Number of Warmup Days"));
-            buildingAsString.Add(String.Format("    {0, -30}; !- {1}", settings.MinimumWarmupDays, "Minimum Number of Warmup Days"));
-            buildingAsString.Add("");
-
-            buildingAsString.Add(String.Format("{0},", "Site:Location"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", String.IsNullOrEmpty(building.Location.Name) ? "SiteName" : building.Location.Name.Replace(' ', '_'), "Name"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", building.Location.Latitude, "Latitude {deg}"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", building.Location.Longitude, "Longitude {deg}"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", building.Location.UtcOffset, "TimeZone"));
-            buildingAsString.Add(String.Format("    {0, -30}; !- {1}", building.Location.Elevation, "Elevation"));
             buildingAsString.Add("");
 
             return buildingAsString;

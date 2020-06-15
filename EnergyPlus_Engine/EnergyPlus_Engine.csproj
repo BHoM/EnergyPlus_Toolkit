@@ -98,7 +98,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Convert\LocationAndClimate.cs" />
+    <Compile Include="Convert\SurfaceConstructionElements.cs" />
+    <Compile Include="Convert\SimulationParameters.cs" />
+    <Compile Include="Convert\Schedule.cs" />
     <Compile Include="Convert\EnergyPlusClassToString.cs" />
+    <Compile Include="Convert\Environment\Profile.cs" />
     <Compile Include="Convert\Physical\Construction.cs" />
     <Compile Include="Convert\Environment\OpeningType.cs" />
     <Compile Include="Convert\Environment\Roughness.cs" />

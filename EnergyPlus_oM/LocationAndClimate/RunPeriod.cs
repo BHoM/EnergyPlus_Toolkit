@@ -5,13 +5,13 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class RunPeriod : BHoMObject
+    public class RunPeriod : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "RunPeriod";
         [Order]
         [Description("descriptive name (used in reporting mainly)")]
-        public override string Name { get; set; } = "";
+        public override string Name { get; set; } = "DefaultRunPeriod";
         [Order]
         [Description("No description available")]
         public virtual int BeginMonth { get; set; } = 1;

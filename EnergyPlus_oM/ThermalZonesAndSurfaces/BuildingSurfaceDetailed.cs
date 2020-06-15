@@ -18,10 +18,10 @@ namespace BH.oM.EnergyPlus
         public virtual BuildingSurfaceType SurfaceType { get; set; } = BuildingSurfaceType.Undefined;
         [Order]
         [Description("To be matched with a construction in this input file")]
-        public virtual EnergyPlusConstruction ConstructionName { get; set; } = new EnergyPlusConstruction();
+        public virtual string ConstructionName { get; set; } = "";
         [Order]
         [Description("Zone the surface is a part of")]
-        public virtual Zone ZoneName { get; set; } = new Zone();
+        public virtual string ZoneName { get; set; } = "";
         [Order]
         [Description("No description available")]
         public virtual OutsideBoundaryCondition OutsideBoundaryCondition { get; set; } = OutsideBoundaryCondition.Undefined;
