@@ -6,7 +6,7 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class FenestrationSurfaceDetailed : BHoMObject
+    public class FenestrationSurfaceDetailed : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "FenestrationSurface:Detailed";

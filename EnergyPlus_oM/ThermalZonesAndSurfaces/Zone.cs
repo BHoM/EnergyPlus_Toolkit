@@ -5,7 +5,7 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class Zone : BHoMObject
+    public class Zone : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Zone";
@@ -41,10 +41,10 @@ namespace BH.oM.EnergyPlus
         public virtual string FloorArea { get; set; } = "autocalculate";
         [Order]
         [Description("Will default to same value as SurfaceConvectionAlgorithm:Inside object")]
-        public virtual SurfaceConvectionAlgorithmInsideMethod ZoneInsideConvectionAlgorithm { get; set; } = SurfaceConvectionAlgorithmInsideMethod.Undefined;
+        public virtual SurfaceConvectionAlgorithmInsideMethod ZoneInsideConvectionAlgorithm { get; set; } = SurfaceConvectionAlgorithmInsideMethod.TARP;
         [Order]
         [Description("Will default to same value as SurfaceConvectionAlgorithm:Outside object")]
-        public virtual SurfaceConvectionAlgorithmOutsideMethod ZoneOutsideConvectionAlgorithm { get; set; } = SurfaceConvectionAlgorithmOutsideMethod.Undefined;
+        public virtual SurfaceConvectionAlgorithmOutsideMethod ZoneOutsideConvectionAlgorithm { get; set; } = SurfaceConvectionAlgorithmOutsideMethod.DOE2;
         [Order]
         [Description("No description available")]
         public virtual bool PartOfTotalFloorArea { get; set; } = true;

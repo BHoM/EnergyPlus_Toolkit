@@ -7,6 +7,17 @@ using System.Reflection;
 using BH.Engine.Reflection;
 using BH.oM.Reflection;
 using BH.oM.EnergyPlus;
+using BH.oM.Geometry;
+
+
+/////
+//using BH.Engine.Diffing;
+///// 
+/////
+//BH.oM.Diffing.DiffConfig proptignore = new oM.Diffing.DiffConfig();
+//proptignore.PropertiesToIgnore = new List<string>() { "A", "B" };
+//            BH.Engine.Diffing.Query.DifferentProperties(glzMaterials[0], glzMaterials[1]);
+//            ///
 
 namespace BH.Engine.EnergyPlus
 {
@@ -18,8 +29,6 @@ namespace BH.Engine.EnergyPlus
 
             sb.Append(energyPlusClass.ClassName + ",\n");
 
-            
-
             List<PropertyInfo> properties = new List<PropertyInfo>();
             foreach (PropertyInfo property in energyPlusClass.GetType().GetProperties())
             {
@@ -29,28 +38,94 @@ namespace BH.Engine.EnergyPlus
                 }
             }
 
-            // TODO - Enable handling of geometries here to account for nested Points/Vertices
-            // TODO - IF CONTAINS List<Point> do X, if contains List<string> do other thing
-
-            string formatStringA = "    {0, -30}, !- {1}\n";
-            string formatStringB = "    {0, -30}; !- {1}\n";
-            int totalCount = properties.Count();
-            int incrementor = 0;
+            string formatString = "    {0}, !- {1}\n";  // TODO - change format to remove comma after whitespace and add just after value istead
             foreach (PropertyInfo property in properties)
             {
-                if ((incrementor + 1) == totalCount)
+                if ((energyPlusClass.ClassName == "BuildingSurface:Detailed") && (property.Name == "Vertices"))
                 {
-                    sb.AppendFormat(formatStringB, energyPlusClass.PropertyValue(property.Name), property.Name);
+                    int subIncrementor = 1;
+                    foreach (Point vertex in (energyPlusClass as BuildingSurfaceDetailed).Vertices)
+                    {
+                        sb.AppendFormat(formatString, vertex.X, String.Format("Vertex{0}XCoordinate", subIncrementor));
+                        sb.AppendFormat(formatString, vertex.Y, String.Format("Vertex{0}YCoordinate", subIncrementor));
+                        sb.AppendFormat(formatString, vertex.Z, String.Format("Vertex{0}ZCoordinate", subIncrementor));
+                        subIncrementor += 1;
+                    }
+                }
+                else if ((energyPlusClass.ClassName == "FenestrationSurface:Detailed") && (property.Name == "Vertices"))
+                {
+                    int subIncrementor = 1;
+                    foreach (Point vertex in (energyPlusClass as FenestrationSurfaceDetailed).Vertices)
+                    {
+                        sb.AppendFormat(formatString, vertex.X, String.Format("Vertex{0}XCoordinate", subIncrementor));
+                        sb.AppendFormat(formatString, vertex.Y, String.Format("Vertex{0}YCoordinate", subIncrementor));
+                        sb.AppendFormat(formatString, vertex.Z, String.Format("Vertex{0}ZCoordinate", subIncrementor));
+                        subIncrementor += 1;
+                    }
+                }
+                else if (energyPlusClass.ClassName == "Construction" && property.Name == "Layers")
+                {
+                    int subIncrementor = 1;
+                    foreach (string layerName in (energyPlusClass as EnergyPlusConstruction).Layers)
+                    {
+                        sb.AppendFormat(formatString, layerName, subIncrementor == 1 ? "OutsideLayer" : String.Format("Layer{0}", subIncrementor).ToString());
+                        subIncrementor += 1;
+                    }
+                }
+                else if (energyPlusClass.ClassName == "ZoneList" && property.Name == "ZoneNames")
+                {
+                    int subIncrementor = 1;
+                    foreach (string zoneName in (energyPlusClass as ZoneList).ZoneNames)
+                    {
+                        sb.AppendFormat(formatString, zoneName, String.Format("Zone{0}Name", subIncrementor).ToString());
+                        subIncrementor += 1;
+                    }
                 }
                 else
                 {
-                    sb.AppendFormat(formatStringA, energyPlusClass.PropertyValue(property.Name), property.Name);
+                    if (property.PropertyType == typeof(bool))
+                    {
+                        if ((energyPlusClass.ClassName == "BuildingSurface:Detailed") && (property.Name == "SunExposure"))
+                        {
+                            if ((bool)energyPlusClass.PropertyValue(property.Name))
+                            {
+                                sb.AppendFormat(formatString, "SunExposed", property.Name);
+                            }
+                            else
+                            {
+                                sb.AppendFormat(formatString, "NoSun", property.Name);
+                            }
+                        }
+                        else if ((energyPlusClass.ClassName == "BuildingSurface:Detailed") && (property.Name == "WindExposure"))
+                        {
+                            if ((bool)energyPlusClass.PropertyValue(property.Name))
+                            {
+                                sb.AppendFormat(formatString, "WindExposed", property.Name);
+                            }
+                            else
+                            {
+                                sb.AppendFormat(formatString, "NoWind", property.Name);
+                            }
+                        }
+                        else
+                        {
+                            sb.AppendFormat(formatString, BH.Engine.EnergyPlus.Convert.ToYesNoString((bool)energyPlusClass.PropertyValue(property.Name)), property.Name);
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendFormat(formatString, energyPlusClass.PropertyValue(property.Name), property.Name);
+                    }
+                    
                 }
-                incrementor += 1;
+
             }
             sb.Append("\n");
-            
-            return sb.ToString();
+
+            string resultString = sb.ToString();
+            int lastComma = resultString.LastIndexOf(",");
+            string cleanString = resultString.Remove(lastComma, ",".Length).Insert(lastComma, ";");
+            return cleanString;
         }
     }
 }

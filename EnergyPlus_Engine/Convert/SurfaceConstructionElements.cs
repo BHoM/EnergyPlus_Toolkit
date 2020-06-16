@@ -21,9 +21,19 @@ namespace BH.Engine.EnergyPlus
                 sb.Append(material.ToEnergyPlusString());
             }
 
+            foreach (EnergyPlusMaterial material in surfaceConstructionElements.Materials)
+            {
+                sb.Append(material.ToEnergyPlusString());
+            }
+
             foreach (MaterialRoofVegetation vegetationMaterial in surfaceConstructionElements.VegetationMaterials)
             {
                 sb.Append(vegetationMaterial.ToEnergyPlusString());
+            }
+
+            foreach (EnergyPlusWindowMaterialGlazing glazingMaterial in surfaceConstructionElements.GlazingMaterials)
+            {
+                sb.Append(glazingMaterial.ToEnergyPlusString());
             }
 
             foreach (EnergyPlusConstruction construction in surfaceConstructionElements.Constructions)

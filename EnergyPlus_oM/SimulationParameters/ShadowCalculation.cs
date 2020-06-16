@@ -39,6 +39,21 @@ namespace BH.oM.EnergyPlus
         public virtual bool DisableSelfShadingFromShadingZoneGroupsToOtherZones { get; set; } = false;
         [Order]
         [Description("Specifies a group of zones which are controlled by the Disable Self-Shading fields.")]
-        public virtual ZoneList ShadingZoneGroupZoneListName { get; set; } = new ZoneList();
+        public virtual string ShadingZoneGroup1ZoneListName { get; set; } = "";
+        [Order]
+        [Description("Specifies a group of zones which are controlled by the Disable Self-Shading fields.")]
+        public virtual string ShadingZoneGroup2ZoneListName { get; set; } = "";
+        [Order]
+        [Description("Specifies a group of zones which are controlled by the Disable Self-Shading fields.")]
+        public virtual string ShadingZoneGroup3ZoneListName { get; set; } = "";
+        [Order]
+        [Description("Specifies a group of zones which are controlled by the Disable Self-Shading fields.")]
+        public virtual string ShadingZoneGroup4ZoneListName { get; set; } = "";
+        [Order]
+        [Description("Specifies a group of zones which are controlled by the Disable Self-Shading fields.")]
+        public virtual string ShadingZoneGroup5ZoneListName { get; set; } = "";
+        [Order]
+        [Description("Specifies a group of zones which are controlled by the Disable Self-Shading fields.")]
+        public virtual string ShadingZoneGroup6ZoneListName { get; set; } = "";
     }
 }
