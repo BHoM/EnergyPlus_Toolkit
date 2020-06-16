@@ -33,20 +33,21 @@ using BHP = BH.oM.Environment.Fragments;
 using BH.Engine.Environment;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
+using BH.oM.EnergyPlus;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Query
     {
-        public static string OutsideBoundaryCondition(this BHE.Panel panel)
+        public static OutsideBoundaryCondition BoundaryCondition(this BHE.Panel panel)
         {
             if (panel.Type == BHE.PanelType.Roof || panel.Type == BHE.PanelType.WallExternal)
-                return "Outdoors";
+                return OutsideBoundaryCondition.Outdoors;
 
             if (panel.ConnectedSpaces.Count == 2)
-                return "Zone";
+                return OutsideBoundaryCondition.Zone;
 
-            return "";
+            return OutsideBoundaryCondition.Undefined;
         }
     }
 }

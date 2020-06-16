@@ -12,6 +12,8 @@ namespace BH.oM.EnergyPlus
         [Description("")]
         public virtual List<MaterialRoofVegetation> VegetationMaterials { get; set; } = new List<MaterialRoofVegetation>();
         [Description("")]
+        public virtual List<EnergyPlusWindowMaterialGlazing> GlazingMaterials { get; set; } = new List<EnergyPlusWindowMaterialGlazing>();
+        [Description("")]
         public virtual List<EnergyPlusConstruction> Constructions { get; set; } = new List<EnergyPlusConstruction>();
     }
 }

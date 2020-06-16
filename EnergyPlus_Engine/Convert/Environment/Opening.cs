@@ -40,6 +40,7 @@ using BH.oM.Reflection.Attributes;
 using BH.oM.Reflection;
 using BH.oM.Physical.Constructions;
 using BH.oM.Environment.MaterialFragments;
+using BH.oM.Geometry;
 
 namespace BH.Engine.EnergyPlus
 {
@@ -57,8 +58,10 @@ namespace BH.Engine.EnergyPlus
             fenestrationSurfaceDetailed.SurfaceType = opening.Type.ToEnergyPlus();
             fenestrationSurfaceDetailed.ConstructionName = opening.OpeningConstruction.UniqueConstructionName();
             fenestrationSurfaceDetailed.BuildingSurfaceName = "";  // Is populated at the Panel conversion stage
-            fenestrationSurfaceDetailed.Vertices = BH.Engine.Environment.Query.Polyline(opening).ControlPoints();
-            fenestrationSurfaceDetailed.NumberOfVertices = fenestrationSurfaceDetailed.Vertices.Count();
+            List<Point> vertices = BH.Engine.Environment.Query.Polyline(opening).ControlPoints();
+            vertices.RemoveAt(vertices.Count - 1);
+            fenestrationSurfaceDetailed.Vertices = vertices;
+            fenestrationSurfaceDetailed.NumberOfVertices = vertices.Count;
 
             List<EnergyPlusWindowMaterialGlazing> materials = new List<EnergyPlusWindowMaterialGlazing>();
             List<string> materialNames = new List<string>();
@@ -80,7 +83,7 @@ namespace BH.Engine.EnergyPlus
                 material.FrontSideInfraredHemisphericalEmissivity = layerSolid.EmissivityExternal;
                 material.BackSideInfraredHemisphericalEmissivity = layerSolid.EmissivityInternal;
                 material.Conductivity = layerSolid.Conductivity;
-
+                materialNames.Add(materialName);
                 materials.Add(material);
             }
 

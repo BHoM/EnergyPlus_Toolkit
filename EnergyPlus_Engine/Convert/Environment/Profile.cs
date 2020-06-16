@@ -44,6 +44,11 @@ namespace BH.Engine.EnergyPlus
             scheduleWeekDaily.ThursdayScheduleDayName = scheduleDayHourly.Name;
             scheduleWeekDaily.FridayScheduleDayName = scheduleDayHourly.Name;
             scheduleWeekDaily.SaturdayScheduleDayName = scheduleDayHourly.Name;
+            scheduleWeekDaily.HolidayScheduleDayName = scheduleDayHourly.Name;
+            scheduleWeekDaily.SummerDesignDayScheduleDayName = scheduleDayHourly.Name;
+            scheduleWeekDaily.WinterDesignDayScheduleDayName = scheduleDayHourly.Name;
+            scheduleWeekDaily.CustomDay1ScheduleDayName = scheduleDayHourly.Name;
+            scheduleWeekDaily.CustomDay2ScheduleDayName = scheduleDayHourly.Name;
 
             schedule.ScheduleTypeLimits = scheduleTypeLimits;
             schedule.ScheduleDayHourly = scheduleDayHourly;
