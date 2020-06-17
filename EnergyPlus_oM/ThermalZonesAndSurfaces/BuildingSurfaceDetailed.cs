@@ -30,10 +30,10 @@ namespace BH.oM.EnergyPlus
         public virtual string OutsideBoundaryConditionObject { get; set; } = "";
         [Order]
         [Description("No description available")]
-        public virtual bool SunExposure { get; set; } =  false;
+        public virtual string SunExposure { get; set; } =  "NoSun";
         [Order]
         [Description("No description available")]
-        public virtual bool WindExposure { get; set; } = false;
+        public virtual string WindExposure { get; set; } = "NoWind";
         [Order]
         [Description("From the exterior of the surface")]
         public virtual string ViewFactorToGround { get; set; } = "autocalculate";

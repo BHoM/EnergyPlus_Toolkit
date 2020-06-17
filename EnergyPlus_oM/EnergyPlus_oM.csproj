@@ -87,6 +87,7 @@
     <Compile Include="Schedules\ScheduleDayHourly.cs" />
     <Compile Include="Schedules\ScheduleWeekDaily.cs" />
     <Compile Include="Schedules\ScheduleConstant.cs" />
+    <Compile Include="SurfaceConstructionElements\WindowMaterialGas.cs" />
     <Compile Include="SurfaceConstructionElements\WindowMaterialGlazing.cs" />
     <Compile Include="SurfaceConstructionElements\SurfaceConstructionElements.cs" />
     <Compile Include="SurfaceConstructionElements\Construction.cs" />

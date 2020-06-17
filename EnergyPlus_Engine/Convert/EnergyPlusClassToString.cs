@@ -38,7 +38,7 @@ namespace BH.Engine.EnergyPlus
                 }
             }
 
-            string formatString = "    {0}, !- {1}\n";  // TODO - change format to remove comma after whitespace and add just after value istead
+            string formatString = "    {0}, !- {1}\n";
             foreach (PropertyInfo property in properties)
             {
                 if ((energyPlusClass.ClassName == "BuildingSurface:Detailed") && (property.Name == "Vertices"))
@@ -85,38 +85,16 @@ namespace BH.Engine.EnergyPlus
                 {
                     if (property.PropertyType == typeof(bool))
                     {
-                        if ((energyPlusClass.ClassName == "BuildingSurface:Detailed") && (property.Name == "SunExposure"))
-                        {
-                            if ((bool)energyPlusClass.PropertyValue(property.Name))
-                            {
-                                sb.AppendFormat(formatString, "SunExposed", property.Name);
-                            }
-                            else
-                            {
-                                sb.AppendFormat(formatString, "NoSun", property.Name);
-                            }
-                        }
-                        else if ((energyPlusClass.ClassName == "BuildingSurface:Detailed") && (property.Name == "WindExposure"))
-                        {
-                            if ((bool)energyPlusClass.PropertyValue(property.Name))
-                            {
-                                sb.AppendFormat(formatString, "WindExposed", property.Name);
-                            }
-                            else
-                            {
-                                sb.AppendFormat(formatString, "NoWind", property.Name);
-                            }
-                        }
-                        else
-                        {
-                            sb.AppendFormat(formatString, BH.Engine.EnergyPlus.Convert.ToYesNoString((bool)energyPlusClass.PropertyValue(property.Name)), property.Name);
-                        }
+                        sb.AppendFormat(formatString, BH.Engine.EnergyPlus.Convert.Boolean((bool)energyPlusClass.PropertyValue(property.Name)), property.Name);
+                    }
+                    else if (property.PropertyType == typeof(SurfaceConvectionAlgorithmOutsideMethod))
+                    {
+                        sb.AppendFormat(formatString, energyPlusClass.PropertyValue(property.Name).ToString().Replace("DOE2", "DOE-2"), property.Name);
                     }
                     else
                     {
                         sb.AppendFormat(formatString, energyPlusClass.PropertyValue(property.Name), property.Name);
                     }
-                    
                 }
 
             }

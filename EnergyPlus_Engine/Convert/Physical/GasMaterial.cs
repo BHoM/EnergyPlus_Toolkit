@@ -26,16 +26,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using BHE = BH.oM.Environment.Elements;
+using BHM = BH.oM.Physical.Materials;
 using BHP = BH.oM.Physical.Constructions;
+using BH.oM.EnergyPlus.Settings;
 using BH.oM.EnergyPlus;
+
+using BH.Engine.Environment;
+using BH.oM.Physical.Materials;
+using BH.oM.Environment.MaterialFragments;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static IEnergyPlusClass ToEnergyPlus(this BHP.Layer layer)
+        public static IEnergyPlusClass ToEnergyPlus(this GasMaterial gasMaterial, double thickness = 0)
         {
-            return layer.Material.ToEnergyPlus(layer.Thickness);
+            // Convert gasMaterial to Material
+            Material bhomMaterial = new Material();
+            bhomMaterial.Properties.Add(gasMaterial);
+
+            string materialName = gasMaterial.Name == "" ? gasMaterial.BHoM_Guid.ToString() : gasMaterial.Name;
+
+            EnergyPlusWindowMaterialGas eplusMaterial = new EnergyPlusWindowMaterialGas();
+            eplusMaterial.Name = materialName;
+            eplusMaterial.GasType = gasMaterial.Gas.ToEnergyPlus();
+            eplusMaterial.Thickness = thickness;
+            return eplusMaterial;
         }
     }
 }

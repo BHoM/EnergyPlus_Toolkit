@@ -34,6 +34,12 @@ namespace BH.oM.EnergyPlus.Settings
         /**** Properties                                ****/
         /***************************************************/
 
+        [Description("Name of EnergyPlus case")]
+        public virtual string ProjectName { get; set; } = "BHoM_EnergyPlus_Project";
+        [Description("Path to the directory where the EnergyPlus simulation results will be stored")]
+        public virtual string ProjectDirectory { get; set; } = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+        [Description("Path to the weatherfile to be used in any climate-based daylight simulations")]
+        public virtual string WeatherFile { get; set; } = "";
         [Description("How many decimal places any rounding function should use. Default to 6. E.g. a number such as 1.12345678 will be rounded to 1.123457 (rounded to 6 decimal places)")]
         public virtual int DecimalPlaces { get; set; } = 6;
         [Description("Full path to EnergyPlus executable")]

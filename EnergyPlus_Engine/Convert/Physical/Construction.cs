@@ -30,28 +30,33 @@ using BHE = BH.oM.Environment.Elements;
 using BHM = BH.oM.Physical.Materials;
 using BHP = BH.oM.Physical.Constructions;
 using BH.oM.EnergyPlus.Settings;
+using BH.oM.EnergyPlus;
 
 using BH.Engine.Environment;
+using BH.oM.Physical.Constructions;
+using BH.oM.Physical.Materials;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static List<string> ToEnergyPlus(this BHP.Construction construction, EnergyPlusSettings settings)
+        public static List<IEnergyPlusClass> ToEnergyPlus(this BHP.Construction construction)
         {
-            List<string> constructionAsString = new List<string>();
+            List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
+            EnergyPlusConstruction eplusConstruction = new EnergyPlusConstruction();
+            string constructionName = construction.Name == "" ? construction.BHoM_Guid.ToString() : construction.Name;
+            eplusConstruction.Name = constructionName;
 
-            constructionAsString.Add("Construction,");
-            constructionAsString.Add("\t" + construction.UniqueConstructionName().Replace(' ', '_') + ",\t!- Name");
+            foreach (Layer layer in construction.Layers)
+            {
+                IEnergyPlusClass cls = layer.ToEnergyPlus();
+                classes.Add(cls);
+                eplusConstruction.Layers.Add(cls.Name);
+            }
 
-            foreach (BHP.Layer l in construction.Layers)
-                constructionAsString.Add("\t" + l.Name + ",\t!- Layer");
+            classes.Add(eplusConstruction);
 
-            constructionAsString[constructionAsString.Count - 1] = constructionAsString[constructionAsString.Count - 1].Replace(',', ';');
-            constructionAsString.Add("");
-            constructionAsString.Add("");
-
-            return constructionAsString;
+            return classes;
         }
     }
 }
