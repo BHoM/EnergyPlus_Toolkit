@@ -45,26 +45,12 @@ namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        [Description("Remove duplicate IEnergyPlusClass objects")]
-        [Input("EnergyPlusClasses", "A list of EnergyPlus classes")]
-        [Output("energyPlusClasses", "A list of EnergyPlus classes with duplicates removed")]
-        public static List<IEnergyPlusClass> UniqueEnergyPlusClasses(this List<IEnergyPlusClass> energyPlusClasses)
+        [Description("Convert a boolean to an EnergyPlus freindly Yes or No")]
+        [Input("bool", "A True or False value")]
+        [Output("answer", "A Yes or a No")]
+        public static string Boolean(this bool value)
         {
-            DiffConfig config = new DiffConfig()
-            {
-                PropertiesToIgnore = new List<string>
-                {
-                    "BHoM_Guid",
-                    "CustomData",
-                },
-                NumericTolerance = BH.oM.Geometry.Tolerance.Distance,
-            };
-
-            List<IEnergyPlusClass> hashedList = BH.Engine.Diffing.Modify.SetHashFragment(energyPlusClasses, config);
-
-            List<IEnergyPlusClass> uniqueList = Diffing.Modify.RemoveDuplicatesByHash(hashedList).ToList();
-
-            return uniqueList;
+            return value ? "Yes" : "No";
         }
     }
 }

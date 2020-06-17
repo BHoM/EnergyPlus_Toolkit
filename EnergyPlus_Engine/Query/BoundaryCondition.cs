@@ -26,16 +26,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BHP = BH.oM.Physical.Constructions;
+using OpenStudio;
+using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Fragments;
+
+using BH.Engine.Environment;
+using BHG = BH.oM.Geometry;
+using BH.Engine.Geometry;
 using BH.oM.EnergyPlus;
 
 namespace BH.Engine.EnergyPlus
 {
-    public static partial class Convert
+    public static partial class Query
     {
-        public static IEnergyPlusClass ToEnergyPlus(this BHP.Layer layer)
+        public static OutsideBoundaryCondition BoundaryCondition(this BHE.Panel panel)
         {
-            return layer.Material.ToEnergyPlus(layer.Thickness);
+            if ((panel.Type == BHE.PanelType.Roof) || (panel.Type == BHE.PanelType.WallExternal) || (panel.Type == BHE.PanelType.FloorExposed) || (panel.Type == BHE.PanelType.Wall))
+            {
+                return OutsideBoundaryCondition.Outdoors;
+            }
+
+            if ((panel.Type == BHE.PanelType.SlabOnGrade) || (panel.Type == BHE.PanelType.UndergroundSlab) || (panel.Type == BHE.PanelType.UndergroundWall) || (panel.Type == BHE.PanelType.Floor))
+            {
+                return OutsideBoundaryCondition.Ground;
+            }
+
+            if ((panel.ConnectedSpaces.Count == 2) & ((panel.Type == BHE.PanelType.Ceiling) || (panel.Type == BHE.PanelType.FloorInternal) || (panel.Type == BHE.PanelType.WallInternal)))
+            {
+                return OutsideBoundaryCondition.Zone;
+            }
+
+            return OutsideBoundaryCondition.Undefined;
         }
     }
 }

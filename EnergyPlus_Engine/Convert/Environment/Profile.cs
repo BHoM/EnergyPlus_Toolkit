@@ -19,7 +19,7 @@ namespace BH.Engine.EnergyPlus
             Schedule schedule = new Schedule();
 
             ScheduleTypeLimits scheduleTypeLimits = new ScheduleTypeLimits();
-            scheduleTypeLimits.Name = String.Format("{0} TypeLimits", profile.Name);
+            scheduleTypeLimits.Name = String.Format("{0} TypeLimits", profile.Name).Trim();
             scheduleTypeLimits.NumericType = scheduleTypeLimitsNumericType;
             scheduleTypeLimits.UnitType = scheduleTypeLimitsUnitType;
             scheduleTypeLimits.NumericType = scheduleTypeLimitsNumericType;
@@ -27,7 +27,7 @@ namespace BH.Engine.EnergyPlus
             scheduleTypeLimits.UpperLimitValue = profile.HourlyValues.Max();
 
             ScheduleDayHourly scheduleDayHourly = new ScheduleDayHourly();
-            scheduleDayHourly.Name = String.Format("{0} Daily", profile.Name);
+            scheduleDayHourly.Name = String.Format("{0} Daily", profile.Name).Trim();
             scheduleDayHourly.ScheduleTypeLimitsName = scheduleTypeLimits.Name;
             for (int i = 0; i < 24; i++)
             {
@@ -36,7 +36,7 @@ namespace BH.Engine.EnergyPlus
             }
 
             ScheduleWeekDaily scheduleWeekDaily = new ScheduleWeekDaily();
-            scheduleWeekDaily.Name = String.Format("{0} Weekly", profile.Name);
+            scheduleWeekDaily.Name = String.Format("{0} Weekly", profile.Name).Trim();
             scheduleWeekDaily.SundayScheduleDayName = scheduleDayHourly.Name;
             scheduleWeekDaily.MondayScheduleDayName = scheduleDayHourly.Name;
             scheduleWeekDaily.TuesdayScheduleDayName = scheduleDayHourly.Name;

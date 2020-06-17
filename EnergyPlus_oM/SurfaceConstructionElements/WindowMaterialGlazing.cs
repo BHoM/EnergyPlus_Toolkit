@@ -11,7 +11,7 @@ namespace BH.oM.EnergyPlus
         public virtual string ClassName { get; set; } = "WindowMaterial:Glazing";
         [Order]
         [Description("No description available")]
-        public override string Name { get; set; } = "DefaultMaterial";
+        public override string Name { get; set; } = "DefaultWindowGlazingMaterial";
         [Order]
         [Description("No description available")]
         public virtual OpticalDataType OpticalDataType{ get; set; } = OpticalDataType.SpectralAverage;
@@ -32,22 +32,22 @@ namespace BH.oM.EnergyPlus
         public virtual double BackSideSolarReflectanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
         [Description("No description available")]
-        public virtual double VisibleTransmittanceAtNormalIncidence { get; set; } = 0.8;
+        public virtual double VisibleTransmittanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
         [Description("No description available")]
-        public virtual double FrontSideVisibleReflectanceAtNormalIncidence { get; set; } = 0.8;
+        public virtual double FrontSideVisibleReflectanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
         [Description("No description available")]
-        public virtual double BackSideVisibleReflectanceAtNormalIncidence { get; set; } = 0.8;
+        public virtual double BackSideVisibleReflectanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
         [Description("No description available")]
-        public virtual double InfraredTransmittanceAtNormalIncidence { get; set; } = 0.8;
+        public virtual double InfraredTransmittanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
         [Description("No description available")]
-        public virtual double FrontSideInfraredHemisphericalEmissivity { get; set; } = 0.84;
+        public virtual double FrontSideInfraredHemisphericalEmissivity { get; set; } = 0.5;
         [Order]
         [Description("No description available")]
-        public virtual double BackSideInfraredHemisphericalEmissivity { get; set; } = 0.84;
+        public virtual double BackSideInfraredHemisphericalEmissivity { get; set; } = 0.5;
         [Order]
         [Description("No description available")]
         public virtual double Conductivity { get; set; } = 0.9;

@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using BHM = BH.oM.Environment.MaterialFragments;
 using BHP = BH.oM.Environment.Fragments;
 using BHG = BH.oM.Geometry;
+using BH.oM.EnergyPlus;
 
 using BH.Engine.Environment;
 
@@ -36,35 +37,21 @@ namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static string ToEnergyPlus(this BHM.Gas gasType)
+        public static GasType ToEnergyPlus(this BHM.Gas gasType)
         {
             switch (gasType)
             {
                 case BHM.Gas.Air:
-                    return "Air";
+                    return GasType.Air;
                 case BHM.Gas.Argon:
-                    return "Argon";
+                    return GasType.Argon;
                 case BHM.Gas.Krypton:
-                    return "Krypton";
+                    return GasType.Krypton;
                 case BHM.Gas.Xenon:
-                    return "Xenon";
+                    return GasType.Xenon;
                 default:
-                    return "Air";
+                    return GasType.Air;
             }
-        }
-
-        public static BHM.Gas FromEnergyPlusGasType(this string gasType)
-        {
-            if (gasType.Equals("Air"))
-                return BHM.Gas.Air;
-            if (gasType.Equals("Argon"))
-                return BHM.Gas.Argon;
-            if (gasType.Equals("Krypton"))
-                return BHM.Gas.Krypton;
-            if (gasType.Equals("Xenon"))
-                return BHM.Gas.Xenon;
-
-            return BHM.Gas.Undefined;
         }
     }
 }

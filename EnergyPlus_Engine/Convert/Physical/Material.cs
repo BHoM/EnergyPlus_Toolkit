@@ -26,28 +26,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OpenStudio;
 using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
+using BHM = BH.oM.Physical.Materials;
+using BHP = BH.oM.Physical.Constructions;
+using BH.oM.EnergyPlus.Settings;
+using BH.oM.EnergyPlus;
 
 using BH.Engine.Environment;
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
-using BH.oM.EnergyPlus;
+using BH.oM.Physical.Materials;
+using BH.oM.Environment.MaterialFragments;
 
 namespace BH.Engine.EnergyPlus
 {
-    public static partial class Query
+    public static partial class Convert
     {
-        public static OutsideBoundaryCondition BoundaryCondition(this BHE.Panel panel)
+        public static IEnergyPlusClass ToEnergyPlus(this Material material, double thickness)
         {
-            if (panel.Type == BHE.PanelType.Roof || panel.Type == BHE.PanelType.WallExternal)
-                return OutsideBoundaryCondition.Outdoors;
 
-            if (panel.ConnectedSpaces.Count == 2)
-                return OutsideBoundaryCondition.Zone;
-
-            return OutsideBoundaryCondition.Undefined;
+            if (material.Properties[0].GetType() == typeof(SolidMaterial))
+            {
+                return ((SolidMaterial)material.Properties[0]).ToEnergyPlus(thickness);
+            }
+            else if (material.Properties[0].GetType() == typeof(GasMaterial))
+            {
+                return ((GasMaterial)material.Properties[0]).ToEnergyPlus(thickness);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
