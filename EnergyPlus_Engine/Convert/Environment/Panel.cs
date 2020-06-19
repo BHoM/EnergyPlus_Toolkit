@@ -59,8 +59,8 @@ namespace BH.Engine.EnergyPlus
             int vertexCount = vertices.Count;
             string panelName = panel.Name == "" ? panel.BHoM_Guid.ToString() : panel.Name;
             string zoneName = panel.ConnectedSpaces[0];
-            string sunExposure = panel.SunWindExposed() ? "SunExposed" : "NoSun";
-            string windExposure = panel.SunWindExposed() ? "WindExposed" : "NoWind";
+            string sunExposure = panel.SunWindExposure() ? "SunExposed" : "NoSun";
+            string windExposure = panel.SunWindExposure() ? "WindExposed" : "NoWind";
 
             GlobalGeometryRules globalGeometryRules = new GlobalGeometryRules();
             classes.Add(globalGeometryRules);
