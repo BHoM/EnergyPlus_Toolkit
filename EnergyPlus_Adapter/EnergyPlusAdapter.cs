@@ -20,24 +20,14 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BH.oM.Base;
-//using System.Reflection;
-using BH.oM.Data.Requests;
-using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
-
-using BH.oM.EnergyPlus.Settings;
-
-using System.Reflection;
+using System.IO;
 
 using BH.oM.Adapter;
-using System.IO;
+using BH.oM.EnergyPlus.Settings;
+using BH.oM.Reflection.Attributes;
+
 
 namespace BH.Adapter.EnergyPlus
 {

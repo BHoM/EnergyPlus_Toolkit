@@ -26,7 +26,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using OpenStudio;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
 
