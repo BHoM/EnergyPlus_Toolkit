@@ -38,7 +38,7 @@ namespace BH.Engine.EnergyPlus
 {
     public static partial class Query
     {
-        public static bool SunWindExposed(this BHE.Panel panel)
+        public static bool SunWindExposure(this BHE.Panel panel)
         {
             if ((panel.Type == BHE.PanelType.Roof) || (panel.Type == BHE.PanelType.WallExternal) || (panel.Type == BHE.PanelType.FloorExposed) || (panel.Type == BHE.PanelType.Wall))
             {

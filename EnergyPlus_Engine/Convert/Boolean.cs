@@ -46,7 +46,7 @@ namespace BH.Engine.EnergyPlus
     public static partial class Convert
     {
         [Description("Convert a boolean to an EnergyPlus freindly Yes or No")]
-        [Input("bool", "A True or False value")]
+        [Input("value", "A True or False value")]
         [Output("answer", "A Yes or a No")]
         public static string Boolean(this bool value)
         {

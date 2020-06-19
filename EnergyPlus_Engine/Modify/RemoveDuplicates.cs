@@ -46,7 +46,7 @@ namespace BH.Engine.EnergyPlus
     public static partial class Modify
     {
         [Description("Remove duplicate IEnergyPlusClass objects")]
-        [Input("EnergyPlusClasses", "A list of EnergyPlus classes")]
+        [Input("energyPlusClasses", "A list of EnergyPlus classes")]
         [Output("energyPlusClasses", "A list of EnergyPlus classes with duplicates removed")]
         public static List<IEnergyPlusClass> RemoveDuplicates(this List<IEnergyPlusClass> energyPlusClasses)
         {
