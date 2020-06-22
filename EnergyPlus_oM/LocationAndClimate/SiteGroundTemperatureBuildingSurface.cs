@@ -32,40 +32,40 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Site:GroundTemperature:BuildingSurface";
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in January")]
         public virtual double JanuaryGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in February")]
         public virtual double FebruaryGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in March")]
         public virtual double MarchGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in April")]
         public virtual double AprilGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in May")]
         public virtual double MayGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in June")]
         public virtual double JuneGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in July")]
         public virtual double JulyGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in August")]
         public virtual double AugustGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in September")]
         public virtual double SeptemberGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in October")]
         public virtual double OctoberGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in November")]
         public virtual double NovemberGroundTemperature { get; set; } = 18;
         [Order]
-        [Description("No description available")]
+        [Description("Ground surface temperature in December")]
         public virtual double DecemberGroundTemperature { get; set; } = 18;
     }
 }

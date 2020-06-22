@@ -32,7 +32,7 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Site:Location";
         [Order]
-        [Description("No description available")]
+        [Description("Location name")]
         public override string Name { get; set; } = "DefaultLocation";
         [Order]
         [Description("+ is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)")]
@@ -41,10 +41,10 @@ namespace BH.oM.EnergyPlus
         [Description("- is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)")]
         public virtual double Longitude { get; set; } = 0.0;
         [Order]
-        [Description("basic these limits on the WorldTimeZone Map (2003)")]
+        [Description("UTC offset from GMT")]
         public virtual double TimeZone { get; set; } = 0.0;
         [Order]
-        [Description("No description available")]
+        [Description("Elevation in m above sea level")]
         public virtual double Elevation { get; set; } = 0.0;
     }
 }

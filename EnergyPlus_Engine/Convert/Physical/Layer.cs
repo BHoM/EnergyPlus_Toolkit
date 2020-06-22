@@ -20,19 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BHP = BH.oM.Physical.Constructions;
 using BH.oM.EnergyPlus;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
+using BHP = BH.oM.Physical.Constructions;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
+        [Description("Convert a BHoM Layer into an EnergyPlus IEnergyPlusClass object")]
+        [Input("layer", "A BHoM Layer object")]
+        [Output("iEnergyPlusClass", "EnergyPlus IEnergyPlusClass object")]
         public static IEnergyPlusClass ToEnergyPlus(this BHP.Layer layer)
         {
             return layer.Material.ToEnergyPlus(layer.Thickness);

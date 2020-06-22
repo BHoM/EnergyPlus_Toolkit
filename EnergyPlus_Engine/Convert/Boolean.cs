@@ -20,32 +20,14 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BH.oM.EnergyPlus.Settings;
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
-
-using BH.Engine.Environment;
-using BH.Engine.Geometry;
-
-using BHG = BH.oM.Geometry;
-using BH.oM.EnergyPlus;
-using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
-using BH.oM.Reflection;
-using BH.Engine.Diffing;
-using BH.oM.Diffing;
+using System.ComponentModel;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        [Description("Convert a boolean to an EnergyPlus freindly Yes or No")]
+        [Description("Convert a boolean to an EnergyPlus friendly Yes or No")]
         [Input("value", "A True or False value")]
         [Output("answer", "A Yes or a No")]
         public static string Boolean(this bool value)

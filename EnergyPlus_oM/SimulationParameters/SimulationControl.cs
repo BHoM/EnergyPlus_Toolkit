@@ -44,7 +44,7 @@ namespace BH.oM.EnergyPlus
         public virtual bool RunSimulationForWeatherFileRunPeriods { get; set; } = true;
         [Order][Description("If True, SizingPeriod:* objects are exectuted additional times for advanced sizing.")]
         public virtual bool DoHVACSizingSimulationForSizingPeriods { get; set; } = false;
-        [Order][Description("the entire set of SizingPeriod:* objects may be repeated to fine tune size results")]
+        [Order][Description("The entire set of SizingPeriod:* objects may be repeated to fine tune size results")]
         public virtual int MaximumNumberOfHVACSizingSimulationPasses { get; set; } = 1;
     }
 }

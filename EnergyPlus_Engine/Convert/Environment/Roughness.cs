@@ -20,23 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
-using BHG = BH.oM.Geometry;
-using BHM = BH.oM.Environment.MaterialFragments;
 using BH.oM.EnergyPlus;
-using BH.Engine.Environment;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
+using BHM = BH.oM.Environment.MaterialFragments;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
+        [Description("Convert a BHoM Roughness to an EnergyPlus Roughness")]
+        [Input("roughness", "BHoM roughness")]
+        [Output("roughness", "EnergyPlus Roughness")]
         public static Roughness ToEnergyPlus(this BHM.Roughness roughness)
         {
             switch (roughness)

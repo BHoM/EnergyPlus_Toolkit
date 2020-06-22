@@ -32,10 +32,10 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Output:VariableDictionary";
         [Order]
-        [Description("No description available")]
-        public virtual OutputVariableDictionaryKeyField KeyField { get; set; } = OutputVariableDictionaryKeyField.IDF;
+        [Description("Keep as regular to generate RDD")]
+        public virtual OutputVariableDictionaryKeyField KeyField { get; set; } = OutputVariableDictionaryKeyField.regular;
         [Order]
-        [Description("No description available")]
+        [Description("Sort outputs by ...")]
         public virtual OutputVariableDictionarySortOption SortOption { get; set; } = OutputVariableDictionarySortOption.Name;
     }
 }

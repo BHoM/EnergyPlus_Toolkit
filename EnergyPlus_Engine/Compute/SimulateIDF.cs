@@ -20,10 +20,12 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.EnergyPlus.Settings;
 using BH.oM.Reflection.Attributes;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using BH.oM.EnergyPlus.Settings;
+using System.IO;
 
 namespace BH.Engine.Radiance
 {
@@ -37,6 +39,16 @@ namespace BH.Engine.Radiance
         {
             string formatString = "{0} -a -r -x -d {1} -p {2} -w {3} {4}";
             string commandString = String.Format(formatString, energyPlusSettings.EnergyPlusExecutable, energyPlusSettings.ProjectDirectory, energyPlusSettings.ProjectName, energyPlusSettings.WeatherFile, idfFile);
+
+            // Clear existing files to prevent re-use of these in simulation
+            List<string> toDelete = new List<string>() { "audit", "bnd", "csv", "dbg", "eio", "end", "err", "eso", "mtd", "mtr", "rdd", "shd" };
+            foreach (string ext in toDelete)
+            {
+                foreach (string f in Directory.EnumerateFiles(energyPlusSettings.ProjectDirectory, String.Format("{0}.{1}", energyPlusSettings.ProjectName, ext)))
+                {
+                    File.Delete(f);
+                }
+            }            
 
             if (RunCommand(commandString))
             {

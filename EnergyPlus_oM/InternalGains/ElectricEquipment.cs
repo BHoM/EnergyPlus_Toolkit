@@ -27,42 +27,42 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class ElectricEquipment : BHoMObject
+    public class ElectricEquipment : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "ElectricEquipment";
         [Order]
-        [Description("No description available")]
-        public override string Name { get; set; } = "";
+        [Description("Name of the gain")]
+        public virtual string Name { get; set; } = "";
         [Order]
-        [Description("No description available")]
+        [Description("List of zones in which gain is present")]
         public virtual ZoneList ZoneOrZoneListName { get; set; } = new ZoneList();
         [Order]
-        [Description("units in schedule should be fraction applied to design level of electric equipment, generally (0.0 - 1.0)")]
+        [Description("Schedule detailing gain profile")]
         public virtual string ScheduleName { get; set; } = "";
         [Order]
-        [Description("The entered calculation method is used to create the maximum amount of electric equipment")]
+        [Description("Gain calculation method")]
         public virtual ElectricEquipmentDesignLevelCalculationMethod DesignLevelCalculationMethod { get; set; } = ElectricEquipmentDesignLevelCalculationMethod.Undefined;
         [Order]
-        [Description("No description available")]
+        [Description("Base gain value (W)")]
         public virtual double DesignLevel { get; set; } = 0.0;
         [Order]
-        [Description("No description available")]
+        [Description("Base gain value (W/m2)")]
         public virtual double WattsPerZoneFloorArea { get; set; } = 0.0;
         [Order]
-        [Description("No description available")]
+        [Description("Base gain value (W/person)")]
         public virtual double WattsPerPerson { get; set; } = 0.0;
         [Order]
-        [Description("No description available")]
+        [Description("Latent fraction of gain (0-1)")]
         public virtual double FractionLatent { get; set; } = 0.0;
         [Order]
-        [Description("No description available")]
+        [Description("Radiant fraction of gain (0-1)")]
         public virtual double FractionRadiant { get; set; } = 0.0;
         [Order]
-        [Description("No description available")]
+        [Description("Fraction of gain lost as neither latent or radiant (0-1)")]
         public virtual double FractionLost { get; set; } = 0.0;
         [Order]
-        [Description("Any text may be used here to categorize the end-uses in the ABUPS End Uses by Subcategory table.")]
+        [Description("Any text may be used here to categorize the end-uses in the ABUPS End Uses by Subcategory table")]
         public virtual string EndUseSubcategory { get; set; } = "";
 }
 }

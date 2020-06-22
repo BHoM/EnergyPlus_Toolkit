@@ -33,37 +33,37 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "BuildingSurface:Detailed";
         [Order]
-        [Description("No description available")]
+        [Description("Name of surface")]
         public override string Name { get; set; } = "";
         [Order]
-        [Description("No description available")]
+        [Description("Type of surface")]
         public virtual BuildingSurfaceType SurfaceType { get; set; } = BuildingSurfaceType.Undefined;
         [Order]
-        [Description("To be matched with a construction in this input file")]
+        [Description("To be matched with a construction applied to surface")]
         public virtual string ConstructionName { get; set; } = "";
         [Order]
         [Description("Zone the surface is a part of")]
         public virtual string ZoneName { get; set; } = "";
         [Order]
-        [Description("No description available")]
+        [Description("Adjacent (external) boundary condition of surface")]
         public virtual OutsideBoundaryCondition OutsideBoundaryCondition { get; set; } = OutsideBoundaryCondition.Undefined;
         [Order]
         [Description("Non-blank only if the field Outside Boundary Condition is Surface,")]
         public virtual string OutsideBoundaryConditionObject { get; set; } = "";
         [Order]
-        [Description("No description available")]
+        [Description("True if exposed to Sun")]
         public virtual string SunExposure { get; set; } =  "NoSun";
         [Order]
-        [Description("No description available")]
+        [Description("True if exposed to Wind")]
         public virtual string WindExposure { get; set; } = "NoWind";
         [Order]
         [Description("From the exterior of the surface")]
         public virtual string ViewFactorToGround { get; set; } = "autocalculate";
         [Order]
-        [Description("shown with 120 vertex coordinates -- extensible object")]
+        [Description("Number of vertices comprising the surface boundary")]
         public virtual int NumberOfVertices { get; set; } = 0;
         [Order]
-        [Description("No description available")]
+        [Description("List of surface boundary vertices")]
         public virtual List<Point> Vertices { get; set; } = new List<Point>();
     }
 }

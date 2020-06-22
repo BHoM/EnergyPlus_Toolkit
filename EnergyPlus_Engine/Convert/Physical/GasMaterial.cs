@@ -20,29 +20,22 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BHE = BH.oM.Environment.Elements;
-using BHM = BH.oM.Physical.Materials;
-using BHP = BH.oM.Physical.Constructions;
-using BH.oM.EnergyPlus.Settings;
 using BH.oM.EnergyPlus;
-
-using BH.Engine.Environment;
-using BH.oM.Physical.Materials;
 using BH.oM.Environment.MaterialFragments;
+using BH.oM.Physical.Materials;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
+        [Description("Convert a BHoM GasMaterial into an EnergyPlus EnergyPlusWindowMaterialGas object")]
+        [Input("gasMaterial", "A BHoM GasMaterial object")]
+        [Input("thickness", "Thickness of material")]
+        [Output("energyPlusWindowMaterialGas", "EnergyPlus EnergyPlusWindowMaterialGas")]
         public static IEnergyPlusClass ToEnergyPlus(this GasMaterial gasMaterial, double thickness = 0)
         {
-            // Convert gasMaterial to Material
             Material bhomMaterial = new Material();
             bhomMaterial.Properties.Add(gasMaterial);
 

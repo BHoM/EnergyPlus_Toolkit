@@ -20,26 +20,20 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BHE = BH.oM.Environment.Elements;
-using BHM = BH.oM.Physical.Materials;
-using BHP = BH.oM.Physical.Constructions;
-using BH.oM.EnergyPlus.Settings;
 using BH.oM.EnergyPlus;
-
-using BH.Engine.Environment;
 using BH.oM.Physical.Constructions;
-using BH.oM.Physical.Materials;
+using BH.oM.Reflection.Attributes;
+using System.Collections.Generic;
+using System.ComponentModel;
+using BHP = BH.oM.Physical.Constructions;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
+        [Description("Convert a BHoM Construction into a set of EnergyPlus IEnergyPlusClass objects describing construction and materials")]
+        [Input("construction", "A BHoM Construction object")]
+        [Output("energyPlusClasses", "A list of EnergyPlus objects")]
         public static List<IEnergyPlusClass> ToEnergyPlus(this BHP.Construction construction)
         {
             List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();

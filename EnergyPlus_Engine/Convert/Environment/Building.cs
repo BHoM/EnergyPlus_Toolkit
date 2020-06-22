@@ -20,28 +20,24 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using BH.oM.EnergyPlus;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
 using BHE = BH.oM.Environment.Elements;
-using BH.oM.EnergyPlus.Settings;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static List<string> ToEnergyPlus(this BHE.Building building, EnergyPlusSettings settings)
+        [Description("Convert a BHoM Building to an EnergyPlus Building")]
+        [Input("building", "BHoM building")]
+        [Output("building", "EnergyPlus building")]
+        public static IEnergyPlusClass ToEnergyPlus(this BHE.Building building)
         {
-            List<string> buildingAsString = new List<string>();
+            Building eplusBdg = new Building();
+            eplusBdg.Name = building.Name == "" ? building.BHoM_Guid.ToString() : building.Name;
 
-            buildingAsString.Add(String.Format("{0},", "Building"));
-            buildingAsString.Add(String.Format("    {0, -30}, !- {1}", building.Name.Replace(' ', '_'), "Name"));
-            buildingAsString.Add("");
-
-            return buildingAsString;
+            return eplusBdg;
         }
     }
 }

@@ -20,34 +20,19 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BH.oM.EnergyPlus.Settings;
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
-
-using BH.oM.Reflection.Attributes;
-using BH.oM.Reflection;
-using BH.oM.EnergyPlus;
-using BH.Engine.Environment;
-using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
-using BH.oM.Physical.Constructions;
-
-using BH.oM.Environment.MaterialFragments;
-using System.ComponentModel;
-using BH.oM.Diffing;
+using BH.oM.EnergyPlus;
 using BH.oM.Geometry;
+using BH.oM.Reflection.Attributes;
+using System.Collections.Generic;
+using System.ComponentModel;
+using BHE = BH.oM.Environment.Elements;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        [Description("Convert a BHoM Panel into a set of EnergyPlus surfaces, materials and constructions")]
+        [Description("Convert a BHoM Panel into a set of EnergyPlus IEnergyPlusClass objects describing surfaces, materials and constructions")]
         [Input("panel", "A BHoM Environments Panel object, with assigned construction")]
         [Output("energyPlusClasses", "A list of EnergyPlus objects")]
         public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Panel panel)

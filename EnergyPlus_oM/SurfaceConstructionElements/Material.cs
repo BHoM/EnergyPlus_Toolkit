@@ -32,31 +32,31 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Material";
         [Order]
-        [Description("No description available")]
+        [Description("Material name")]
         public override string Name { get; set; } = "DefaultMaterial";
         [Order]
-        [Description("No description available")]
+        [Description("EnergyPlus roughness")]
         public virtual Roughness Roughness { get; set; } = Roughness.MediumRough;
         [Order]
-        [Description("No description available")]
+        [Description("Thickness of material (m)")]
         public virtual double Thickness { get; set; } = 0.1;
         [Order]
-        [Description("No description available")]
+        [Description("Conductivity of material (W/mK)")]
         public virtual double Conductivity { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Density of material (kg/m3)")]
         public virtual double Density { get; set; } = 1000;
         [Order]
-        [Description("No description available")]
+        [Description("Specific heat capacity of material (J/kgK)")]
         public virtual double SpecificHeat { get; set; } = 1000;
         [Order]
-        [Description("No description available")]
+        [Description("Thermal absorptivity (emissivity) of material (0-1)")]
         public virtual double ThermalAbsorptance { get; set; } = 0.9;
         [Order]
-        [Description("No description available")]
+        [Description("Solar absorptivity of material (0-1)")]
         public virtual double SolarAbsorptance { get; set; } = 0.7;
         [Order]
-        [Description("No description available")]
+        [Description("Light absorptivity (1 - albedo) of material (0-1)")]
         public virtual double VisibleAbsorptance { get; set; } = 0.7;
     }
 }

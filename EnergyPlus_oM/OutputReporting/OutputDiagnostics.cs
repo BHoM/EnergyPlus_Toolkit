@@ -32,10 +32,10 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Output:Diagnostics";
         [Order]
-        [Description("No description available")]
+        [Description("Increase verbosity of warnings when simulating")]
         public virtual OutputDiagnosticsKey Key1 { get; set; } = OutputDiagnosticsKey.DisplayAllWarnings;
         [Order]
-        [Description("No description available")]
+        [Description("Report advanced utput upon simulation for debugging")]
         public virtual OutputDiagnosticsKey Key2 { get; set; } = OutputDiagnosticsKey.DisplayAdvancedReportVariables;
     }
 }

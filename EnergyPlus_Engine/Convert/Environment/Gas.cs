@@ -20,23 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BHM = BH.oM.Environment.MaterialFragments;
-using BHP = BH.oM.Environment.Fragments;
-using BHG = BH.oM.Geometry;
 using BH.oM.EnergyPlus;
-
-using BH.Engine.Environment;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
+using BHM = BH.oM.Environment.MaterialFragments;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
+        [Description("Convert a BHoM GasType to an EnergyPlus GasType")]
+        [Input("gasType", "BHoM gas type")]
+        [Output("gasType", "EnergyPlus gas type")]
         public static GasType ToEnergyPlus(this BHM.Gas gasType)
         {
             switch (gasType)

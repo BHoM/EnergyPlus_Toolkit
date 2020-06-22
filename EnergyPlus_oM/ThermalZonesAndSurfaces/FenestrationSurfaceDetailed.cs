@@ -33,16 +33,16 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "FenestrationSurface:Detailed";
         [Order]
-        [Description("No description available")]
+        [Description("Name of surface")]
         public override string Name { get; set; } = "";
         [Order]
-        [Description("No description available")]
+        [Description("type of fenestrtaion")]
         public virtual FenestrationSurfaceType SurfaceType { get; set; } = FenestrationSurfaceType.Undefined;
         [Order]
         [Description("To be matched with a construction in this input file")]
         public virtual string ConstructionName { get; set; } = "";
         [Order]
-        [Description("No description available")]
+        [Description("Hosting surface name")]
         public virtual string BuildingSurfaceName { get; set; } = "";
         [Order]
         [Description("Non-blank only if base surface field Outside Boundary Condition is")]
@@ -57,10 +57,10 @@ namespace BH.oM.EnergyPlus
         [Description("Used only for Surface Type = WINDOW, GLASSDOOR or DOOR")]
         public virtual int Multiplier { get; set; } = 1;
         [Order]
-        [Description("vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates")]
+        [Description("Number of vertices comprising the surface boundary")]
         public virtual int NumberOfVertices { get; set; } = 0;
         [Order]
-        [Description("No description available")]
+        [Description("List of surface boundary vertices")]
         public virtual List<Point> Vertices { get; set; } = new List<Point>();
     }
 }

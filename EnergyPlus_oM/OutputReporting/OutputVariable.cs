@@ -32,16 +32,16 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Output:Variable";
         [Order]
-        [Description("use '*' (without quotes) to apply this variable to all keys")]
+        [Description("Specciy zone or surface for which variable will be reported on. Use '*' (without quotes) to apply this variable to all possible keys.")]
         public virtual string KeyValue { get; set; } = "";
         [Order]
-        [Description("No description available")]
+        [Description("Name of variable to output")]
         public virtual string VariableName { get; set; } = "";
         [Order]
-        [Description("Detailed lists every instance (i.e. HVAC variable timesteps)")]
+        [Description("frequency at which output variable will be reported")]
         public virtual ReportingFrequency ReportingFrequency { get; set; } = ReportingFrequency.Undefined;
         [Order]
-        [Description("No description available")]
+        [Description("Custome schedule passed for reporting values at specific times.")]
         public virtual string ScheduleName { get; set; } = "";
     }
 }

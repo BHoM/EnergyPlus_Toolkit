@@ -20,22 +20,21 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using BH.oM.EnergyPlus;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
 using BHE = BH.oM.Environment.Elements;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
+        [Description("Convert a BHoM PanelType to an EnergyPlus BuildingSurfaceType")]
+        [Input("type", "BHoM panel type")]
+        [Output("type", "EnergyPlus BuildingSurfaceType")]
         public static BuildingSurfaceType ToEnergyPlus(this BHE.PanelType type)
         {
-            switch(type)
+            switch (type)
             {
                 case BHE.PanelType.Ceiling:
                     return BuildingSurfaceType.Ceiling;

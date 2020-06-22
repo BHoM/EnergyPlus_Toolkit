@@ -36,7 +36,7 @@ namespace BH.oM.EnergyPlus
         [Description("choose calculation method. note that TimestepFrequency is only needed for certain cases")]
         public virtual ShadowCalculationMethod CalculationMethod { get; set; } = ShadowCalculationMethod.AverageOverDaysInFrequency;
         [Order]
-        [Description("Frequency at which calculation will be made")]
+        [Description("Frequency at which calculation will be made. For AverageOverDaysInFrequency this rekates to number of days. For TimestepFrequency this relates to each discrete simulation timestep.")]
         public virtual int CalculationFrequency { get; set; } = 20;
         [Order]
         [Description("Number of allowable figures in shadow overlap calculations")]
