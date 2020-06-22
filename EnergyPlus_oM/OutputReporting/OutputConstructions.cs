@@ -32,10 +32,10 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Output:Constructions";
         [Order]
-        [Description("No description available")]
+        [Description("Output materials details upon simulation")]
         public virtual OutputConstructionsDetailsType DetailsType1 { get; set; } = OutputConstructionsDetailsType.Materials;
         [Order]
-        [Description("No description available")]
+        [Description("Output constructions details upon simulation")]
         public virtual OutputConstructionsDetailsType DetailsType2 { get; set; } = OutputConstructionsDetailsType.Constructions;
     }
 }

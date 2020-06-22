@@ -20,19 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using BH.oM.EnergyPlus;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
 using BHE = BH.oM.Environment.Elements;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
+        [Description("Convert a BHoM OpeningType to an EnergyPlus OpeningType")]
+        [Input("type", "BHoM opening type")]
+        [Output("type", "EnergyPlus opening type")]
         public static FenestrationSurfaceType ToEnergyPlus(this BHE.OpeningType type)
         {
             switch (type)

@@ -20,35 +20,23 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BH.oM.EnergyPlus.Settings;
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
-
-using BH.Engine.Environment;
 using BH.Engine.Geometry;
-
-using BHG = BH.oM.Geometry;
 using BH.oM.EnergyPlus;
-using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
-using BH.oM.Reflection;
-using BH.oM.Physical.Constructions;
-using BH.oM.Environment.MaterialFragments;
 using BH.oM.Geometry;
+using BH.oM.Physical.Constructions;
+using BH.oM.Reflection.Attributes;
+using System.Collections.Generic;
+using System.ComponentModel;
+using BHE = BH.oM.Environment.Elements;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        [Description("Convert a BHoM Opening into a set of EnergyPlus surfaces, materials and constructions")]
+        [Description("Convert a BHoM Opening into a set of EnergyPlus IEnergyPlusClass objects describing surfaces, materials and constructions")]
         [Input("opening", "A BHoM Environments Opening object, with assigned construction")]
-        [Output("energyPlusClasses", "A list of EnergyPlus FenestrationSurface:Detailed, Construction, WindowMaterial:Glazing and WindowMaterial:Gas objects")]
+        [Input("string", "Hosting BHoM Environments panel name")]
+        [Output("energyPlusClasses", "A list of EnergyPlus IEnergyPlusClass objects")]
         public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Opening opening, string hostName)
         {
 

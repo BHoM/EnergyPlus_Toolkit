@@ -33,7 +33,7 @@ namespace BH.oM.EnergyPlus
 
         public virtual string ClassName { get; set; } = "Timestep";
         [Order]
-        [Description("Number in hour: normal validity 4 to 60: 6 suggested")]
+        [Description("Number of timesteps simulated per hour: normal validity 4 to 60: 6 suggested. This value must be entirely divisible within 60.")]
         public virtual int NumberOfTimestepsPerHour { get; set; } = 6;
     }
 }

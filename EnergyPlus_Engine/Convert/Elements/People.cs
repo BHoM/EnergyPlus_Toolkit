@@ -20,37 +20,14 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
  */
 
-using BH.oM.Diffing;
-using BH.oM.EnergyPlus;
 using BH.oM.Reflection.Attributes;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using BH.oM.EnergyPlus;
+using System.Collections.Generic;
 
 namespace BH.Engine.EnergyPlus
 {
-    public static partial class Modify
+    public static partial class Convert
     {
-        [Description("Remove duplicate IEnergyPlusClass objects")]
-        [Input("energyPlusClasses", "A list of EnergyPlus classes")]
-        [Output("energyPlusClasses", "A list of EnergyPlus classes with duplicates removed")]
-        public static List<IEnergyPlusClass> RemoveDuplicates(this List<IEnergyPlusClass> energyPlusClasses)
-        {
-            DiffConfig config = new DiffConfig()
-            {
-                PropertiesToIgnore = new List<string>
-                {
-                    "BHoM_Guid",
-                    "CustomData",
-                },
-                NumericTolerance = BH.oM.Geometry.Tolerance.Distance,
-            };
-
-            List<IEnergyPlusClass> hashedList = BH.Engine.Diffing.Modify.SetHashFragment(energyPlusClasses, config);
-
-            List<IEnergyPlusClass> uniqueList = Diffing.Modify.RemoveDuplicatesByHash(hashedList).ToList();
-
-            return uniqueList;
-        }
     }
 }

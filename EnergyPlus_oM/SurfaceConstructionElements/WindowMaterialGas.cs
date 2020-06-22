@@ -32,13 +32,13 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "WindowMaterial:Gas";
         [Order]
-        [Description("No description available")]
+        [Description("Gas material name")]
         public override string Name { get; set; } = "DefaultWindwGasMaterial";
         [Order]
-        [Description("No description available")]
+        [Description("Energyplys gas type")]
         public virtual GasType GasType { get; set; } = GasType.Air;
         [Order]
-        [Description("No description available")]
+        [Description("thickness of gas material")]
         public virtual double Thickness { get; set; } = 0.005;
     }
 }

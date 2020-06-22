@@ -20,24 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
-
-using BH.Engine.Environment;
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
 using BH.oM.EnergyPlus;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
+using BHE = BH.oM.Environment.Elements;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Query
     {
+        [Description("Query the EnergyPlus equivalent OutsideBoundaryCondition for a BHoM panel object")]
+        [Input("panel", "A BHoM Environments panel object")]
+        [Output("outsideBoundaryCondition", "An EnergyPlus OutsideBoundaryCondition")]
         public static OutsideBoundaryCondition BoundaryCondition(this BHE.Panel panel)
         {
             if ((panel.Type == BHE.PanelType.Roof) || (panel.Type == BHE.PanelType.WallExternal) || (panel.Type == BHE.PanelType.FloorExposed) || (panel.Type == BHE.PanelType.Wall))

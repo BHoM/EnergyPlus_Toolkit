@@ -20,31 +20,24 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
 using BH.Engine.Reflection;
-using BH.oM.Reflection;
 using BH.oM.EnergyPlus;
 using BH.oM.Geometry;
-
-
-/////
-//using BH.Engine.Diffing;
-///// 
-/////
-//BH.oM.Diffing.DiffConfig proptignore = new oM.Diffing.DiffConfig();
-//proptignore.PropertiesToIgnore = new List<string>() { "A", "B" };
-//            BH.Engine.Diffing.Query.DifferentProperties(glzMaterials[0], glzMaterials[1]);
-//            ///
+using BH.oM.Reflection;
+using BH.oM.Reflection.Attributes;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
+using System.Text;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
+        [Description("Convert an IEnergyPlusClass object to it's string representation for passing to IDF file")]
+        [Input("energyPlusClass", "IEnergyPlusClass object")]
+        [Output("energyPlusString", "String representation of IEnergyPlusClass object/s")]
         public static string ToEnergyPlusString(this IEnergyPlusClass energyPlusClass)
         {
             StringBuilder sb = new StringBuilder();

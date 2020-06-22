@@ -20,26 +20,25 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.EnergyPlus;
+using BH.oM.Reflection.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BHE = BH.oM.Environment.Elements;
-using BH.oM.EnergyPlus;
 using System.ComponentModel;
-using BH.oM.Environment.Fragments;
+using System.Linq;
 using System.Reflection;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static Schedule ToEnergyPlus(this BH.oM.Environment.Gains.Profile profile, ScheduleTypeLimitsNumericType scheduleTypeLimitsNumericType, ScheduleTypeLimitsUnitType scheduleTypeLimitsUnitType)
+        [Description("Convert a BHoM Profile to an EnergyPlus Schedule")]
+        [Input("profile", "BHoM Profile")]
+        [Input("scheduleTypeLimitsNumericType", "EnergyPlus ScheduleTypeLimitsNumericType")]
+        [Input("scheduleTypeLimitsUnitType", "EnergyPlus ScheduleTypeLimitsUnitType")]
+        [Output("schedule", "EnergyPlus Schedule")]
+        public static List<IEnergyPlusClass> ToEnergyPlus(this BH.oM.Environment.Gains.Profile profile, ScheduleTypeLimitsNumericType scheduleTypeLimitsNumericType, ScheduleTypeLimitsUnitType scheduleTypeLimitsUnitType)
         {
-            Schedule schedule = new Schedule();
-
             ScheduleTypeLimits scheduleTypeLimits = new ScheduleTypeLimits();
             scheduleTypeLimits.Name = String.Format("{0} TypeLimits", profile.Name).Trim();
             scheduleTypeLimits.NumericType = scheduleTypeLimitsNumericType;
@@ -72,11 +71,7 @@ namespace BH.Engine.EnergyPlus
             scheduleWeekDaily.CustomDay1ScheduleDayName = scheduleDayHourly.Name;
             scheduleWeekDaily.CustomDay2ScheduleDayName = scheduleDayHourly.Name;
 
-            schedule.ScheduleTypeLimits = scheduleTypeLimits;
-            schedule.ScheduleDayHourly = scheduleDayHourly;
-            schedule.ScheduleWeekDaily = scheduleWeekDaily;
-
-            return schedule;
+            return new List<IEnergyPlusClass>() { scheduleTypeLimits, scheduleDayHourly, scheduleWeekDaily};
         }
     }
 }

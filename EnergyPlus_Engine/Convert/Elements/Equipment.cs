@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -20,27 +20,14 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
  */
 
-using System;
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
+using BH.oM.EnergyPlus;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
 
 namespace BH.Engine.EnergyPlus
 {
     public static partial class Convert
     {
-        public static List<string> ToEnergyPlus(this BHG.Polyline pLine, int decimalPlaces = 6)
-        {
-            List<string> polylineAsString = new List<string>();
-
-            polylineAsString.Add(String.Format("    {0, -30}, !- {1}", pLine.ControlPoints.Count - 1, "Number of Vertices"));
-            polylineAsString.AddRange(pLine.ControlPoints.Select(x => x.RoundPoint(decimalPlaces)).Distinct().ToList().ToEnergyPlus());
-
-            return polylineAsString;
-        }
     }
 }

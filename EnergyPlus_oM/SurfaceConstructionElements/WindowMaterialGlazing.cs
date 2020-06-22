@@ -32,58 +32,58 @@ namespace BH.oM.EnergyPlus
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "WindowMaterial:Glazing";
         [Order]
-        [Description("No description available")]
+        [Description("Window glass material name")]
         public override string Name { get; set; } = "DefaultWindowGlazingMaterial";
         [Order]
-        [Description("No description available")]
+        [Description("Spectral transmittance calculation method")]
         public virtual OpticalDataType OpticalDataType{ get; set; } = OpticalDataType.SpectralAverage;
         [Order]
-        [Description("No description available")]
+        [Description("If any option other than SpectralAverage chosen for OpticalDataType, this must be passed alongside")]
         public virtual string WindowGlassSpectralDataSetName { get; set; } = "";
         [Order]
-        [Description("No description available")]
+        [Description("Thickness of glass")]
         public virtual double Thickness { get; set; } = 0.005;
         [Order]
-        [Description("No description available")]
+        [Description("Normal solar transmittance of glass")]
         public virtual double SolarTransmittanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Front side solar reflectance")]
         public virtual double FrontSideSolarReflectanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Back side solar reflectance")]
         public virtual double BackSideSolarReflectanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Normal visible trnamittance of glass")]
         public virtual double VisibleTransmittanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Front side visible reflectance")]
         public virtual double FrontSideVisibleReflectanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Back side visible reflectance")]
         public virtual double BackSideVisibleReflectanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Normal infrared emissivity")]
         public virtual double InfraredTransmittanceAtNormalIncidence { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Front side infrared emissivity")]
         public virtual double FrontSideInfraredHemisphericalEmissivity { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Back side infrared emissivity")]
         public virtual double BackSideInfraredHemisphericalEmissivity { get; set; } = 0.5;
         [Order]
-        [Description("No description available")]
+        [Description("Conductivity (W/mK)")]
         public virtual double Conductivity { get; set; } = 0.9;
         [Order]
-        [Description("No description available")]
+        [Description("Factor to reduce overall transmissivity of glass due to dirt")]
         public virtual double DirtCorrectionFactorForSolarAndVisibleTransmittance { get; set; } = 1;
         [Order]
-        [Description("No description available")]
+        [Description("True if glass diffuses light perfectly")]
         public virtual bool SolarDiffusing { get; set; } = false;
         [Order]
-        [Description("No description available")]
+        [Description("Value used for deformation and impact on transmittance angles")]
         public virtual double YoungsModulus { get; set; } = 72000000000;
         [Order]
-        [Description("No description available")]
+        [Description("Value used for deformation and impact on transmittance angles")]
         public virtual double PoissonsRatio { get; set; } = 0.22;
     }
 }
