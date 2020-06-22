@@ -81,7 +81,7 @@ namespace BH.Engine.EnergyPlus
                 else if (energyPlusClass.ClassName == "Construction" && property.Name == "Layers")
                 {
                     int subIncrementor = 1;
-                    foreach (string layerName in (energyPlusClass as EnergyPlusConstruction).Layers)
+                    foreach (string layerName in (energyPlusClass as EPConstruction).Layers)
                     {
                         sb.AppendFormat(formatString, layerName, subIncrementor == 1 ? "OutsideLayer" : String.Format("Layer{0}", subIncrementor).ToString());
                         subIncrementor += 1;

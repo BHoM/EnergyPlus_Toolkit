@@ -41,7 +41,7 @@ namespace BH.Engine.EnergyPlus
 
             string materialName = gasMaterial.Name == "" ? gasMaterial.BHoM_Guid.ToString() : gasMaterial.Name;
 
-            EnergyPlusWindowMaterialGas eplusMaterial = new EnergyPlusWindowMaterialGas();
+            EPMaterialWindowGas eplusMaterial = new EPMaterialWindowGas();
             eplusMaterial.Name = materialName;
             eplusMaterial.GasType = gasMaterial.Gas.ToEnergyPlus();
             eplusMaterial.Thickness = thickness;
