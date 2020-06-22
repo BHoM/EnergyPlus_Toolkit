@@ -49,7 +49,7 @@ namespace BH.Engine.EnergyPlus
 
             if (BH.Engine.Environment.Query.IsTransparent(bhomMaterial))
             {
-                EnergyPlusWindowMaterialGlazing eplusMaterial = new EnergyPlusWindowMaterialGlazing();
+                EPMaterialWindowGlazing eplusMaterial = new EPMaterialWindowGlazing();
                 eplusMaterial.Name = materialName;
                 eplusMaterial.OpticalDataType = OpticalDataType.SpectralAverage;
                 eplusMaterial.Thickness = thickness;
@@ -66,7 +66,7 @@ namespace BH.Engine.EnergyPlus
             }
             else
             {
-                EnergyPlusMaterial eplusMaterial = new EnergyPlusMaterial();
+                EPMaterial eplusMaterial = new EPMaterial();
                 eplusMaterial.Name = materialName;
                 eplusMaterial.Roughness = solidMaterial.Roughness.ToEnergyPlus();
                 eplusMaterial.Thickness = thickness;

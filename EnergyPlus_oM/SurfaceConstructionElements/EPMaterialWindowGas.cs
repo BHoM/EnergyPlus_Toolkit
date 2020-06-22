@@ -20,37 +20,25 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.EnergyPlus;
-using BH.oM.Physical.Constructions;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base;
 using System.Collections.Generic;
 using System.ComponentModel;
-using BHP = BH.oM.Physical.Constructions;
+using BH.oM.Reflection;
 
-namespace BH.Engine.EnergyPlus
+namespace BH.oM.EnergyPlus
 {
-    public static partial class Convert
+    public class EPMaterialWindowGas : BHoMObject, IEnergyPlusClass
     {
-        [Description("Convert a BHoM Construction into a set of EnergyPlus IEnergyPlusClass objects describing construction and materials")]
-        [Input("construction", "A BHoM Construction object")]
-        [Output("energyPlusClasses", "A list of EnergyPlus objects")]
-        public static List<IEnergyPlusClass> ToEnergyPlus(this BHP.Construction construction)
-        {
-            List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
-            EPConstruction eplusConstruction = new EPConstruction();
-            string constructionName = construction.Name == "" ? construction.BHoM_Guid.ToString() : construction.Name;
-            eplusConstruction.Name = constructionName;
-
-            foreach (Layer layer in construction.Layers)
-            {
-                IEnergyPlusClass cls = layer.ToEnergyPlus();
-                classes.Add(cls);
-                eplusConstruction.Layers.Add(cls.Name);
-            }
-
-            classes.Add(eplusConstruction);
-
-            return classes;
-        }
+        [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
+        public virtual string ClassName { get; set; } = "WindowMaterial:Gas";
+        [Order]
+        [Description("Gas material name")]
+        public override string Name { get; set; } = "DefaultWindwGasMaterial";
+        [Order]
+        [Description("Energyplys gas type")]
+        public virtual GasType GasType { get; set; } = GasType.Air;
+        [Order]
+        [Description("thickness of gas material")]
+        public virtual double Thickness { get; set; } = 0.005;
     }
 }

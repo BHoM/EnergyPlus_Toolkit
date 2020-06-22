@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -19,26 +19,14 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-
-using BH.oM.Base;
-using System.Collections.Generic;
-using System.ComponentModel;
-using BH.oM.Reflection;
-
+ 
 namespace BH.oM.EnergyPlus
 {
-    public class EnergyPlusWindowMaterialGas : BHoMObject, IEnergyPlusClass
+    public enum ElectricEquipmentDesignLevelCalculationMethod
     {
-        [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
-        public virtual string ClassName { get; set; } = "WindowMaterial:Gas";
-        [Order]
-        [Description("Gas material name")]
-        public override string Name { get; set; } = "DefaultWindwGasMaterial";
-        [Order]
-        [Description("Energyplys gas type")]
-        public virtual GasType GasType { get; set; } = GasType.Air;
-        [Order]
-        [Description("thickness of gas material")]
-        public virtual double Thickness { get; set; } = 0.005;
-    }
+        Undefined,
+        WattsPerArea,
+        WattsPerPerson,
+        EquipmentLevel
+    };
 }

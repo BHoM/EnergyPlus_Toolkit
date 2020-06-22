@@ -27,21 +27,36 @@ using BH.oM.Reflection;
 
 namespace BH.oM.EnergyPlus
 {
-    public class OutputVariable : BHoMObject, IEnergyPlusClass
+    public class EPMaterial : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
-        public virtual string ClassName { get; set; } = "Output:Variable";
+        public virtual string ClassName { get; set; } = "Material";
         [Order]
-        [Description("Specciy zone or surface for which variable will be reported on. Use '*' (without quotes) to apply this variable to all possible keys.")]
-        public virtual string KeyValue { get; set; } = "";
+        [Description("Material name")]
+        public override string Name { get; set; } = "DefaultMaterial";
         [Order]
-        [Description("Name of variable to output")]
-        public virtual string VariableName { get; set; } = "";
+        [Description("EnergyPlus roughness")]
+        public virtual Roughness Roughness { get; set; } = Roughness.MediumRough;
         [Order]
-        [Description("frequency at which output variable will be reported")]
-        public virtual ReportingFrequency ReportingFrequency { get; set; } = ReportingFrequency.Hourly;
+        [Description("Thickness of material (m)")]
+        public virtual double Thickness { get; set; } = 0.1;
         [Order]
-        [Description("Custome schedule passed for reporting values at specific times.")]
-        public virtual string ScheduleName { get; set; } = "";
+        [Description("Conductivity of material (W/mK)")]
+        public virtual double Conductivity { get; set; } = 0.5;
+        [Order]
+        [Description("Density of material (kg/m3)")]
+        public virtual double Density { get; set; } = 1000;
+        [Order]
+        [Description("Specific heat capacity of material (J/kgK)")]
+        public virtual double SpecificHeat { get; set; } = 1000;
+        [Order]
+        [Description("Thermal absorptivity (emissivity) of material (0-1)")]
+        public virtual double ThermalAbsorptance { get; set; } = 0.9;
+        [Order]
+        [Description("Solar absorptivity of material (0-1)")]
+        public virtual double SolarAbsorptance { get; set; } = 0.7;
+        [Order]
+        [Description("Light absorptivity (1 - albedo) of material (0-1)")]
+        public virtual double VisibleAbsorptance { get; set; } = 0.7;
     }
 }
