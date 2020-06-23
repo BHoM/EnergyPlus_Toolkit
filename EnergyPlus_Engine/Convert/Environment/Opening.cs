@@ -35,7 +35,7 @@ namespace BH.Engine.EnergyPlus
     {
         [Description("Convert a BHoM Opening into a set of EnergyPlus IEnergyPlusClass objects describing surfaces, materials and constructions")]
         [Input("opening", "A BHoM Environments Opening object, with assigned construction")]
-        [Input("string", "Hosting BHoM Environments panel name")]
+        [Input("hostName", "Hosting BHoM Environments panel name")]
         [Output("energyPlusClasses", "A list of EnergyPlus IEnergyPlusClass objects")]
         public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Opening opening, string hostName)
         {
