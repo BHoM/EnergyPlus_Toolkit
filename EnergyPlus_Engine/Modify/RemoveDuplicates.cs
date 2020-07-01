@@ -46,7 +46,7 @@ namespace BH.Engine.EnergyPlus
                 NumericTolerance = BH.oM.Geometry.Tolerance.Distance,
             };
 
-            List<IEnergyPlusClass> hashedList = BH.Engine.Diffing.Modify.SetHashFragment(energyPlusClasses, config);
+            List<IEnergyPlusClass> hashedList = BH.Engine.Diffing.Modify.SetHashFragment<IEnergyPlusClass>(energyPlusClasses, config);
 
             List<IEnergyPlusClass> uniqueList = Diffing.Modify.RemoveDuplicatesByHash(hashedList).ToList();
 
