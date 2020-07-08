@@ -33,7 +33,7 @@ namespace BH.oM.EnergyPlus
         public virtual string ClassName { get; set; } = "ElectricEquipment";
         [Order]
         [Description("Name of the gain")]
-        public virtual string Name { get; set; } = "";
+        public override string Name { get; set; } = "";
         [Order]
         [Description("List of zones in which gain is present")]
         public virtual ZoneList ZoneOrZoneListName { get; set; } = new ZoneList();

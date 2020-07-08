@@ -27,17 +27,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 
-namespace BH.Engine.Radiance
+namespace BH.Engine.EnergyPlus
 {
     public static partial class Compute
     {
         [Description("Run an IDF file")]
         [Input("energyPlusSettings", "EnergyPlusSettings object")]
         [Input("idfFile", "EnergyPlus IDF file to simulate")]
+        [Input("run", "Set to \"True\" to run simulation")]
         [Output("success", "True if command has been run sucessfully (subject to program being called correctly returning an Exit Code)")]
-        public static bool SimulateIDF(EnergyPlusSettings energyPlusSettings, string idfFile)
+        public static bool SimulateIDF(EnergyPlusSettings energyPlusSettings, string idfFile, bool run)
         {
-            string formatString = "{0} -a -r -x -d {1} -p {2} -w {3} {4}";
+            string formatString = "{0} -r -x -d {1} -p {2} -w {3} {4}";
             string commandString = String.Format(formatString, energyPlusSettings.EnergyPlusExecutable, energyPlusSettings.ProjectDirectory, energyPlusSettings.ProjectName, energyPlusSettings.WeatherFile, idfFile);
 
             // Clear existing files to prevent re-use of these in simulation

@@ -33,7 +33,7 @@ namespace BH.oM.EnergyPlus
         public virtual string ClassName { get; set; } = "Building";
         [Order]
         [Description("Name of building")]
-        public virtual string Name { get; set; } = "BuildingName";
+        public override string Name { get; set; } = "BuildingName";
         [Order]
         [Description("Degrees from true North")]
         public virtual double NorthAxis { get; set; } = 0.0;
