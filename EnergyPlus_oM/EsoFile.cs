@@ -20,47 +20,27 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base;
+using BH.oM.Reflection;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.Engine.EnergyPlus
+namespace BH.oM.EnergyPlus
 {
-    public static partial class Compute
+    public class ESOFile : BHoMObject
     {
-        [Description("Run a command line command from a string")]
-        [Input("commandString", "The full command string to pass to command line")]
-        [Output("success", "True if command has been run sucessfully (subject to program being called correctly returning an Exit Code)")]
-        public static bool RunCommand(string commandString = null)
-        {
-
-            bool success = false;
-
-            if (commandString == null)
-            {
-                Reflection.Compute.RecordError("No command given.");
-                return false;
-            }
-
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal; // Hidden
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = String.Format("/C {0}", commandString);
-            process.StartInfo = startInfo;
-            process.Start();
-            process.WaitForExit();
-
-            if (process.ExitCode == 0)
-            {
-                success = true;
-            }
-            else
-            {
-                success = false;
-            }
-
-            return success;
-        }
+        [Description("Path of the ESO file output from EnerygPlus simulation")]
+        public virtual string FilePath { get; set; } = "";
+        [Description("Objects with which results are associated")]
+        public virtual List<string> ResultsObjects { get; set; } = new List<string>();
+        [Description("Simulated attribute of object being described")]
+        public virtual List<string> ResultsAttribute { get; set; } = new List<string>();
+        [Description("Results values")]
+        public virtual List<List<double>> ResultsValues { get; set; } = new List<List<double>>();
+        [Description("EnergyPlus version used for simulation")]
+        public virtual string EnergyPlusVersion { get; set; } = "";
+        [Description("The frequency with which the results values are being reported")]
+        public virtual DateTime CreationDate { get; set; } = new DateTime();
     }
 }
