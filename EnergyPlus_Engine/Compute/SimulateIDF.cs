@@ -36,7 +36,7 @@ namespace BH.Engine.EnergyPlus
         [Input("idfFile", "EnergyPlus IDF file to simulate")]
         [Input("run", "Set to \"True\" to run simulation")]
         [Output("success", "True if command has been run sucessfully (subject to program being called correctly returning an Exit Code)")]
-        public static bool SimulateIDF(EnergyPlusSettings energyPlusSettings, string idfFile, bool run)
+        public static bool SimulateIDF(EnergyPlusSettings energyPlusSettings, string idfFile, bool run = false)
         {
             string formatString = "{0} -r -x -d {1} -p {2} -w {3} {4}";
             string commandString = String.Format(formatString, energyPlusSettings.EnergyPlusExecutable, energyPlusSettings.ProjectDirectory, energyPlusSettings.ProjectName, energyPlusSettings.WeatherFile, idfFile);
