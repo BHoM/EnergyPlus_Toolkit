@@ -38,9 +38,6 @@ namespace BH.Engine.EnergyPlus
         [Output("success", "True if command has been run sucessfully (subject to program being called correctly returning an Exit Code)")]
         public static bool SimulateIDF(EnergyPlusSettings energyPlusSettings, string idfFile, bool run = false)
         {
-            string formatString = "{0} -r -x -d {1} -p {2} -w {3} {4}";
-            string commandString = String.Format(formatString, energyPlusSettings.EnergyPlusExecutable, energyPlusSettings.ProjectDirectory, energyPlusSettings.ProjectName, energyPlusSettings.WeatherFile, idfFile);
-
             // Clear existing files to prevent re-use of these in simulation
             List<string> toDelete = new List<string>() { "audit", "bnd", "csv", "dbg", "eio", "end", "err", "eso", "mtd", "mtr", "rdd", "shd" };
             foreach (string ext in toDelete)
@@ -49,11 +46,24 @@ namespace BH.Engine.EnergyPlus
                 {
                     File.Delete(f);
                 }
-            }            
+            }
 
-            if (RunCommand(commandString))
+            // Construct full run-command
+            string formatString = "{0} -r -x -d {1} -p {2} -w {3} {4}";
+            string commandString = String.Format(formatString, energyPlusSettings.EnergyPlusExecutable, energyPlusSettings.ProjectDirectory, energyPlusSettings.ProjectName, energyPlusSettings.WeatherFile, idfFile);
+
+            bool success;
+            if (run)
             {
-                return true;
+                success = RunCommand(commandString);
+                if (success)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
