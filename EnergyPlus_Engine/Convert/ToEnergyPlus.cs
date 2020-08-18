@@ -207,17 +207,11 @@ namespace BH.Engine.EnergyPlus
         public static IEnergyPlusClass ToEnergyPlus(this Material material, double thickness)
         {
             if (material.Properties[0].GetType() == typeof(SolidMaterial))
-            {
                 return ((SolidMaterial)material.Properties[0]).ToEnergyPlus(thickness);
-            }
             else if (material.Properties[0].GetType() == typeof(GasMaterial))
-            {
                 return ((GasMaterial)material.Properties[0]).ToEnergyPlus(thickness);
-            }
             else
-            {
                 return null;
-            }
         }
 
         [Description("Convert a BHoM Layer into an EnergyPlus IEnergyPlusClass object")]
