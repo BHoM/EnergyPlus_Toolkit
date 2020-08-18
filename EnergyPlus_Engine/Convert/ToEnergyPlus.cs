@@ -43,7 +43,7 @@ namespace BH.Engine.EnergyPlus
         [Description("Convert a boolean to an EnergyPlus friendly Yes or No")]
         [Input("value", "A True or False value")]
         [Output("answer", "A Yes or a No")]
-        public static string Boolean(this bool value)
+        public static string ToEnergyPlus(this bool value)
         {
             return value ? "Yes" : "No";
         }
@@ -55,26 +55,86 @@ namespace BH.Engine.EnergyPlus
         {
             switch (roughness)
             {
-                case BHM.Roughness.MediumRough:
-                    return BH.oM.EnergyPlus.Roughness.MediumRough;
-
-                case BHM.Roughness.MediumSmooth:
-                    return BH.oM.EnergyPlus.Roughness.MediumSmooth;
-
-                case BHM.Roughness.Rough:
-                    return BH.oM.EnergyPlus.Roughness.Rough;
-
-                case BHM.Roughness.Smooth:
-                    return BH.oM.EnergyPlus.Roughness.Smooth;
-
-                case BHM.Roughness.VeryRough:
-                    return BH.oM.EnergyPlus.Roughness.VeryRough;
-
                 case BHM.Roughness.VerySmooth:
                     return BH.oM.EnergyPlus.Roughness.VerySmooth;
-
+                case BHM.Roughness.Smooth:
+                    return BH.oM.EnergyPlus.Roughness.Smooth;
+                case BHM.Roughness.MediumSmooth:
+                    return BH.oM.EnergyPlus.Roughness.MediumSmooth;
+                case BHM.Roughness.MediumRough:
+                    return BH.oM.EnergyPlus.Roughness.MediumRough;
+                case BHM.Roughness.Rough:
+                    return BH.oM.EnergyPlus.Roughness.Rough;
+                case BHM.Roughness.VeryRough:
+                    return BH.oM.EnergyPlus.Roughness.VeryRough;
                 default:
                     return BH.oM.EnergyPlus.Roughness.MediumRough;
+            }
+        }
+
+        [Description("Convert a BHoM GasType to an EnergyPlus GasType")]
+        [Input("gasType", "BHoM gas type")]
+        [Output("gasType", "EnergyPlus gas type")]
+        public static GasType ToEnergyPlus(this BHM.Gas gasType)
+        {
+            switch (gasType)
+            {
+                case BHM.Gas.Air:
+                    return GasType.Air;
+                case BHM.Gas.Argon:
+                    return GasType.Argon;
+                case BHM.Gas.Krypton:
+                    return GasType.Krypton;
+                case BHM.Gas.Xenon:
+                    return GasType.Xenon;
+                default:
+                    return GasType.Air;
+            }
+        }
+
+        [Description("Convert a BHoM OpeningType to an EnergyPlus OpeningType")]
+        [Input("type", "BHoM opening type")]
+        [Output("type", "EnergyPlus opening type")]
+        public static FenestrationSurfaceType ToEnergyPlus(this BHE.OpeningType type)
+        {
+            switch (type)
+            {
+                case BHE.OpeningType.Window:
+                    return FenestrationSurfaceType.Window;
+                case BHE.OpeningType.WindowWithFrame:
+                    return FenestrationSurfaceType.Window;
+                case BHE.OpeningType.Rooflight:
+                    return FenestrationSurfaceType.Window;
+                case BHE.OpeningType.RooflightWithFrame:
+                    return FenestrationSurfaceType.Window;
+                case BHE.OpeningType.Door:
+                    return FenestrationSurfaceType.Door;
+                default:
+                    return FenestrationSurfaceType.Window;
+            }
+        }
+
+        [Description("Convert a BHoM PanelType to an EnergyPlus BuildingSurfaceType")]
+        [Input("type", "BHoM panel type")]
+        [Output("type", "EnergyPlus BuildingSurfaceType")]
+        public static BuildingSurfaceType ToEnergyPlus(this BHE.PanelType type)
+        {
+            switch (type)
+            {
+                case BHE.PanelType.Ceiling:
+                    return BuildingSurfaceType.Ceiling;
+                case BHE.PanelType.Floor:
+                    return BuildingSurfaceType.Floor;
+                case BHE.PanelType.Wall:
+                    return BuildingSurfaceType.Wall;
+                case BHE.PanelType.WallInternal:
+                    return BuildingSurfaceType.Wall;
+                case BHE.PanelType.CurtainWall:
+                    return BuildingSurfaceType.Wall;
+                case BHE.PanelType.Roof:
+                    return BuildingSurfaceType.Roof;
+                default:
+                    return BuildingSurfaceType.Wall;
             }
         }
 
@@ -201,30 +261,6 @@ namespace BH.Engine.EnergyPlus
             return eplusBdg;
         }
 
-        [Description("Convert a BHoM GasType to an EnergyPlus GasType")]
-        [Input("gasType", "BHoM gas type")]
-        [Output("gasType", "EnergyPlus gas type")]
-        public static GasType ToEnergyPlus(this BHM.Gas gasType)
-        {
-            switch (gasType)
-            {
-                case BHM.Gas.Air:
-                    return GasType.Air;
-
-                case BHM.Gas.Argon:
-                    return GasType.Argon;
-
-                case BHM.Gas.Krypton:
-                    return GasType.Krypton;
-
-                case BHM.Gas.Xenon:
-                    return GasType.Xenon;
-
-                default:
-                    return GasType.Air;
-            }
-        }
-
         [Description("Convert a BHoM Opening into a set of EnergyPlus IEnergyPlusClass objects describing surfaces, materials and constructions")]
         [Input("opening", "A BHoM Environments Opening object, with assigned construction")]
         [Input("hostName", "Hosting BHoM Environments panel name")]
@@ -238,6 +274,7 @@ namespace BH.Engine.EnergyPlus
             fenestrationSurfaceDetailed.SurfaceType = opening.Type.ToEnergyPlus();
             fenestrationSurfaceDetailed.ConstructionName = opening.OpeningConstruction.Name;
             fenestrationSurfaceDetailed.BuildingSurfaceName = hostName;
+
             List<Point> vertices = BH.Engine.Environment.Query.Polyline(opening).ControlPoints();
             vertices.RemoveAt(vertices.Count - 1);
             vertices.Reverse();
@@ -250,33 +287,6 @@ namespace BH.Engine.EnergyPlus
             classes.AddRange(materialsAndConstruction);
 
             return classes;
-        }
-
-        [Description("Convert a BHoM OpeningType to an EnergyPlus OpeningType")]
-        [Input("type", "BHoM opening type")]
-        [Output("type", "EnergyPlus opening type")]
-        public static FenestrationSurfaceType ToEnergyPlus(this BHE.OpeningType type)
-        {
-            switch (type)
-            {
-                case BHE.OpeningType.Window:
-                    return FenestrationSurfaceType.Window;
-
-                case BHE.OpeningType.WindowWithFrame:
-                    return FenestrationSurfaceType.Window;
-
-                case BHE.OpeningType.Rooflight:
-                    return FenestrationSurfaceType.Window;
-
-                case BHE.OpeningType.RooflightWithFrame:
-                    return FenestrationSurfaceType.Window;
-
-                case BHE.OpeningType.Door:
-                    return FenestrationSurfaceType.Door;
-
-                default:
-                    return FenestrationSurfaceType.Window;
-            }
         }
 
         [Description("Convert a BHoM Panel into a set of EnergyPlus IEnergyPlusClass objects describing surfaces, materials and constructions")]
@@ -324,6 +334,7 @@ namespace BH.Engine.EnergyPlus
                 buildingSurface.ConstructionName = panel.Construction.Name;
                 buildingSurface.ZoneName = zoneName;
                 buildingSurface.OutsideBoundaryCondition = panel.BoundaryCondition();
+
                 if (buildingSurface.OutsideBoundaryCondition == OutsideBoundaryCondition.Zone)
                 {
                     buildingSurface.OutsideBoundaryConditionObject = panel.ConnectedSpaces[-1];
@@ -332,6 +343,7 @@ namespace BH.Engine.EnergyPlus
                 {
                     buildingSurface.OutsideBoundaryConditionObject = "";
                 }
+
                 buildingSurface.SunExposure = sunExposure;
                 buildingSurface.WindExposure = windExposure;
                 buildingSurface.Vertices = vertices;
@@ -339,42 +351,10 @@ namespace BH.Engine.EnergyPlus
                 classes.Add(buildingSurface);
 
                 foreach (BHE.Opening o in panel.Openings)
-                {
                     classes.AddRange(o.ToEnergyPlus(panelName));
-                }
             }
 
             return classes;
-        }
-
-        [Description("Convert a BHoM PanelType to an EnergyPlus BuildingSurfaceType")]
-        [Input("type", "BHoM panel type")]
-        [Output("type", "EnergyPlus BuildingSurfaceType")]
-        public static BuildingSurfaceType ToEnergyPlus(this BHE.PanelType type)
-        {
-            switch (type)
-            {
-                case BHE.PanelType.Ceiling:
-                    return BuildingSurfaceType.Ceiling;
-
-                case BHE.PanelType.Floor:
-                    return BuildingSurfaceType.Floor;
-
-                case BHE.PanelType.Wall:
-                    return BuildingSurfaceType.Wall;
-
-                case BHE.PanelType.WallInternal:
-                    return BuildingSurfaceType.Wall;
-
-                case BHE.PanelType.CurtainWall:
-                    return BuildingSurfaceType.Wall;
-
-                case BHE.PanelType.Roof:
-                    return BuildingSurfaceType.Roof;
-
-                default:
-                    return BuildingSurfaceType.Wall;
-            }
         }
 
         [Description("Convert a BHoM Profile to an EnergyPlus Schedule")]

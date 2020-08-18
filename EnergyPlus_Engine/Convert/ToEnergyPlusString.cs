@@ -111,7 +111,7 @@ namespace BH.Engine.EnergyPlus
                 {
                     if (property.PropertyType == typeof(bool))
                     {
-                        sb.AppendFormat(formatString, BH.Engine.EnergyPlus.Convert.Boolean((bool)energyPlusClass.PropertyValue(property.Name)), property.Name);
+                        sb.AppendFormat(formatString, BH.Engine.EnergyPlus.Convert.ToEnergyPlus((bool)energyPlusClass.PropertyValue(property.Name)), property.Name);
                     }
                     else if (property.PropertyType == typeof(SurfaceConvectionAlgorithmOutsideMethod))
                     {
