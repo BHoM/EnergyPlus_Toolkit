@@ -78,6 +78,17 @@ namespace BH.Engine.EnergyPlus
                         subIncrementor += 1;
                     }
                 }
+                else if ((energyPlusClass.ClassName == "Shading:Building:Detailed") && (property.Name == "Vertices"))
+                {
+                    int subIncrementor = 1;
+                    foreach (Point vertex in (energyPlusClass as ShadingBuildingDetailed).Vertices)
+                    {
+                        sb.AppendFormat(formatString, vertex.X, String.Format("Vertex{0}XCoordinate", subIncrementor));
+                        sb.AppendFormat(formatString, vertex.Y, String.Format("Vertex{0}YCoordinate", subIncrementor));
+                        sb.AppendFormat(formatString, vertex.Z, String.Format("Vertex{0}ZCoordinate", subIncrementor));
+                        subIncrementor += 1;
+                    }
+                }
                 else if (energyPlusClass.ClassName == "Construction" && property.Name == "Layers")
                 {
                     int subIncrementor = 1;
@@ -111,7 +122,6 @@ namespace BH.Engine.EnergyPlus
                         sb.AppendFormat(formatString, energyPlusClass.PropertyValue(property.Name), property.Name);
                     }
                 }
-
             }
             sb.Append("\n");
 

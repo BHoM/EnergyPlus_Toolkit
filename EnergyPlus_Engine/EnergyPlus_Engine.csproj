@@ -106,31 +106,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Convert\ToEnergyPlus.cs" />
     <Compile Include="Query\ReadESO.cs" />
     <Compile Include="Compute\SimulateIDF.cs" />
     <Compile Include="Compute\RunCommand.cs" />
-    <Compile Include="Convert\Elements\Equipment.cs" />
-    <Compile Include="Convert\Elements\People.cs" />
-    <Compile Include="Convert\Elements\Lighting.cs" />
-    <Compile Include="Convert\Physical\GasMaterial.cs" />
-    <Compile Include="Convert\Physical\SolidMaterial.cs" />
-    <Compile Include="Convert\Physical\Material.cs" />
-    <Compile Include="Convert\EnergyPlusClassToString.cs" />
-    <Compile Include="Convert\Environment\Profile.cs" />
-    <Compile Include="Convert\Physical\Construction.cs" />
-    <Compile Include="Convert\Environment\OpeningType.cs" />
-    <Compile Include="Convert\Environment\Roughness.cs" />
-    <Compile Include="Convert\Environment\Gas.cs" />
-    <Compile Include="Convert\Environment\Building.cs" />
-    <Compile Include="Convert\Environment\Opening.cs" />
-    <Compile Include="Convert\Environment\PanelType.cs" />
-    <Compile Include="Convert\Environment\Panel.cs" />
-    <Compile Include="Convert\Physical\Layer.cs" />
+    <Compile Include="Convert\ToEnergyPlusString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\SunWindExposure.cs" />
     <Compile Include="Query\BoundaryCondition.cs" />
     <Compile Include="Modify\RemoveDuplicates.cs" />
-    <Compile Include="Convert\Boolean.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EnergyPlus_oM\EnergyPlus_oM.csproj">
@@ -140,7 +124,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Convert\Geometry\" />
     <Folder Include="Create\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
