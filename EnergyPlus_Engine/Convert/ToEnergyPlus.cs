@@ -21,6 +21,7 @@
  */
 
 using BH.Engine.Geometry;
+using BH.Engine.Environment;
 using BH.oM.EnergyPlus;
 using BH.oM.Environment.MaterialFragments;
 using BH.oM.Geometry;
@@ -272,29 +273,10 @@ namespace BH.Engine.EnergyPlus
         {
             List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
 
-            // TODO - Implement `AssignGenericConstruction` method here for panels without Constructions present.
-
             if (opening.OpeningConstruction == null)
             {
-                SolidMaterial glassInternal = new SolidMaterial() { Name = "generic_glass_internal", Conductivity = 0.9, LightTransmittance = 0.881, SolarTransmittance = 0.775, EmissivityExternal = 0.84, EmissivityInternal = 0.84, LightReflectanceExternal = 0.08, LightReflectanceInternal = 0.08, SolarReflectanceExternal = 0.071, SolarReflectanceInternal = 0.071 };
-                Material glassMaterialInternal = new Material() { Properties = new List<IMaterialProperties>() { glassInternal } };
-                Layer glassLayerInternal = new Layer() { Material = glassMaterialInternal, Thickness = 0.006 };
-
-                SolidMaterial glassExternal = new SolidMaterial() { Name = "generic_glass_external", Conductivity = 0.9, LightTransmittance = 0.881, SolarTransmittance = 0.775, EmissivityExternal = 0.84, EmissivityInternal = 0.84, LightReflectanceExternal = 0.08, LightReflectanceInternal = 0.08, SolarReflectanceExternal = 0.071, SolarReflectanceInternal = 0.071 };
-                Material glassMaterialExternal = new Material() { Properties = new List<IMaterialProperties>() { glassExternal } };
-                Layer glassLayerExternal = new Layer() { Material = glassMaterialExternal, Thickness = 0.006 };
-
-                GasMaterial air = new GasMaterial() { Name = "generic_air", Gas = Gas.Air };
-                Material airMaterial = new Material() { Properties = new List<IMaterialProperties>() { air } };
-                Layer airLayer = new Layer() { Material = airMaterial, Thickness = 0.012 };
-
-                List<Layer> layers = new List<Layer>() { glassLayerExternal, airLayer, glassLayerInternal };
-                Construction construction = new Construction() { Layers = layers, Name = "generic_window" };
-
-                opening.OpeningConstruction = construction;
+                opening = opening.AssignGenericConstructions();
             }
-
-            //
 
             FenestrationSurfaceDetailed fenestrationSurfaceDetailed = new FenestrationSurfaceDetailed();
             fenestrationSurfaceDetailed.Name = opening.Name == "" ? opening.BHoM_Guid.ToString() : opening.Name;
@@ -354,33 +336,10 @@ namespace BH.Engine.EnergyPlus
                 zoneList.ZoneNames.Add(zoneName);
                 classes.Add(zoneList);
 
-                // TODO - Implement `AssignGenericConstruction` method here for panels without Constructions present.
-
                 if (panel.Construction == null)
                 {
-                    SolidMaterial metal = new SolidMaterial() { Name = "generic_metal", Conductivity = 45.28, Density = 7824, SpecificHeat = 500, Roughness = BHM.Roughness.Smooth, LightReflectanceExternal = 0.5, LightReflectanceInternal = 0.5, SolarReflectanceExternal = 0.5, SolarReflectanceInternal = 0.5, LightTransmittance = 0, SolarTransmittance = 0, Specularity = 0.02 };
-                    Material metalMaterial = new Material() { Properties = new List<IMaterialProperties>() { metal } };
-                    Layer metalLayer = new Layer() { Material = metalMaterial, Thickness = 0.0008 };
-
-                    SolidMaterial insulation = new SolidMaterial() { Name = "generic_insulation", Conductivity = 0.03, Density = 43, SpecificHeat = 1210, Roughness = BHM.Roughness.MediumRough, LightReflectanceExternal = 0.5, LightReflectanceInternal = 0.5, SolarReflectanceExternal = 0.5, SolarReflectanceInternal = 0.5, LightTransmittance = 0, SolarTransmittance = 0, Specularity = 0.02 };
-                    Material insulationMaterial = new Material() { Properties = new List<IMaterialProperties>() { insulation } };
-                    Layer insulationLayer = new Layer() { Material = insulationMaterial, Thickness = 0.0508 };
-
-                    GasMaterial air = new GasMaterial() { Name = "generic_air", Gas = Gas.Air };
-                    Material airMaterial = new Material() { Properties = new List<IMaterialProperties>() { air } };
-                    Layer airLayer = new Layer() { Material = airMaterial, Thickness = 0.012 };
-
-                    SolidMaterial gypsum = new SolidMaterial() { Name = "generic_gypsum", Conductivity = 0.16, Density = 800, SpecificHeat = 1090, Roughness = BHM.Roughness.MediumSmooth, LightReflectanceExternal = 0.5, LightReflectanceInternal = 0.5, SolarReflectanceExternal = 0.5, SolarReflectanceInternal = 0.5, LightTransmittance = 0, SolarTransmittance = 0, Specularity = 0.02 };
-                    Material gypsumMaterial = new Material() { Properties = new List<IMaterialProperties>() { gypsum } };
-                    Layer gypsumLayer = new Layer() { Material = gypsumMaterial, Thickness = 0.019 };
-
-                    List<Layer> layers = new List<Layer>() { metalLayer, insulationLayer, airLayer, gypsumLayer };
-                    Construction construction = new Construction() { Layers = layers, Name = "generic_wall" };
-
-                    panel.Construction = construction;
+                    panel = panel.AssignGenericConstructions();
                 }
-
-                //
 
                 classes.AddRange(((Construction)panel.Construction).ToEnergyPlus());
 
