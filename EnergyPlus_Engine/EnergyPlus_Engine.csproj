@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convert\ToEnergyPlus.cs" />
+    <Compile Include="Query\FilterEnergyPlusClass.cs" />
     <Compile Include="Query\ReadESO.cs" />
     <Compile Include="Compute\SimulateIDF.cs" />
     <Compile Include="Compute\RunCommand.cs" />
