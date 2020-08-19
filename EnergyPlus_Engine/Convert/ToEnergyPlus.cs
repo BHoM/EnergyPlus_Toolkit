@@ -272,6 +272,8 @@ namespace BH.Engine.EnergyPlus
         {
             List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
 
+            // TODO - Implement `AssignGenericConstruction` method here for panels without Constructions present.
+
             if (opening.OpeningConstruction == null && openingConstructionOveride == null)
             {
                 SolidMaterial glassInternal = new SolidMaterial() { Name = "generic_glass_internal", Conductivity = 0.9, LightTransmittance = 0.881, SolarTransmittance = 0.775, EmissivityExternal = 0.84, EmissivityInternal = 0.84, LightReflectanceExternal = 0.08, LightReflectanceInternal = 0.08, SolarReflectanceExternal = 0.071, SolarReflectanceInternal = 0.071 };
@@ -295,6 +297,8 @@ namespace BH.Engine.EnergyPlus
             {
                 opening.OpeningConstruction = openingConstructionOveride;
             }
+
+            //
 
             FenestrationSurfaceDetailed fenestrationSurfaceDetailed = new FenestrationSurfaceDetailed();
             fenestrationSurfaceDetailed.Name = opening.Name == "" ? opening.BHoM_Guid.ToString() : opening.Name;
@@ -354,6 +358,8 @@ namespace BH.Engine.EnergyPlus
                 zoneList.ZoneNames.Add(zoneName);
                 classes.Add(zoneList);
 
+                // TODO - Implement `AssignGenericConstruction` method here for panels without Constructions present.
+
                 if (panel.Construction == null && panelConstructionOveride == null)
                 {
                     SolidMaterial metal = new SolidMaterial() { Name = "generic_metal", Conductivity = 45.28, Density = 7824, SpecificHeat = 500, Roughness = BHM.Roughness.Smooth, LightReflectanceExternal = 0.5, LightReflectanceInternal = 0.5, SolarReflectanceExternal = 0.5, SolarReflectanceInternal = 0.5, LightTransmittance = 0, SolarTransmittance = 0, Specularity = 0.02 };
@@ -381,6 +387,8 @@ namespace BH.Engine.EnergyPlus
                 {
                     panel.Construction = panelConstructionOveride;
                 }
+
+                //
 
                 classes.AddRange(((Construction)panel.Construction).ToEnergyPlus());
 
