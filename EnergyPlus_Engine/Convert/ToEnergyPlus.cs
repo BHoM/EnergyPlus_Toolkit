@@ -268,13 +268,13 @@ namespace BH.Engine.EnergyPlus
         [Input("hostName", "Hosting BHoM Environments panel name")]
         [Input("openingConstructionOveride", "An overriding construction to assign to Opening object. Default behaviour assigns existing construction if found, or generic double-glazing if not.")]
         [Output("energyPlusClasses", "A list of EnergyPlus IEnergyPlusClass objects")]
-        public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Opening opening, string hostName, Construction openingConstructionOveride = null)
+        public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Opening opening, string hostName)
         {
             List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
 
             // TODO - Implement `AssignGenericConstruction` method here for panels without Constructions present.
 
-            if (opening.OpeningConstruction == null && openingConstructionOveride == null)
+            if (opening.OpeningConstruction == null)
             {
                 SolidMaterial glassInternal = new SolidMaterial() { Name = "generic_glass_internal", Conductivity = 0.9, LightTransmittance = 0.881, SolarTransmittance = 0.775, EmissivityExternal = 0.84, EmissivityInternal = 0.84, LightReflectanceExternal = 0.08, LightReflectanceInternal = 0.08, SolarReflectanceExternal = 0.071, SolarReflectanceInternal = 0.071 };
                 Material glassMaterialInternal = new Material() { Properties = new List<IMaterialProperties>() { glassInternal } };
@@ -292,10 +292,6 @@ namespace BH.Engine.EnergyPlus
                 Construction construction = new Construction() { Layers = layers, Name = "generic_window" };
 
                 opening.OpeningConstruction = construction;
-            }
-            else if (openingConstructionOveride != null)
-            {
-                opening.OpeningConstruction = openingConstructionOveride;
             }
 
             //
@@ -325,7 +321,7 @@ namespace BH.Engine.EnergyPlus
         [Input("panelConstructionOveride", "An overriding construction to assign to Panel object. Default behaviour assigns existing construction if found, or generic metal clad, insulated wall if not.")]
         [Input("openingConstructionOveride", "An overriding construction to assign to Opening object. Default behaviour assigns existing construction if found, or generic double-glazing if not.")]
         [Output("energyPlusClasses", "A list of EnergyPlus objects")]
-        public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Panel panel, Construction panelConstructionOveride = null, Construction openingConstructionOveride = null)
+        public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Panel panel)
         {
             List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
 
@@ -360,7 +356,7 @@ namespace BH.Engine.EnergyPlus
 
                 // TODO - Implement `AssignGenericConstruction` method here for panels without Constructions present.
 
-                if (panel.Construction == null && panelConstructionOveride == null)
+                if (panel.Construction == null)
                 {
                     SolidMaterial metal = new SolidMaterial() { Name = "generic_metal", Conductivity = 45.28, Density = 7824, SpecificHeat = 500, Roughness = BHM.Roughness.Smooth, LightReflectanceExternal = 0.5, LightReflectanceInternal = 0.5, SolarReflectanceExternal = 0.5, SolarReflectanceInternal = 0.5, LightTransmittance = 0, SolarTransmittance = 0, Specularity = 0.02 };
                     Material metalMaterial = new Material() { Properties = new List<IMaterialProperties>() { metal } };
@@ -382,10 +378,6 @@ namespace BH.Engine.EnergyPlus
                     Construction construction = new Construction() { Layers = layers, Name = "generic_wall" };
 
                     panel.Construction = construction;
-                }
-                else if (panelConstructionOveride != null)
-                {
-                    panel.Construction = panelConstructionOveride;
                 }
 
                 //
@@ -416,7 +408,7 @@ namespace BH.Engine.EnergyPlus
                 classes.Add(buildingSurface);
 
                 foreach (BHE.Opening o in panel.Openings)
-                    classes.AddRange(o.ToEnergyPlus(panelName, openingConstructionOveride));
+                    classes.AddRange(o.ToEnergyPlus(panelName));
             }
 
             return classes;
