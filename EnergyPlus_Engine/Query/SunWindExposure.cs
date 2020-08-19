@@ -33,7 +33,7 @@ namespace BH.Engine.EnergyPlus
         [Output("exposed", "True if exposed to Sun/Wind")]
         public static bool SunWindExposure(this BHE.Panel panel)
         {
-            if ((panel.Type == BHE.PanelType.Roof) || (panel.Type == BHE.PanelType.WallExternal) || (panel.Type == BHE.PanelType.FloorExposed) || (panel.Type == BHE.PanelType.Wall))
+            if ((panel.Type == BHE.PanelType.Roof) || (panel.Type == BHE.PanelType.WallExternal) || (panel.Type == BHE.PanelType.FloorExposed) || (panel.Type == BHE.PanelType.Wall) || (panel.Type == BHE.PanelType.Shade))
             {
                 return true;
             }
