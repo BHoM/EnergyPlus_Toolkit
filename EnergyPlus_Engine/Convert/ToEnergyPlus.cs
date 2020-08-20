@@ -273,11 +273,6 @@ namespace BH.Engine.EnergyPlus
         {
             List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
 
-            if (opening.OpeningConstruction == null)
-            {
-                opening = opening.AssignGenericConstructions();
-            }
-
             FenestrationSurfaceDetailed fenestrationSurfaceDetailed = new FenestrationSurfaceDetailed();
             fenestrationSurfaceDetailed.Name = opening.Name == "" ? opening.BHoM_Guid.ToString() : opening.Name;
             fenestrationSurfaceDetailed.SurfaceType = opening.Type.ToEnergyPlus();
@@ -338,7 +333,7 @@ namespace BH.Engine.EnergyPlus
 
                 if (panel.Construction == null)
                 {
-                    panel = panel.AssignGenericConstructions();
+                    panel = panel.AssignGenericConstructions(assignOpenings: true);
                 }
 
                 classes.AddRange(((Construction)panel.Construction).ToEnergyPlus());
