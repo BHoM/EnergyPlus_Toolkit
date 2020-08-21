@@ -295,8 +295,6 @@ namespace BH.Engine.EnergyPlus
 
         [Description("Convert a BHoM Panel into a set of EnergyPlus IEnergyPlusClass objects describing surfaces, materials and constructions")]
         [Input("panel", "A BHoM Environments Panel object, with assigned construction")]
-        [Input("panelConstructionOveride", "An overriding construction to assign to Panel object. Default behaviour assigns existing construction if found, or generic metal clad, insulated wall if not.")]
-        [Input("openingConstructionOveride", "An overriding construction to assign to Opening object. Default behaviour assigns existing construction if found, or generic double-glazing if not.")]
         [Output("energyPlusClasses", "A list of EnergyPlus objects")]
         public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Panel panel)
         {
