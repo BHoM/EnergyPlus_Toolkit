@@ -31,26 +31,39 @@ namespace BH.Engine.EnergyPlus
 {
     public static partial class Modify
     {
-        [Description("Remove duplicate IEnergyPlusClass objects")]
+        [Description("Populate a list of IEnergyPlusClasses with the requisite parts necessary to run a passive simulation")]
         [Input("energyPlusClasses", "A list of EnergyPlus classes")]
-        [Output("energyPlusClasses", "A list of EnergyPlus classes with duplicates removed")]
-        public static List<IEnergyPlusClass> RemoveDuplicates(this List<IEnergyPlusClass> energyPlusClasses)
+        [Output("energyPlusClasses", "A list of EnergyPlus classes with missing generic classes included")]
+        public static List<IEnergyPlusClass> PopulateGenerics(this List<IEnergyPlusClass> energyPlusClasses)
         {
-            DiffConfig config = new DiffConfig()
+            List<IEnergyPlusClass> uniques = RemoveDuplicates(energyPlusClasses);
+
+            List<IEnergyPlusClass> output = new List<IEnergyPlusClass>();
+
+            if (!uniques.Any(n => n.ClassName == "Version"))
+                output.Add(new Version() { VersionIdentifier = "9.0.0" });
+
+            if (!uniques.Any(n => n.ClassName == "ShadowCalculation"))
+                output.Add(new ShadowCalculation() { CalculationMethod = ShadowCalculationMethod.TimestepFrequency, CalculationFrequency = 1, MaximumFiguresInShadowOverlapCalculations = 3000 });
+
+            if (!uniques.Any(n => n.ClassName == "Building"))
+                output.Add(new Building() { Name = "GenericBuilding", Terrain = Terrain.Country, SolarDistribution = SolarDistribution.FullInteriorAndExteriorWithReflections });
+
+            if (!uniques.Any(n => n.ClassName == "SimulationControl"))
+                output.Add(new SimulationControl() { RunSimulationForWeatherFileRunPeriods = true, RunSimulationForSizingPeriods = false });
+
+            if (!uniques.Any(n => n.ClassName == "Output:VariableDictionary"))
+                output.Add(new OutputVariableDictionary() { KeyField = OutputVariableDictionaryKeyField.regular });
+            
+            foreach (string i in new List<string>() { "Zone Mean Air Temperature", "Zone Mean Radiant Temperature", "Zone Air Relative Humidity", "Zone Windows Total Transmitted Solar Radiation Rate", "Zone Infiltration Air Change Rate" })
             {
-                PropertiesToIgnore = new List<string>
-                {
-                    "BHoM_Guid",
-                    "CustomData",
-                },
-                NumericTolerance = BH.oM.Geometry.Tolerance.Distance,
-            };
+                if (!uniques.Any(n => n.ClassName == "Output:Variable"))
+                    output.Add(new OutputVariable() { ReportingFrequency = ReportingFrequency.Hourly, KeyValue = i });
+            }
 
-            List<IEnergyPlusClass> hashedList = BH.Engine.Diffing.Modify.SetHashFragment<IEnergyPlusClass>(energyPlusClasses, config);
+            output.AddRange(uniques);
 
-            List<IEnergyPlusClass> uniqueList = Diffing.Modify.RemoveDuplicatesByHash(hashedList).ToList();
-
-            return uniqueList;
+            return output;
         }
     }
 }
