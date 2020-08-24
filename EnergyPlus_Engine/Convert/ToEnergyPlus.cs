@@ -370,7 +370,7 @@ namespace BH.Engine.EnergyPlus
         [Input("scheduleTypeLimitsNumericType", "EnergyPlus ScheduleTypeLimitsNumericType")]
         [Input("scheduleTypeLimitsUnitType", "EnergyPlus ScheduleTypeLimitsUnitType")]
         [Output("schedule", "EnergyPlus Schedule")]
-        public static List<IEnergyPlusClass> ToEnergyPlus(this BH.oM.Environment.Gains.Profile profile, ScheduleTypeLimitsNumericType scheduleTypeLimitsNumericType, ScheduleTypeLimitsUnitType scheduleTypeLimitsUnitType)
+        public static List<IEnergyPlusClass> ToEnergyPlus(this BH.oM.Environment.SpaceCriteria.Profile profile, ScheduleTypeLimitsNumericType scheduleTypeLimitsNumericType, ScheduleTypeLimitsUnitType scheduleTypeLimitsUnitType)
         {
             ScheduleTypeLimits scheduleTypeLimits = new ScheduleTypeLimits();
             scheduleTypeLimits.Name = string.Format("{0} TypeLimits", profile.Name).Trim();
