@@ -22,7 +22,7 @@
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
-using BH.oM.EnergyPlus;
+using BH.oM.Adapters.EnergyPlus;
 using BH.oM.Environment.MaterialFragments;
 using BH.oM.Geometry;
 using BH.oM.Physical.Constructions;
@@ -37,7 +37,7 @@ using BHE = BH.oM.Environment.Elements;
 using BHM = BH.oM.Environment.MaterialFragments;
 using BHP = BH.oM.Physical.Constructions;
 
-namespace BH.Engine.EnergyPlus
+namespace BH.Engine.Adapters.EnergyPlus
 {
     public static partial class Convert
     {
@@ -52,26 +52,26 @@ namespace BH.Engine.EnergyPlus
         [Description("Convert a BHoM Roughness to an EnergyPlus Roughness")]
         [Input("roughness", "BHoM roughness")]
         [Output("roughness", "EnergyPlus Roughness")]
-        public static BH.oM.EnergyPlus.Roughness ToEnergyPlus(this BHM.Roughness roughness)
+        public static BH.oM.Adapters.EnergyPlus.Roughness ToEnergyPlus(this BHM.Roughness roughness)
         {
             switch (roughness)
             {
                 case BHM.Roughness.VerySmooth:
-                    return BH.oM.EnergyPlus.Roughness.VerySmooth;
+                    return BH.oM.Adapters.EnergyPlus.Roughness.VerySmooth;
                 case BHM.Roughness.Smooth:
-                    return BH.oM.EnergyPlus.Roughness.Smooth;
+                    return BH.oM.Adapters.EnergyPlus.Roughness.Smooth;
                 case BHM.Roughness.MediumSmooth:
-                    return BH.oM.EnergyPlus.Roughness.MediumSmooth;
+                    return BH.oM.Adapters.EnergyPlus.Roughness.MediumSmooth;
                 case BHM.Roughness.MediumRough:
-                    return BH.oM.EnergyPlus.Roughness.MediumRough;
+                    return BH.oM.Adapters.EnergyPlus.Roughness.MediumRough;
                 case BHM.Roughness.Rough:
-                    return BH.oM.EnergyPlus.Roughness.Rough;
+                    return BH.oM.Adapters.EnergyPlus.Roughness.Rough;
                 case BHM.Roughness.VeryRough:
-                    return BH.oM.EnergyPlus.Roughness.VeryRough;
+                    return BH.oM.Adapters.EnergyPlus.Roughness.VeryRough;
                 case BHM.Roughness.Undefined:
-                    return BH.oM.EnergyPlus.Roughness.MediumRough;
+                    return BH.oM.Adapters.EnergyPlus.Roughness.MediumRough;
                 default:
-                    return BH.oM.EnergyPlus.Roughness.MediumRough;
+                    return BH.oM.Adapters.EnergyPlus.Roughness.MediumRough;
             }
         }
 

@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.IO;
 
 using BH.oM.Adapter;
-using BH.oM.EnergyPlus.Settings;
+using BH.oM.Adapters.EnergyPlus.Settings;
 using BH.oM.Reflection.Attributes;
 
 

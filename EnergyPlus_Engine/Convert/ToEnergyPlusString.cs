@@ -21,7 +21,7 @@
  */
 
 using BH.Engine.Reflection;
-using BH.oM.EnergyPlus;
+using BH.oM.Adapters.EnergyPlus;
 using BH.oM.Geometry;
 using BH.oM.Reflection;
 using BH.oM.Reflection.Attributes;
@@ -31,7 +31,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 
-namespace BH.Engine.EnergyPlus
+namespace BH.Engine.Adapters.EnergyPlus
 {
     public static partial class Convert
     {
@@ -111,7 +111,7 @@ namespace BH.Engine.EnergyPlus
                 {
                     if (property.PropertyType == typeof(bool))
                     {
-                        sb.AppendFormat(formatString, BH.Engine.EnergyPlus.Convert.ToEnergyPlus((bool)energyPlusClass.PropertyValue(property.Name)), property.Name);
+                        sb.AppendFormat(formatString, BH.Engine.Adapters.EnergyPlus.Convert.ToEnergyPlus((bool)energyPlusClass.PropertyValue(property.Name)), property.Name);
                     }
                     else if (property.PropertyType == typeof(SurfaceConvectionAlgorithmOutsideMethod))
                     {

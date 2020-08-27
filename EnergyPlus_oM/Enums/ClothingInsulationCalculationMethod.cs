@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
  
-namespace BH.oM.EnergyPlus
+namespace BH.oM.Adapters.EnergyPlus
 {
     public enum ClothingInsulationCalculationMethod
     {

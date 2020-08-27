@@ -24,7 +24,7 @@ using BH.oM.Reflection.Attributes;
 using System;
 using System.ComponentModel;
 
-namespace BH.Engine.EnergyPlus
+namespace BH.Engine.Adapters.EnergyPlus
 {
     public static partial class Compute
     {

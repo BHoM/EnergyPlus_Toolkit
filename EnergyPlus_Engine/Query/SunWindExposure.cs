@@ -24,7 +24,7 @@ using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
 using BHE = BH.oM.Environment.Elements;
 
-namespace BH.Engine.EnergyPlus
+namespace BH.Engine.Adapters.EnergyPlus
 {
     public static partial class Query
     {

@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using BH.oM.Reflection;
 
-namespace BH.oM.EnergyPlus
+namespace BH.oM.Adapters.EnergyPlus
 {
     public class FenestrationSurfaceDetailed : BHoMObject, IEnergyPlusClass
     {

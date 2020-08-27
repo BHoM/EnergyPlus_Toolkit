@@ -24,7 +24,7 @@ using BH.oM.Base;
 using System.ComponentModel;
 using BH.oM.Reflection;
 
-namespace BH.oM.EnergyPlus
+namespace BH.oM.Adapters.EnergyPlus
 {
     public class Version : BHoMObject, IEnergyPlusClass
     {
