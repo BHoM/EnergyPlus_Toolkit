@@ -765,6 +765,9 @@
     <Compile Include="OutputReporting\OutputVariable.cs" />
     <Compile Include="OutputReporting\OutputDiagnostics.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Versioning33.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
