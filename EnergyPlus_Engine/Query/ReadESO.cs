@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.EnergyPlus;
+using BH.oM.Adapters.EnergyPlus;
 using BH.oM.Reflection.Attributes;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace BH.Engine.EnergyPlus
+namespace BH.Engine.Adapters.EnergyPlus
 {
     public static partial class Query
     {

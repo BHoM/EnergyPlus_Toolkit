@@ -26,7 +26,7 @@ using BH.oM.Base;
 
 using System.ComponentModel;
 
-namespace BH.oM.EnergyPlus.Settings
+namespace BH.oM.Adapters.EnergyPlus.Settings
 {
     public class EnergyPlusSettings : BHoMObject
     {

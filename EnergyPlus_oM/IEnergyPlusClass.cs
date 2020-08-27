@@ -23,7 +23,7 @@
 
 using BH.oM.Base;
 
-namespace BH.oM.EnergyPlus
+namespace BH.oM.Adapters.EnergyPlus
 {
     public interface IEnergyPlusClass : IBHoMObject
     {

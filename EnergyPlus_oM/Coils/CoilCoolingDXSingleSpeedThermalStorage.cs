@@ -24,7 +24,7 @@
 ////using System.Collections.Generic;
 ////using System.ComponentModel;
 ////
-////namespace BH.oM.EnergyPlus
+////namespace BH.oM.Adapters.EnergyPlus
 ////{
 ////public class Coil:Cooling:DX:SingleSpeed:ThermalStorage : BHoMObject
 ////{

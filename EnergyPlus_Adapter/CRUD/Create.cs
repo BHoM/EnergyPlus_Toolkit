@@ -27,8 +27,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BH.oM.Base;
-using BH.Engine.EnergyPlus;
-using BH.oM.EnergyPlus.Settings;
+using BH.Engine.Adapters.EnergyPlus;
+using BH.oM.Adapters.EnergyPlus.Settings;
 
 using System.IO;
 using BH.oM.Environment.Elements;

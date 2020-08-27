@@ -20,14 +20,14 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.EnergyPlus.Settings;
+using BH.oM.Adapters.EnergyPlus.Settings;
 using BH.oM.Reflection.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 
-namespace BH.Engine.EnergyPlus
+namespace BH.Engine.Adapters.EnergyPlus
 {
     public static partial class Compute
     {
