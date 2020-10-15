@@ -26,9 +26,9 @@ using System.ComponentModel;
 using BH.oM.Reflection;
 
 namespace BH.oM.Adapters.EnergyPlus
-{
-    public class SiteLocation : BHoMObject, IEnergyPlusClass
-    {
+{    public class SiteLocation : BHoMObject, IEnergyPlusClass
+
+       {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Site:Location";
         [Order]
@@ -48,3 +48,6 @@ namespace BH.oM.Adapters.EnergyPlus
         public virtual double Elevation { get; set; } = 0.0;
     }
 }
+// Import the file, get the data from it
+//         
+// Assign the different properties to the parts of the text
