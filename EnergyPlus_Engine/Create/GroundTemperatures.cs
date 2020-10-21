@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using BH.Engine.Reflection;
 using BH.oM.Adapters.EnergyPlus;
 using BH.oM.Reflection;
 using BH.oM.Reflection.Attributes;
@@ -45,6 +46,32 @@ namespace BH.Engine.Adapters.EnergyPlus
                 BH.Engine.Reflection.Compute.RecordError("File not found. Did you give the correct path?");
                 return null;
             }
+
+            string[] EpwFile = System.IO.File.ReadAllLines(epwFile);
+
+            // Check to see if the file passed contains the requisite number of lines to parse as an EPW (> 8760)
+            if (EpwFile.Count() < 8760)
+            {
+                BH.Engine.Reflection.Compute.RecordError("The file passed has less than 8760 lines. Are you sure it's an EPW?");
+                return null;
+            }
+
+            string groundTemperatures = EpwFile[3];
+            List<string> commaPoints = groundTemperatures.Split(',').ToList();
+
+            // Check if there are ground temperatures in the file, and that numberOfSets is an integer
+            try
+            {
+                System.Convert.ToInt32(commaPoints[1]); 
+            }
+            catch (System.Exception)
+            {
+                BH.Engine.Reflection.Compute.RecordError("There appears to be no sets of temperatures in this file, or the number of sets if not an integer");
+            }
+
+            int numberOfSets = System.Convert.ToInt32(commaPoints[1]);
+
+
             SiteGroundTemperatureBuildingSurface siteGroundTemperatureBuildingSurface = new SiteGroundTemperatureBuildingSurface();
             SiteGroundTemperatureShallow siteGroundTemperatureShallow = new SiteGroundTemperatureShallow();
             SiteGroundTemperatureDeep siteGroundTemperatureDeep = new SiteGroundTemperatureDeep();
@@ -54,81 +81,106 @@ namespace BH.Engine.Adapters.EnergyPlus
                 Item2 = siteGroundTemperatureShallow,
                 Item3 = siteGroundTemperatureDeep,
             };
-            string[] EpwFile = System.IO.File.ReadAllLines(epwFile);
-            // Check to see if the file passed contains the requisite number of lines to parse as an EPW (> 8760)
-            if (EpwFile.Count() < 8760)
+
+            // Check that there are temperature sets in the file
+            if (numberOfSets < 1)
+
             {
-                BH.Engine.Reflection.Compute.RecordError("The file passed has less than 8760 lines. Are you sure it's an EPW?");
+                BH.Engine.Reflection.Compute.RecordError("The file has less than 12 temperatures. Does the file contain ground temperatures?");
                 return null;
             }
-            string groundTemperatures = EpwFile[3];
-            List<string> commaPoints = groundTemperatures.Split(',').ToList();
-            if (commaPoints.Count() < 17)
+
+            for (int i = 0; i < numberOfSets; i++)
             {
-                BH.Engine.Reflection.Compute.RecordError("The file has less than 12 temperatures. Does the file contain Surface ground temperatures?");
-                return null;
-            }
-            siteGroundTemperatureBuildingSurface.JanuaryGroundTemperature = System.Convert.ToDouble(commaPoints[6]);
-            siteGroundTemperatureBuildingSurface.FebruaryGroundTemperature = System.Convert.ToDouble(commaPoints[7]);
-            siteGroundTemperatureBuildingSurface.MarchGroundTemperature = System.Convert.ToDouble(commaPoints[8]);
-            siteGroundTemperatureBuildingSurface.AprilGroundTemperature = System.Convert.ToDouble(commaPoints[9]);
-            siteGroundTemperatureBuildingSurface.MayGroundTemperature = System.Convert.ToDouble(commaPoints[10]);
-            siteGroundTemperatureBuildingSurface.JuneGroundTemperature = System.Convert.ToDouble(commaPoints[11]);
-            siteGroundTemperatureBuildingSurface.JulyGroundTemperature = System.Convert.ToDouble(commaPoints[12]);
-            siteGroundTemperatureBuildingSurface.AugustGroundTemperature = System.Convert.ToDouble(commaPoints[13]);
-            siteGroundTemperatureBuildingSurface.SeptemberGroundTemperature = System.Convert.ToDouble(commaPoints[14]);
-            siteGroundTemperatureBuildingSurface.OctoberGroundTemperature = System.Convert.ToDouble(commaPoints[15]);
-            siteGroundTemperatureBuildingSurface.NovemberGroundTemperature = System.Convert.ToDouble(commaPoints[16]);
-            siteGroundTemperatureBuildingSurface.DecemberGroundTemperature = System.Convert.ToDouble(commaPoints[17]);
-            if (commaPoints.Count >= 17 && commaPoints.Count < 33)
-            {
-                BH.Engine.Reflection.Compute.RecordWarning("The file has less than 36 temperatures. Does the file contain Surface, Shallow and Deep ground temperatures?");
+                double depth = System.Convert.ToDouble(commaPoints[2 + i*16]);
+                List<string> elements = commaPoints.GetRange(6 + i*16, 12);
+                List<double> elementsDouble = new List<double>();
+
+                foreach (string I in elements)
                 {
-                    output.Item1 = siteGroundTemperatureBuildingSurface;
-                    output.Item2 = null;
-                    output.Item3 = null;
-                };
-                return output;
+                    elementsDouble.Add(System.Convert.ToDouble(I));
+                }
+
+                List<double> groundTemps = elementsDouble;
+
+                if (depth == 0)
+                {
+                    return null;
+                }
+
+                else if (depth <= 1 )
+                {
+
+                    siteGroundTemperatureBuildingSurface.JanuaryGroundTemperature = groundTemps[0];
+                    siteGroundTemperatureBuildingSurface.FebruaryGroundTemperature = groundTemps[1];
+                    siteGroundTemperatureBuildingSurface.MarchGroundTemperature = groundTemps[2];
+                    siteGroundTemperatureBuildingSurface.AprilGroundTemperature = groundTemps[3];
+                    siteGroundTemperatureBuildingSurface.MayGroundTemperature = groundTemps[4];
+                    siteGroundTemperatureBuildingSurface.JuneGroundTemperature = groundTemps[5];
+                    siteGroundTemperatureBuildingSurface.JulyGroundTemperature = groundTemps[6];
+                    siteGroundTemperatureBuildingSurface.AugustGroundTemperature = groundTemps[7];
+                    siteGroundTemperatureBuildingSurface.SeptemberGroundTemperature = groundTemps[8];
+                    siteGroundTemperatureBuildingSurface.OctoberGroundTemperature = groundTemps[9];
+                    siteGroundTemperatureBuildingSurface.NovemberGroundTemperature = groundTemps[10];
+                    siteGroundTemperatureBuildingSurface.DecemberGroundTemperature = groundTemps[11];
+                }
+
+                else if (depth <= 5)
+                {
+                    siteGroundTemperatureShallow.JanuarySurfaceGroundTemperature = groundTemps[0];
+                    siteGroundTemperatureShallow.FebruarySurfaceGroundTemperature = groundTemps[1];
+                    siteGroundTemperatureShallow.MarchSurfaceGroundTemperature = groundTemps[2];
+                    siteGroundTemperatureShallow.AprilSurfaceGroundTemperature = groundTemps[3];
+                    siteGroundTemperatureShallow.MaySurfaceGroundTemperature = groundTemps[4];
+                    siteGroundTemperatureShallow.JuneSurfaceGroundTemperature = groundTemps[5];
+                    siteGroundTemperatureShallow.JulySurfaceGroundTemperature = groundTemps[6];
+                    siteGroundTemperatureShallow.AugustSurfaceGroundTemperature = groundTemps[7];
+                    siteGroundTemperatureShallow.SeptemberSurfaceGroundTemperature = groundTemps[8];
+                    siteGroundTemperatureShallow.OctoberSurfaceGroundTemperature = groundTemps[9];
+                    siteGroundTemperatureShallow.NovemberSurfaceGroundTemperature = groundTemps[10];
+                    siteGroundTemperatureShallow.DecemberSurfaceGroundTemperature = groundTemps[11];
+                }
+
+                else
+                {
+                    siteGroundTemperatureDeep.JanuaryDeepGroundTemperature = groundTemps[0];
+                    siteGroundTemperatureDeep.FebruaryDeepGroundTemperature = groundTemps[1];
+                    siteGroundTemperatureDeep.MarchDeepGroundTemperature = groundTemps[2];
+                    siteGroundTemperatureDeep.AprilDeepGroundTemperature = groundTemps[3];
+                    siteGroundTemperatureDeep.MayDeepGroundTemperature = groundTemps[4];
+                    siteGroundTemperatureDeep.JuneDeepGroundTemperature = groundTemps[5];
+                    siteGroundTemperatureDeep.JulyDeepGroundTemperature = groundTemps[6];
+                    siteGroundTemperatureDeep.AugustDeepGroundTemperature = groundTemps[7];
+                    siteGroundTemperatureDeep.SeptemberDeepGroundTemperature = groundTemps[8];
+                    siteGroundTemperatureDeep.OctoberDeepGroundTemperature = groundTemps[9];
+                    siteGroundTemperatureDeep.NovemberDeepGroundTemperature = groundTemps[10];
+                    siteGroundTemperatureDeep.DecemberDeepGroundTemperature = groundTemps[11];
+                }
+
+                if (numberOfSets == 1)
+                {
+                    BH.Engine.Reflection.Compute.RecordWarning("The file has less than 24 temperatures. The temperature sets not included in the file will be set to default");
+                }
+
+                if (numberOfSets == 2)
+                {
+                    BH.Engine.Reflection.Compute.RecordWarning("The file has less than 36 temperatures. The temperature sets not included in the file will be set to default");
+                    
+                    if ((System.Convert.ToDouble(commaPoints[2]) <= 1 &&  System.Convert.ToDouble(commaPoints[18]) <= 1) || (System.Convert.ToDouble(commaPoints[2]) >= 5 && System.Convert.ToDouble(commaPoints[18]) >=5) || (System.Convert.ToDouble(commaPoints[2]) >= 1 && System.Convert.ToDouble(commaPoints[2]) <= 5 && System.Convert.ToDouble(commaPoints[18]) >= 1 && System.Convert.ToDouble(commaPoints[18]) <= 5))
+                    {
+                        BH.Engine.Reflection.Compute.RecordWarning("The file has more than one temperature set of the same type. The last one will be computed");
+                    }
+                }
+
+                if (numberOfSets == 3)
+                {
+                     if (System.Convert.ToDouble(commaPoints[2]) >= 1 || System.Convert.ToDouble(commaPoints[18]) <= 1 || System.Convert.ToDouble(commaPoints[18]) >= 5 || System.Convert.ToDouble(commaPoints[34]) <= 5)
+                     {
+                         BH.Engine.Reflection.Compute.RecordWarning("The file has more than one temperature set of the same type. The last one will be computed");
+                     }
+                }
             }
-            siteGroundTemperatureShallow.JanuarySurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[22]);
-            siteGroundTemperatureShallow.FebruarySurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[23]);
-            siteGroundTemperatureShallow.MarchSurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[24]);
-            siteGroundTemperatureShallow.AprilSurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[25]);
-            siteGroundTemperatureShallow.MaySurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[26]);
-            siteGroundTemperatureShallow.JuneSurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[27]);
-            siteGroundTemperatureShallow.JulySurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[28]);
-            siteGroundTemperatureShallow.AugustSurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[29]);
-            siteGroundTemperatureShallow.SeptemberSurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[30]);
-            siteGroundTemperatureShallow.OctoberSurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[31]);
-            siteGroundTemperatureShallow.NovemberSurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[32]);
-            siteGroundTemperatureShallow.DecemberSurfaceGroundTemperature = System.Convert.ToDouble(commaPoints[33]);
-            if (commaPoints.Count >= 33 && commaPoints.Count < 49)
-            {
-                    BH.Engine.Reflection.Compute.RecordWarning("The file has less than 36 temperatures. Does the file contain Surface, Shallow and Deep ground temperatures?");
-                 {
-                    output.Item1 = siteGroundTemperatureBuildingSurface;
-                    output.Item2 = siteGroundTemperatureShallow;
-                    output.Item3 = null;
-                 };
-                    return output;
-            }
-            siteGroundTemperatureDeep.JanuaryDeepGroundTemperature = System.Convert.ToDouble(commaPoints[38]);
-            siteGroundTemperatureDeep.FebruaryDeepGroundTemperature = System.Convert.ToDouble(commaPoints[39]);
-            siteGroundTemperatureDeep.MarchDeepGroundTemperature = System.Convert.ToDouble(commaPoints[40]);
-            siteGroundTemperatureDeep.AprilDeepGroundTemperature = System.Convert.ToDouble(commaPoints[41]);
-            siteGroundTemperatureDeep.MayDeepGroundTemperature = System.Convert.ToDouble(commaPoints[42]);
-            siteGroundTemperatureDeep.JuneDeepGroundTemperature = System.Convert.ToDouble(commaPoints[43]);
-            siteGroundTemperatureDeep.JulyDeepGroundTemperature = System.Convert.ToDouble(commaPoints[44]);
-            siteGroundTemperatureDeep.AugustDeepGroundTemperature = System.Convert.ToDouble(commaPoints[45]);
-            siteGroundTemperatureDeep.SeptemberDeepGroundTemperature = System.Convert.ToDouble(commaPoints[46]);
-            siteGroundTemperatureDeep.OctoberDeepGroundTemperature = System.Convert.ToDouble(commaPoints[47]);
-            siteGroundTemperatureDeep.NovemberDeepGroundTemperature = System.Convert.ToDouble(commaPoints[48]);
-            siteGroundTemperatureDeep.DecemberDeepGroundTemperature = System.Convert.ToDouble(commaPoints[49]);
-            {
-                output.Item1 = siteGroundTemperatureBuildingSurface;
-                output.Item2 = siteGroundTemperatureShallow;
-                output.Item3 = siteGroundTemperatureDeep;
-            };
+
             return output;
         }
     }
