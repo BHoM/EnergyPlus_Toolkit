@@ -125,6 +125,7 @@
     <Compile Include="Schedules\ScheduleDayHourly.cs" />
     <Compile Include="Schedules\ScheduleWeekDaily.cs" />
     <Compile Include="Schedules\ScheduleConstant.cs" />
+    <Compile Include="SurfaceConstructionElements\IEnergyPlusMaterial.cs" />
     <Compile Include="SurfaceConstructionElements\EPMaterialWindowGas.cs" />
     <Compile Include="SurfaceConstructionElements\EPMaterialWindowGlazing.cs" />
     <Compile Include="SurfaceConstructionElements\EPConstruction.cs" />

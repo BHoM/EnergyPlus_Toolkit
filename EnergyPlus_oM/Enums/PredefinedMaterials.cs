@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -19,29 +19,27 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-
-using BH.oM.Base;
-using System.Collections.Generic;
-using System.ComponentModel;
-using BH.oM.Reflection;
-
+ 
 namespace BH.oM.Adapters.EnergyPlus
 {
-    public class InternalMass : BHoMObject, IEnergyPlusClass
+    public enum PredefinedMaterials
     {
-        [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
-        public virtual string ClassName { get; set; } = "InternalMass";
-        [Order]
-        [Description("No description available")]
-        public override string Name { get; set; } = "";
-        [Order]
-        [Description("To be matched with a construction in this input file")]
-        public virtual EPConstruction Construction { get; set; } = new EPConstruction();
-        [Order]
-        [Description("Zone the surface is a part of")]
-        public virtual List<Zone> Zone { get; set; } = new List<Zone>();
-        [Order]
-        [Description("No description available")]
-        public virtual double SurfaceArea { get; set; } = 0.0;
-}
+        Undefined,
+        Asphalt,
+        ConcreteDark,
+        ConcreteLight,
+        Grass,
+        MetalDull,
+        MetalShiny,
+        Sand,
+        Shrubs,
+        SoilDry,
+        SoilMoist,
+        SoilSaturated,
+        StoneDark,
+        StoneLight,
+        WaterProxy,
+        Wood,
+
+    };
 }

@@ -36,6 +36,6 @@ namespace BH.oM.Adapters.EnergyPlus
         public override string Name { get; set; } = "DefaultConstruction";
         [Order]
         [Description("Material layers - outside to inside")]
-        public virtual List<string> Layers { get; set; } = new List<string>();
+        public virtual List<IEnergyPlusMaterial> Layers { get; set; } = new List<IEnergyPlusMaterial>();
     }
 }

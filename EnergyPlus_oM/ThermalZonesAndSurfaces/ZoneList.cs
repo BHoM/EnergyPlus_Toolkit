@@ -36,6 +36,6 @@ namespace BH.oM.Adapters.EnergyPlus
         public override string Name { get; set; } = "ExampleZoneList";
         [Order]
         [Description("No description available")]
-        public virtual List<string> ZoneNames { get; set; } = new List<string>();
+        public virtual List<Zone> Zones { get; set; } = new List<Zone>();
     }
 }

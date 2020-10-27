@@ -40,10 +40,10 @@ namespace BH.oM.Adapters.EnergyPlus
         public virtual FenestrationSurfaceType SurfaceType { get; set; } = FenestrationSurfaceType.Undefined;
         [Order]
         [Description("To be matched with a construction in this input file")]
-        public virtual string ConstructionName { get; set; } = "";
+        public virtual EPConstruction Construction { get; set; } = new EPConstruction();
         [Order]
         [Description("Hosting surface name")]
-        public virtual string BuildingSurfaceName { get; set; } = "";
+        public virtual string ParentSurface { get; set; } = "";
         [Order]
         [Description("Non-blank only if base surface field Outside Boundary Condition is")]
         public virtual string OutsideBoundaryConditionObject { get; set; } = "";

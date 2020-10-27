@@ -40,10 +40,10 @@ namespace BH.oM.Adapters.EnergyPlus
         public virtual BuildingSurfaceType SurfaceType { get; set; } = BuildingSurfaceType.Undefined;
         [Order]
         [Description("To be matched with a construction applied to surface")]
-        public virtual string ConstructionName { get; set; } = "";
+        public virtual EPConstruction Construction { get; set; } = new EPConstruction();
         [Order]
         [Description("Zone the surface is a part of")]
-        public virtual string ZoneName { get; set; } = "";
+        public virtual Zone Zone { get; set; } = new Zone();
         [Order]
         [Description("Adjacent (external) boundary condition of surface")]
         public virtual OutsideBoundaryCondition OutsideBoundaryCondition { get; set; } = OutsideBoundaryCondition.Undefined;

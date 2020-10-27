@@ -27,21 +27,7 @@ using BH.oM.Reflection;
 
 namespace BH.oM.Adapters.EnergyPlus
 {
-    public class InternalMass : BHoMObject, IEnergyPlusClass
+    public interface IEnergyPlusMaterial : IEnergyPlusClass
     {
-        [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
-        public virtual string ClassName { get; set; } = "InternalMass";
-        [Order]
-        [Description("No description available")]
-        public override string Name { get; set; } = "";
-        [Order]
-        [Description("To be matched with a construction in this input file")]
-        public virtual EPConstruction Construction { get; set; } = new EPConstruction();
-        [Order]
-        [Description("Zone the surface is a part of")]
-        public virtual List<Zone> Zone { get; set; } = new List<Zone>();
-        [Order]
-        [Description("No description available")]
-        public virtual double SurfaceArea { get; set; } = 0.0;
-}
+    }
 }

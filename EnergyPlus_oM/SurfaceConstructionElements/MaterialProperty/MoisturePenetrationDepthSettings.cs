@@ -27,36 +27,50 @@ using BH.oM.Reflection;
 
 namespace BH.oM.Adapters.EnergyPlus
 {
-    public class EPMaterial : BHoMObject, IEnergyPlusMaterial
+    [Description("Additional properties for moisture using EMPD procedure HeatBalanceAlgorithm choice=MoisturePenetrationDepthConductionTransferFunction only Has no effect with other HeatBalanceAlgorithm solution algorithms")]
+    public class MoisturePenetrationDepthSettings : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
-        public virtual string ClassName { get; set; } = "Material";
+        public virtual string ClassName { get; set; } = "MaterialProperty:MoisturePenetrationDepth:Settings";
+
         [Order]
         [Description("Material name")]
         public override string Name { get; set; } = "DefaultMaterial";
+
         [Order]
-        [Description("EnergyPlus roughness")]
-        public virtual Roughness Roughness { get; set; } = Roughness.MediumRough;
+        [Description("Ratio of water vapor permeability of stangnat air to water vapor permeability of material - (0 < infinite) dimensionless")]
+        public virtual double WaterVaporDiffusionResistanceFactor { get; set; } = 0.0;
+
         [Order]
-        [Description("Thickness of material (m)")]
-        public virtual double Thickness { get; set; } = 0.1;
+        [Description("dimensionless")]
+        public virtual double MoistureEquationCoefficientA { get; set; } = 0.0;
+
         [Order]
-        [Description("Conductivity of material (W/mK)")]
-        public virtual double Conductivity { get; set; } = 0.5;
+        [Description("dimensionless")]
+        public virtual double MoistureEquationCoefficientB { get; set; } = 0.0;
+
         [Order]
-        [Description("Density of material (kg/m3)")]
-        public virtual double Density { get; set; } = 1000;
+        [Description("dimensionless")]
+        public virtual double MoistureEquationCoefficientC { get; set; } = 0.0;
+
         [Order]
-        [Description("Specific heat capacity of material (J/kgK)")]
-        public virtual double SpecificHeat { get; set; } = 1000;
+        [Description("dimensionless")]
+        public virtual double MoistureEquationCoefficientD { get; set; } = 0.0;
+
         [Order]
-        [Description("Thermal absorptivity (emissivity) of material (0-1)")]
-        public virtual double ThermalAbsorptance { get; set; } = 0.9;
+        [Description("m")]
+        public virtual double SurfaceLayerPenetrationDepth { get; set; } = 0.0;
+
         [Order]
-        [Description("Solar absorptivity of material (0-1)")]
-        public virtual double SolarAbsorptance { get; set; } = 0.7;
+        [Description("m")]
+        public virtual double DeepLayerPenetrationDepth { get; set; } = 0.0;
+
         [Order]
-        [Description("Light absorptivity (1 - albedo) of material (0-1)")]
-        public virtual double VisibleAbsorptance { get; set; } = 0.7;
+        [Description("m")]
+        public virtual double CoatingLayerThickness { get; set; } = 0.0;
+
+        [Order]
+        [Description("The coating's resistance to water vapor diffusion relative to the resistance to water vapor diffusion in stagnant air (see Water Vapor Diffusion Resistance Factor above). - dimensionless")]
+        public virtual double CoatingLayerWaterVaporDiffusionResistanceFactor { get; set; } = 0.0;
     }
 }

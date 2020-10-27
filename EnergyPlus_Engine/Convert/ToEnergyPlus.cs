@@ -151,7 +151,7 @@ namespace BH.Engine.Adapters.EnergyPlus
         [Input("solidMaterial", "A BHoM SolidMaterial object")]
         [Input("thickness", "Thickness of material")]
         [Output("energyPlusMaterial", "An EnergyPlus EPMaterial")]
-        public static IEnergyPlusClass ToEnergyPlus(this SolidMaterial solidMaterial, double thickness)
+        public static IEnergyPlusMaterial ToEnergyPlus(this SolidMaterial solidMaterial, double thickness)
         {
             Material bhomMaterial = new Material();
             bhomMaterial.Properties.Add(solidMaterial);
@@ -195,7 +195,7 @@ namespace BH.Engine.Adapters.EnergyPlus
         [Input("gasMaterial", "A BHoM GasMaterial object")]
         [Input("thickness", "Thickness of material")]
         [Output("energyPlusWindowMaterialGas", "EnergyPlus EnergyPlusWindowMaterialGas")]
-        public static IEnergyPlusClass ToEnergyPlus(this GasMaterial gasMaterial, double thickness)
+        public static EPMaterialWindowGas ToEnergyPlus(this GasMaterial gasMaterial, double thickness)
         {
             Material bhomMaterial = new Material();
             bhomMaterial.Properties.Add(gasMaterial);
@@ -213,7 +213,7 @@ namespace BH.Engine.Adapters.EnergyPlus
         [Input("material", "A BHoM Material object")]
         [Input("thickness", "Thickness of material")]
         [Output("iEnergyPlusClass", "EnergyPlus Material or Gas Material object")]
-        public static IEnergyPlusClass ToEnergyPlus(this Material material, double thickness)
+        public static IEnergyPlusMaterial ToEnergyPlus(this Material material, double thickness)
         {
             if (material.Properties[0].GetType() == typeof(SolidMaterial))
                 return ((SolidMaterial)material.Properties[0]).ToEnergyPlus(thickness);
@@ -226,7 +226,7 @@ namespace BH.Engine.Adapters.EnergyPlus
         [Description("Convert a BHoM Layer into an EnergyPlus IEnergyPlusClass object")]
         [Input("layer", "A BHoM Layer object")]
         [Output("iEnergyPlusClass", "EnergyPlus IEnergyPlusClass object")]
-        public static IEnergyPlusClass ToEnergyPlus(this BHP.Layer layer)
+        public static IEnergyPlusMaterial ToEnergyPlus(this BHP.Layer layer)
         {
             return layer.Material.ToEnergyPlus(layer.Thickness);
         }
@@ -234,32 +234,30 @@ namespace BH.Engine.Adapters.EnergyPlus
         [Description("Convert a BHoM Construction into a set of EnergyPlus IEnergyPlusClass objects describing construction and materials")]
         [Input("construction", "A BHoM Construction object")]
         [Output("energyPlusClasses", "A list of EnergyPlus objects")]
-        public static List<IEnergyPlusClass> ToEnergyPlus(this BHP.Construction construction)
+        public static EPConstruction ToEnergyPlus(this IConstruction construction)
         {
-            List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
-            EPConstruction eplusConstruction = new EPConstruction();
-            string constructionName = construction.Name == "" ? construction.BHoM_Guid.ToString() : construction.Name;
-            eplusConstruction.Name = constructionName;
+            EPConstruction eplusConstruction = new EPConstruction() { 
+                Name = construction.Name == "" ? construction.BHoM_Guid.ToString() : construction.Name
+            };
 
-            foreach (Layer layer in construction.Layers)
+            foreach (Layer layer in ((Construction)construction).Layers)
             {
-                IEnergyPlusClass cls = layer.ToEnergyPlus();
-                classes.Add(cls);
-                eplusConstruction.Layers.Add(cls.Name);
+                IEnergyPlusMaterial cls = layer.ToEnergyPlus();
+                eplusConstruction.Layers.Add(cls);
             }
 
-            classes.Add(eplusConstruction);
-
-            return classes;
+            return eplusConstruction;
         }
 
         [Description("Convert a BHoM Building to an EnergyPlus Building")]
         [Input("building", "BHoM building")]
         [Output("building", "EnergyPlus building")]
-        public static IEnergyPlusClass ToEnergyPlus(this BHE.Building building)
+        public static Building ToEnergyPlus(this BHE.Building building)
         {
-            Building eplusBdg = new Building();
-            eplusBdg.Name = building.Name == "" ? building.BHoM_Guid.ToString() : building.Name;
+            Building eplusBdg = new Building
+            {
+                Name = building.Name == "" ? building.BHoM_Guid.ToString() : building.Name
+            };
 
             return eplusBdg;
         }
@@ -268,28 +266,23 @@ namespace BH.Engine.Adapters.EnergyPlus
         [Input("opening", "A BHoM Environments Opening object, with assigned construction")]
         [Input("hostName", "Hosting BHoM Environments panel name")]
         [Output("energyPlusClasses", "A list of EnergyPlus IEnergyPlusClass objects")]
-        public static List<IEnergyPlusClass> ToEnergyPlus(this BHE.Opening opening, string hostName)
+        public static FenestrationSurfaceDetailed ToEnergyPlus(this BHE.Opening opening, string parentSurfaceName)
         {
-            List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
-
-            FenestrationSurfaceDetailed fenestrationSurfaceDetailed = new FenestrationSurfaceDetailed();
-            fenestrationSurfaceDetailed.Name = opening.Name == "" ? opening.BHoM_Guid.ToString() : opening.Name;
-            fenestrationSurfaceDetailed.SurfaceType = opening.Type.ToEnergyPlus();
-            fenestrationSurfaceDetailed.ConstructionName = opening.OpeningConstruction.Name;
-            fenestrationSurfaceDetailed.BuildingSurfaceName = hostName;
-
             List<Point> vertices = BH.Engine.Environment.Query.Polyline(opening).ControlPoints();
             vertices.RemoveAt(vertices.Count - 1);
             vertices.Reverse();
-            fenestrationSurfaceDetailed.Vertices = vertices;
-            fenestrationSurfaceDetailed.NumberOfVertices = vertices.Count;
-            
-            List<IEnergyPlusClass> materialsAndConstruction = ((Construction)opening.OpeningConstruction).ToEnergyPlus();
 
-            classes.Add(fenestrationSurfaceDetailed);
-            classes.AddRange(materialsAndConstruction);
+            FenestrationSurfaceDetailed fenestrationSurfaceDetailed = new FenestrationSurfaceDetailed
+            {
+                Name = opening.Name == "" ? opening.BHoM_Guid.ToString() : opening.Name,
+                SurfaceType = opening.Type.ToEnergyPlus(),
+                Construction = ((Construction)opening.OpeningConstruction).ToEnergyPlus(),
+                ParentSurface = parentSurfaceName,
+                Vertices = vertices,
+                NumberOfVertices = vertices.Count
+            };
 
-            return classes;
+            return fenestrationSurfaceDetailed;
         }
 
         [Description("Convert a BHoM Panel into a set of EnergyPlus IEnergyPlusClass objects describing surfaces, materials and constructions")]
@@ -303,63 +296,42 @@ namespace BH.Engine.Adapters.EnergyPlus
             vertices.RemoveAt(vertices.Count - 1);
             int vertexCount = vertices.Count;
             string panelName = panel.Name == "" ? panel.BHoM_Guid.ToString() : panel.Name;
-            string zoneName = panel.ConnectedSpaces[0];
-            string sunExposure = panel.SunWindExposure() ? "SunExposed" : "NoSun";
-            string windExposure = panel.SunWindExposure() ? "WindExposed" : "NoWind";
-
-            GlobalGeometryRules globalGeometryRules = new GlobalGeometryRules();
-            classes.Add(globalGeometryRules);
 
             if (panel.Type == BHE.PanelType.Shade)
             {
-                ShadingBuildingDetailed shadingSurface = new ShadingBuildingDetailed();
-                shadingSurface.Name = panelName;
-                shadingSurface.Vertices = vertices;
-                shadingSurface.NumberOfVertices = vertexCount;
+                ShadingBuildingDetailed shadingSurface = new ShadingBuildingDetailed
+                {
+                    Name = panelName,
+                    Vertices = vertices,
+                    NumberOfVertices = vertexCount
+                };
                 classes.Add(shadingSurface);
             }
             else
             {
-                Zone zone = new Zone();
-                zone.Name = zoneName;
-                classes.Add(zone);
-
-                ZoneList zoneList = new ZoneList();
-                zoneList.ZoneNames.Add(zoneName);
-                classes.Add(zoneList);
-
                 if (panel.Construction == null)
                 {
                     panel = panel.AssignGenericConstructions(assignOpenings: true);
                 }
 
-                classes.AddRange(((Construction)panel.Construction).ToEnergyPlus());
-
-                BuildingSurfaceDetailed buildingSurface = new BuildingSurfaceDetailed();
-                string surfaceName = panelName;
-                buildingSurface.Name = surfaceName;
-                buildingSurface.SurfaceType = panel.Type.ToEnergyPlus();
-                buildingSurface.ConstructionName = panel.Construction.Name;
-                buildingSurface.ZoneName = zoneName;
-                buildingSurface.OutsideBoundaryCondition = panel.BoundaryCondition();
-
-                if (buildingSurface.OutsideBoundaryCondition == OutsideBoundaryCondition.Zone)
-                {
-                    buildingSurface.OutsideBoundaryConditionObject = panel.ConnectedSpaces[-1];
-                }
-                else
-                {
-                    buildingSurface.OutsideBoundaryConditionObject = "";
-                }
-
-                buildingSurface.SunExposure = sunExposure;
-                buildingSurface.WindExposure = windExposure;
-                buildingSurface.Vertices = vertices;
-                buildingSurface.NumberOfVertices = vertexCount;
+                BuildingSurfaceDetailed buildingSurface = new BuildingSurfaceDetailed() {
+                    Name = panelName,
+                    SurfaceType = panel.Type.ToEnergyPlus(),
+                    Construction = panel.Construction.ToEnergyPlus(),
+                    Zone = new Zone() { Name = panel.ConnectedSpaces[0] },
+                    OutsideBoundaryCondition = panel.BoundaryCondition(),
+                    OutsideBoundaryConditionObject = panel.BoundaryCondition() == OutsideBoundaryCondition.Zone ? panel.ConnectedSpaces[-1] : "",
+                    SunExposure = panel.SunWindExposure() ? "SunExposed" : "NoSun",
+                    WindExposure = panel.SunWindExposure() ? "WindExposed" : "NoWind",
+                    Vertices = vertices,
+                    NumberOfVertices = vertexCount,
+                };
                 classes.Add(buildingSurface);
 
-                foreach (BHE.Opening o in panel.Openings)
-                    classes.AddRange(o.ToEnergyPlus(panelName));
+                foreach (BHE.Opening opening in panel.Openings)
+                {
+                    classes.Add(opening.ToEnergyPlus(panel.Name));
+                }
             }
 
             return classes;
@@ -372,37 +344,43 @@ namespace BH.Engine.Adapters.EnergyPlus
         [Output("schedule", "EnergyPlus Schedule")]
         public static List<IEnergyPlusClass> ToEnergyPlus(this BH.oM.Environment.SpaceCriteria.Profile profile, ScheduleTypeLimitsNumericType scheduleTypeLimitsNumericType, ScheduleTypeLimitsUnitType scheduleTypeLimitsUnitType)
         {
-            ScheduleTypeLimits scheduleTypeLimits = new ScheduleTypeLimits();
-            scheduleTypeLimits.Name = string.Format("{0} TypeLimits", profile.Name).Trim();
-            scheduleTypeLimits.NumericType = scheduleTypeLimitsNumericType;
-            scheduleTypeLimits.UnitType = scheduleTypeLimitsUnitType;
+            ScheduleTypeLimits scheduleTypeLimits = new ScheduleTypeLimits
+            {
+                Name = string.Format("{0} TypeLimits", profile.Name).Trim(),
+                NumericType = scheduleTypeLimitsNumericType,
+                UnitType = scheduleTypeLimitsUnitType
+            };
             scheduleTypeLimits.NumericType = scheduleTypeLimitsNumericType;
             scheduleTypeLimits.LowerLimitValue = profile.HourlyValues.Min();
             scheduleTypeLimits.UpperLimitValue = profile.HourlyValues.Max();
 
-            ScheduleDayHourly scheduleDayHourly = new ScheduleDayHourly();
-            scheduleDayHourly.Name = string.Format("{0} Daily", profile.Name).Trim();
-            scheduleDayHourly.ScheduleTypeLimitsName = scheduleTypeLimits.Name;
+            ScheduleDayHourly scheduleDayHourly = new ScheduleDayHourly
+            {
+                Name = string.Format("{0} Daily", profile.Name).Trim(),
+                ScheduleTypeLimitsName = scheduleTypeLimits.Name
+            };
             for (int i = 0; i < 24; i++)
             {
                 PropertyInfo propertyInfo = scheduleDayHourly.GetType().GetProperty(string.Format("Hour{0}", i + 1));
                 propertyInfo.SetValue(scheduleDayHourly, profile.HourlyValues[i]);
             }
 
-            ScheduleWeekDaily scheduleWeekDaily = new ScheduleWeekDaily();
-            scheduleWeekDaily.Name = string.Format("{0} Weekly", profile.Name).Trim();
-            scheduleWeekDaily.SundayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.MondayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.TuesdayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.WednesdayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.ThursdayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.FridayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.SaturdayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.HolidayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.SummerDesignDayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.WinterDesignDayScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.CustomDay1ScheduleDayName = scheduleDayHourly.Name;
-            scheduleWeekDaily.CustomDay2ScheduleDayName = scheduleDayHourly.Name;
+            ScheduleWeekDaily scheduleWeekDaily = new ScheduleWeekDaily
+            {
+                Name = string.Format("{0} Weekly", profile.Name).Trim(),
+                SundayScheduleDayName = scheduleDayHourly.Name,
+                MondayScheduleDayName = scheduleDayHourly.Name,
+                TuesdayScheduleDayName = scheduleDayHourly.Name,
+                WednesdayScheduleDayName = scheduleDayHourly.Name,
+                ThursdayScheduleDayName = scheduleDayHourly.Name,
+                FridayScheduleDayName = scheduleDayHourly.Name,
+                SaturdayScheduleDayName = scheduleDayHourly.Name,
+                HolidayScheduleDayName = scheduleDayHourly.Name,
+                SummerDesignDayScheduleDayName = scheduleDayHourly.Name,
+                WinterDesignDayScheduleDayName = scheduleDayHourly.Name,
+                CustomDay1ScheduleDayName = scheduleDayHourly.Name,
+                CustomDay2ScheduleDayName = scheduleDayHourly.Name
+            };
 
             return new List<IEnergyPlusClass>() { scheduleTypeLimits, scheduleDayHourly, scheduleWeekDaily };
         }

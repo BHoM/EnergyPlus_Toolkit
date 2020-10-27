@@ -27,7 +27,7 @@ using BH.oM.Reflection;
 
 namespace BH.oM.Adapters.EnergyPlus
 {
-    public class EPMaterialWindowGlazing : BHoMObject, IEnergyPlusClass
+    public class EPMaterialWindowGlazing : BHoMObject, IEnergyPlusMaterial
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "WindowMaterial:Glazing";

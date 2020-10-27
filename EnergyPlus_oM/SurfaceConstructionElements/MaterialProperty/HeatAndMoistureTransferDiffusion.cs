@@ -27,21 +27,22 @@ using BH.oM.Reflection;
 
 namespace BH.oM.Adapters.EnergyPlus
 {
-    public class InternalMass : BHoMObject, IEnergyPlusClass
+    [Description("HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only. Relationship between liquid suction transport coefficient and moisture content. Has no effect with other HeatBalanceAlgorithm solution algorithms")]
+    public class HeatAndMoistureTransferDiffusion : BHoMObject, IEnergyPlusClass
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
-        public virtual string ClassName { get; set; } = "InternalMass";
+        public virtual string ClassName { get; set; } = "MaterialProperty:HeatAndMoistureTransfer:Diffusion";
+
         [Order]
-        [Description("No description available")]
-        public override string Name { get; set; } = "";
+        [Description("Material name")]
+        public override string Name { get; set; } = "DefaultMaterial";
+
         [Order]
-        [Description("To be matched with a construction in this input file")]
-        public virtual EPConstruction Construction { get; set; } = new EPConstruction();
+        [Description("Relative humidity fraction. - {dimensionless}")]
+        public virtual List<double> RelativeHumidityFraction { get; set; } = new List<double>();
+
         [Order]
-        [Description("Zone the surface is a part of")]
-        public virtual List<Zone> Zone { get; set; } = new List<Zone>();
-        [Order]
-        [Description("No description available")]
-        public virtual double SurfaceArea { get; set; } = 0.0;
-}
+        [Description("Water vapor diffusion resistance factor {dimensionless}")]
+        public virtual List<double> WaterVaporDiffusionResistanceFactor { get; set; } = new List<double>();
+    }
 }
