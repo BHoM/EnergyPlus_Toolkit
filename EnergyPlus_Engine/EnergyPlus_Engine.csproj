@@ -108,6 +108,8 @@
   <ItemGroup>
     <Compile Include="Convert\ToEnergyPlus.cs" />
     <Compile Include="Create\SingleMaterialConstruction.cs" />
+    <Compile Include="Create\GroundTemperatures.cs" />
+    <Compile Include="Create\SiteLocation.cs" />
     <Compile Include="Query\FilterEnergyPlusClass.cs" />
     <Compile Include="Query\ReadESO.cs" />
     <Compile Include="Compute\SimulateIDF.cs" />
