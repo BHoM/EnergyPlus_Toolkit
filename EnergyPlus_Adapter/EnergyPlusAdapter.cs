@@ -49,8 +49,6 @@ namespace BH.Adapter.EnergyPlus
                 BH.Engine.Reflection.Compute.RecordError("File Name must contain a file extension");
                 return;
             }
-
-            AdapterIdName = "EnergyPlus_Adapter";
         }
 
         private FileSettings FileSettings { get; set; }
