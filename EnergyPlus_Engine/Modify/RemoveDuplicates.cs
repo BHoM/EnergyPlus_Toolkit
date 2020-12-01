@@ -26,6 +26,7 @@ using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using BH.oM.Base;
 
 namespace BH.Engine.Adapters.EnergyPlus
 {
@@ -36,9 +37,9 @@ namespace BH.Engine.Adapters.EnergyPlus
         [Output("energyPlusClasses", "A list of EnergyPlus classes with duplicates removed")]
         public static List<IEnergyPlusClass> RemoveDuplicates(this List<IEnergyPlusClass> energyPlusClasses)
         {
-            DiffConfig config = new DiffConfig()
+            ComparisonConfig config = new ComparisonConfig()
             {
-                PropertiesToIgnore = new List<string>
+                 PropertyExceptions = new List<string>
                 {
                     "BHoM_Guid",
                     "CustomData",
@@ -46,7 +47,7 @@ namespace BH.Engine.Adapters.EnergyPlus
                 NumericTolerance = BH.oM.Geometry.Tolerance.Distance,
             };
 
-            List<IEnergyPlusClass> hashedList = BH.Engine.Diffing.Modify.SetHashFragment<IEnergyPlusClass>(energyPlusClasses, config);
+            List<IEnergyPlusClass> hashedList = BH.Engine.Base.Modify.SetHashFragment<IEnergyPlusClass>(energyPlusClasses, config).ToList();
 
             List<IEnergyPlusClass> uniqueList = Diffing.Modify.RemoveDuplicatesByHash(hashedList).ToList();
 
