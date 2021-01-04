@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -86,7 +86,8 @@ namespace BH.oM.Adapters.EnergyPlus
         [Description("The field allows for user input of the initial moisture content of the soil layer. Range is (.05, .5] with the default being .1.")]
         public virtual double InitialVolumetricMoistureContentOfTheSoilLayer { get; set; } = 0.1;
         [Order]
-        [Description("The field allows for two models to be selected: Simple or Advanced.\nSimple is the original Ecoroof model - based on a constant diffusion of moisture through the soil.This model starts with the soil in two layers.Every time the soil properties update is called, it will look at the two soils moisture layers and asses which layer has more moisture in it.It then takes moisture from the higher moisture layer and redistributes it to the lower moisture layer at a constant rate.\nAdvanced is the later Ecoroof model.If you use it, you will need to increase your number of timesteps in hour for the simulation with a recommended value of 20.This moisture transport model is based on a project which looked at the way moisture transports through soil.It uses a finite difference method to divide the soil into layers(nodes).It redistributes the soil moisture according the model described in:\nMarcel G Schaap and Martinus Th.van Genuchten, 2006, ‘A modified Maulem - van Genuchten Formulation for Improved Description of the Hydraulic Conductivity Near Saturation’, Vadose Zone Journal 5(1), p 27 - 34.")]
+        [Description("The field allows for two models to be selected: Simple or Advanced.\nSimple is the original Ecoroof model - based on a constant diffusion of moisture through the soil.This model starts with the soil in two layers.Every time the soil properties update is called, it will look at the two soils moisture layers and asses which layer has more moisture in it.It then takes moisture from the higher moisture layer and redistributes it to the lower moisture layer at a constant rate.\nAdvanced is the later Ecoroof model.If you use it, you will need to increase your number of timesteps in hour for the simulation with a recommended value of 20.This moisture transport model is based on a project which looked at the way moisture transports through soil.It uses a finite difference method to divide the soil into layers(nodes).It redistributes the soil moisture according the model described in:\nMarcel G Schaap and Martinus Th.van Genuchten, 2006, ï¿½A modified Maulem - van Genuchten Formulation for Improved Description of the Hydraulic Conductivity Near Saturationï¿½, Vadose Zone Journal 5(1), p 27 - 34.")]
         public virtual MoistureDiffusionCalculationMethod MoistureDiffusionCalculationMethod { get; set; } = MoistureDiffusionCalculationMethod.Simple;
     }
 }
+
