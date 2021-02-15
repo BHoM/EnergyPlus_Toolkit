@@ -160,7 +160,7 @@ namespace BH.Engine.Adapters.EnergyPlus
 
             if (BH.Engine.Environment.Query.IsTransparent(bhomMaterial))
             {
-                EPMaterialWindowGlazing eplusMaterial = new EPMaterialWindowGlazing();
+                EnergyPlusMaterialWindowGlazing eplusMaterial = new EnergyPlusMaterialWindowGlazing();
                 eplusMaterial.Name = materialName;
                 eplusMaterial.OpticalDataType = OpticalDataType.SpectralAverage;
                 eplusMaterial.Thickness = thickness;
@@ -177,7 +177,7 @@ namespace BH.Engine.Adapters.EnergyPlus
             }
             else
             {
-                EPMaterial eplusMaterial = new EPMaterial();
+                EnergyPlusMaterial eplusMaterial = new EnergyPlusMaterial();
                 eplusMaterial.Name = materialName;
                 eplusMaterial.Roughness = solidMaterial.Roughness.ToEnergyPlus();
                 eplusMaterial.Thickness = thickness;
@@ -202,7 +202,7 @@ namespace BH.Engine.Adapters.EnergyPlus
 
             string materialName = gasMaterial.Name == "" ? gasMaterial.BHoM_Guid.ToString() : gasMaterial.Name;
 
-            EPMaterialWindowGas eplusMaterial = new EPMaterialWindowGas();
+            EnergyPlusMaterialWindowGas eplusMaterial = new EnergyPlusMaterialWindowGas();
             eplusMaterial.Name = materialName;
             eplusMaterial.GasType = gasMaterial.Gas.ToEnergyPlus();
             eplusMaterial.Thickness = thickness;
@@ -237,7 +237,7 @@ namespace BH.Engine.Adapters.EnergyPlus
         public static List<IEnergyPlusClass> ToEnergyPlus(this BHP.Construction construction)
         {
             List<IEnergyPlusClass> classes = new List<IEnergyPlusClass>();
-            EPConstruction eplusConstruction = new EPConstruction();
+            EnergyPlusConstruction eplusConstruction = new EnergyPlusConstruction();
             string constructionName = construction.Name == "" ? construction.BHoM_Guid.ToString() : construction.Name;
             eplusConstruction.Name = constructionName;
 
@@ -245,7 +245,7 @@ namespace BH.Engine.Adapters.EnergyPlus
             {
                 IEnergyPlusClass cls = layer.ToEnergyPlus();
                 classes.Add(cls);
-                eplusConstruction.Layers.Add(cls.Name);
+                eplusConstruction.Layers.Add((IEnergyPlusMaterial)cls);
             }
 
             classes.Add(eplusConstruction);

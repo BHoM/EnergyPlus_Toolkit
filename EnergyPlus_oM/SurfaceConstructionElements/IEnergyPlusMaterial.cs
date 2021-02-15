@@ -20,26 +20,11 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using System.Collections.Generic;
-using System.ComponentModel;
-using BH.oM.Reflection;
 
 namespace BH.oM.Adapters.EnergyPlus
 {
-    public class EPMaterialWindowGas : BHoMObject, IEnergyPlusClass
+    public interface IEnergyPlusMaterial : IEnergyPlusClass
     {
-        [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
-        public virtual string ClassName { get; set; } = "WindowMaterial:Gas";
-        [Order]
-        [Description("Gas material name")]
-        public override string Name { get; set; } = "DefaultWindwGasMaterial";
-        [Order]
-        [Description("Energyplys gas type")]
-        public virtual GasType GasType { get; set; } = GasType.Air;
-        [Order]
-        [Description("thickness of gas material")]
-        public virtual double Thickness { get; set; } = 0.005;
+
     }
 }
-

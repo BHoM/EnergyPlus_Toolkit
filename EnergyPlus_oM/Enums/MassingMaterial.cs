@@ -19,24 +19,24 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-
-using BH.oM.Base;
-using System.Collections.Generic;
-using System.ComponentModel;
-using BH.oM.Reflection;
-
+ 
 namespace BH.oM.Adapters.EnergyPlus
 {
-    public class EPConstruction : BHoMObject, IEnergyPlusClass
+    public enum MassingMaterial
     {
-        [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
-        public virtual string ClassName { get; set; } = "Construction";
-        [Order]
-        [Description("Construction name")]
-        public override string Name { get; set; } = "DefaultConstruction";
-        [Order]
-        [Description("Material layers - outside to inside")]
-        public virtual List<string> Layers { get; set; } = new List<string>();
-    }
+        Undefined,
+        Asphalt,
+        Concrete,
+        Fabric,
+        Grass,
+        Hardwood,
+        Limestone,
+        Metal,
+        Sand,
+        Sandstone,
+        Shrubs,
+        Softwood,
+        Water,
+    };
 }
 

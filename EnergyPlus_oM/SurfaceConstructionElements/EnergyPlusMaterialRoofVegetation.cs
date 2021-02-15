@@ -27,7 +27,8 @@ using BH.oM.Reflection;
 
 namespace BH.oM.Adapters.EnergyPlus
 {
-    public class EPMaterialVegetation : BHoMObject, IEnergyPlusClass
+    [Description("EcoRoof model, plant layer plus soil layer Implemented by Portland State University (Sailor et al., January, 2007) only one material must be referenced per simulation though the same EcoRoof material could be used in multiple constructions.")]
+    public class EnergyPlusMaterialRoofVegetation : BHoMObject, IEnergyPlusClass, IEnergyPlusMaterial
     {
         [Description("The EnergyPlus Class name for the object - serialised to the IDF string. DO NOT CHANGE THIS VALUE.")]
         public virtual string ClassName { get; set; } = "Material:RoofVegetation";

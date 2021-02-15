@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\MassingMaterial.cs" />
     <Compile Include="Enums\SurfaceConvectionAlgorithmOutsideMethod.cs" />
     <Compile Include="Enums\SurfaceConvectionAlgorithmInsideMethod.cs" />
     <Compile Include="Enums\SkyDiffuseModelingAlgorithm.cs" />
@@ -125,11 +126,13 @@
     <Compile Include="Schedules\ScheduleDayHourly.cs" />
     <Compile Include="Schedules\ScheduleWeekDaily.cs" />
     <Compile Include="Schedules\ScheduleConstant.cs" />
-    <Compile Include="SurfaceConstructionElements\EPMaterialWindowGas.cs" />
-    <Compile Include="SurfaceConstructionElements\EPMaterialWindowGlazing.cs" />
-    <Compile Include="SurfaceConstructionElements\EPConstruction.cs" />
-    <Compile Include="SurfaceConstructionElements\EPMaterial.cs" />
-    <Compile Include="SurfaceConstructionElements\EPMaterialVegetation.cs" />
+    <Compile Include="SurfaceConstructionElements\EnergyPlusMaterialAirGap.cs" />
+    <Compile Include="SurfaceConstructionElements\IEnergyPlusMaterial.cs" />
+    <Compile Include="SurfaceConstructionElements\EnergyPlusMaterialWindowGas.cs" />
+    <Compile Include="SurfaceConstructionElements\EnergyPlusMaterialWindowGlazing.cs" />
+    <Compile Include="SurfaceConstructionElements\EnergyPlusConstruction.cs" />
+    <Compile Include="SurfaceConstructionElements\EnergyPlusMaterial.cs" />
+    <Compile Include="SurfaceConstructionElements\EnergyPlusMaterialRoofVegetation.cs" />
     <Compile Include="ThermalZonesAndSurfaces\ThermalZonesAndSurfaces.cs" />
     <Compile Include="ThermalZonesAndSurfaces\GlobalGeometryRules.cs" />
     <Compile Include="ThermalZonesAndSurfaces\ZoneList.cs" />

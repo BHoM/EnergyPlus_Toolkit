@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convert\ToEnergyPlus.cs" />
+    <Compile Include="Create\MassingConstruction.cs" />
     <Compile Include="Create\GroundTemperatures.cs" />
     <Compile Include="Create\SiteLocation.cs" />
     <Compile Include="Query\FilterEnergyPlusClass.cs" />
