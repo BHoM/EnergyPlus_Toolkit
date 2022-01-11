@@ -26,7 +26,7 @@ using System.IO;
 
 using BH.oM.Adapter;
 using BH.oM.Adapters.EnergyPlus.Settings;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 
 
 namespace BH.Adapter.EnergyPlus
@@ -46,7 +46,7 @@ namespace BH.Adapter.EnergyPlus
 
             if(!Path.HasExtension(fileSettings.FileName) || Path.GetExtension(fileSettings.FileName) != ".idf")
             {
-                BH.Engine.Reflection.Compute.RecordError("File Name must contain a file extension");
+                BH.Engine.Base.Compute.RecordError("File Name must contain a file extension");
                 return;
             }
         }
