@@ -26,8 +26,8 @@ using System.IO;
 using System.Linq;
 using BH.Engine.Reflection;
 using BH.oM.Adapters.EnergyPlus;
-using BH.oM.Reflection;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base;
+using BH.oM.Base.Attributes;
 
 namespace BH.Engine.Adapters.EnergyPlus
 {
@@ -43,7 +43,7 @@ namespace BH.Engine.Adapters.EnergyPlus
             // Check that file passed exists, and exit if it doesn't while passing a record of your failure to the Error Log
             if (!File.Exists(epwFile))
             {
-                BH.Engine.Reflection.Compute.RecordError("File not found. Did you give the correct path?");
+                BH.Engine.Base.Compute.RecordError("File not found. Did you give the correct path?");
                 return null;
             }
 
@@ -52,7 +52,7 @@ namespace BH.Engine.Adapters.EnergyPlus
             // Check to see if the file passed contains the requisite number of lines to parse as an EPW (> 8760)
             if (EpwFile.Count() < 8760)
             {
-                BH.Engine.Reflection.Compute.RecordError("The file passed has less than 8760 lines. Are you sure it's an EPW?");
+                BH.Engine.Base.Compute.RecordError("The file passed has less than 8760 lines. Are you sure it's an EPW?");
                 return null;
             }
 
@@ -66,7 +66,7 @@ namespace BH.Engine.Adapters.EnergyPlus
             }
             catch (System.Exception)
             {
-                BH.Engine.Reflection.Compute.RecordError("There appears to be no sets of temperatures in this file, or the number of sets if not an integer");
+                BH.Engine.Base.Compute.RecordError("There appears to be no sets of temperatures in this file, or the number of sets if not an integer");
             }
 
             int numberOfSets = System.Convert.ToInt32(commaPoints[1]);
@@ -86,7 +86,7 @@ namespace BH.Engine.Adapters.EnergyPlus
             if (numberOfSets < 1)
 
             {
-                BH.Engine.Reflection.Compute.RecordError("The file has less than 12 temperatures. Does the file contain ground temperatures?");
+                BH.Engine.Base.Compute.RecordError("The file has less than 12 temperatures. Does the file contain ground temperatures?");
                 return null;
             }
 
@@ -159,16 +159,16 @@ namespace BH.Engine.Adapters.EnergyPlus
 
                 if (numberOfSets == 1)
                 {
-                    BH.Engine.Reflection.Compute.RecordWarning("The file has less than 24 temperatures. The temperature sets not included in the file will be set to default");
+                    BH.Engine.Base.Compute.RecordWarning("The file has less than 24 temperatures. The temperature sets not included in the file will be set to default");
                 }
 
                 if (numberOfSets == 2)
                 {
-                    BH.Engine.Reflection.Compute.RecordWarning("The file has less than 36 temperatures. The temperature sets not included in the file will be set to default");
+                    BH.Engine.Base.Compute.RecordWarning("The file has less than 36 temperatures. The temperature sets not included in the file will be set to default");
                     
                     if ((System.Convert.ToDouble(commaPoints[2]) <= 1 &&  System.Convert.ToDouble(commaPoints[18]) <= 1) || (System.Convert.ToDouble(commaPoints[2]) >= 5 && System.Convert.ToDouble(commaPoints[18]) >=5) || (System.Convert.ToDouble(commaPoints[2]) >= 1 && System.Convert.ToDouble(commaPoints[2]) <= 5 && System.Convert.ToDouble(commaPoints[18]) >= 1 && System.Convert.ToDouble(commaPoints[18]) <= 5))
                     {
-                        BH.Engine.Reflection.Compute.RecordWarning("The file has more than one temperature set of the same type. The last one will be computed");
+                        BH.Engine.Base.Compute.RecordWarning("The file has more than one temperature set of the same type. The last one will be computed");
                     }
                 }
 
@@ -176,7 +176,7 @@ namespace BH.Engine.Adapters.EnergyPlus
                 {
                      if (System.Convert.ToDouble(commaPoints[2]) >= 1 || System.Convert.ToDouble(commaPoints[18]) <= 1 || System.Convert.ToDouble(commaPoints[18]) >= 5 || System.Convert.ToDouble(commaPoints[34]) <= 5)
                      {
-                         BH.Engine.Reflection.Compute.RecordWarning("The file has more than one temperature set of the same type. The last one will be computed");
+                         BH.Engine.Base.Compute.RecordWarning("The file has more than one temperature set of the same type. The last one will be computed");
                      }
                 }
             }

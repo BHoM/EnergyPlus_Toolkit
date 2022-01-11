@@ -21,7 +21,7 @@
  */
 
 using BH.oM.Adapters.EnergyPlus;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 using System.ComponentModel;
 using BHE = BH.oM.Environment.Elements;
 
