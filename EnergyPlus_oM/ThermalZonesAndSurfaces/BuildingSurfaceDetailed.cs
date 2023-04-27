@@ -24,7 +24,7 @@ using BH.oM.Base;
 using BH.oM.Geometry;
 using System.Collections.Generic;
 using System.ComponentModel;
-using BH.oM.Reflection;
+using BH.oM.Base.Attributes;
 
 namespace BH.oM.Adapters.EnergyPlus
 {

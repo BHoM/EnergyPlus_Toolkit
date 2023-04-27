@@ -23,7 +23,6 @@
 using BH.Engine.Base;
 using BH.oM.Adapters.EnergyPlus;
 using BH.oM.Geometry;
-using BH.oM.Reflection;
 using BH.oM.Base.Attributes;
 using System;
 using System.Collections.Generic;

@@ -26,11 +26,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using BH.oM.Base;
 
-namespace BH.oM.Reflection
+namespace BH.oM.Base.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-    public class OrderAttribute : Attribute
+    public class OrderAttribute : Attribute, IObject
     {
         private readonly int order_;
         public OrderAttribute([CallerLineNumber]int order = 0)
@@ -41,6 +42,3 @@ namespace BH.oM.Reflection
         public virtual int Order { get; set; }
     }
 }
-
-
-
