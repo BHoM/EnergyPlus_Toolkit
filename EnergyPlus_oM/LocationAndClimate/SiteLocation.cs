@@ -23,7 +23,7 @@
 using BH.oM.Base;
 using System.Collections.Generic;
 using System.ComponentModel;
-using BH.oM.Reflection;
+using BH.oM.Base.Attributes;
 
 namespace BH.oM.Adapters.EnergyPlus
 {    public class SiteLocation : BHoMObject, IEnergyPlusClass
